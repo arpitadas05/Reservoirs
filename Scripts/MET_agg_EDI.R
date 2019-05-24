@@ -41,7 +41,7 @@ Met_agg<-rbind(Met_past,Met_now) #binds past and current data from Met station
 Met_agg = Met_agg[!duplicated(Met_agg$TIMESTAMP),] #takes out duplicated values by timestamp
 
 #### Aggregated data set for QA/QC ####
-Met= Met_agg
+Met= Met_agg #reset data so you don't have to load from scratch
 Met$TIMESTAMP=ymd_hms(Met$TIMESTAMP, tz="Etc/GMT+4") #formats timestamp as double check; resulted in 1 failed parse
 Met = Met[year(Met$TIMESTAMP)<2019,] #all data before 2019
 
@@ -381,15 +381,33 @@ setwd('./Data/DataNotYetUploadedtoEDI/Raw_Met/')
 
 
 #fitting sin curve
-Data <- read.table(file="900days.txt", header=TRUE, sep="")
-Met_1516=Met[year(Met$DateTime)>2017,]
-Time <- yday(Met_1516$DateTime) 
-infdown <- Met_1516$InfaredRadiationDown_Average_W_m2
+Met_1516=Met[year(Met$DateTime)<2017,]
+Met_1718=Met[year(Met$DateTime)>2016,]
+Met_18=Met[year(Met$DateTime)>2017,]
+Time_1516 <- yday(Met_1516$DateTime) 
+Time_1718 <- yday(Met_1718$DateTime) 
+Time_18 <- yday(Met_18$DateTime) 
+infdown_1516 <- Met_1516$InfaredRadiationDown_Average_W_m2
+infdown_1718 <- Met_1718$InfaredRadiationDown_Average_W_m2
+infdown_18 <- Met_18$InfaredRadiationDown_Average_W_m2
+
+xc_1516<-cos(2*pi*Time_1516/366)
+xs_1516<-sin(2*pi*Time_1516/366)
+xc_1718<-cos(2*pi*Time_1718/366)
+xs_1718<-sin(2*pi*Time_1718/366)
+xc_18<-cos(2*pi*Time_18/366)
+xs_18<-sin(2*pi*Time_18/366)
+
+IRlm_1516 <- lm(infdown_1516~xc_1516+xs_1516)
+summary(IRlm_1516)
+IRlm_1718 <- lm(infdown_1718~xc_1718+xs_1718)
+summary(IRlm_1718)
+IRlm_18 <- lm(infdown_18~xc_18+xs_18)
+summary(IRlm_18)
 
 xc<-cos(2*pi*Time/366)
 xs<-sin(2*pi*Time/366)
 fit.lm <- lm(infdown~xc+xs)
-
 # access the fitted series (for plotting)
 fit <- fitted(fit.lm)  
 
@@ -401,9 +419,13 @@ plot(infdown ~ Time, xlim=c(1, 900))
 lines(fit, col="red")
 lines(Time, pred, col="blue")
 
+Met$DOY=yday(Met$DateTime)
 #How do I use this equation to correct the data? Having trouble figuring it out. 
 Met$InfaredRadiationDown_Average_W_m2=ifelse((Met$InfaredRadiationDown_Average_W_m2 - (1.6278+(0.9008*Met$CR3000Panel_temp_C)))>(3*sd(lm_Panel2015$residuals)),(1.6278+(0.9008*Met$CR3000Panel_temp_C)), Met$InfaredRadiationDown_Average_W_m2)
 
+#if inf rad on this yday is greater than 3 standard deviations away from the lm
+#then substitute lm
+ifelse((Met$InfaredRadiationDown_Average_W_m2 - (1.6278+(0.9008*Met$CR3000Panel_temp_C)))>(3*sd(lm_Panel2015$residuals)),(1.6278+(0.9008*Met$CR3000Panel_temp_C)), Met$InfaredRadiationDown_Average_W_m2)
 #met_inf=
 #if met_inf is outside range of lm during this doy, then correct based on this equation
 
