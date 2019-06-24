@@ -1,7 +1,7 @@
 # script to calculate discharge from digitized stream width/depth/velocity measurements
 library(tidyverse)
 
-flow <- read.csv("./DataAnalysis/Data/Inflow/2019_Flowmate_Discharge_digitized.csv") # the location of the discharge_digitized.csv, should come from github
+flow <- read.csv("./Data/DataNotYetUploadedToEDI/Raw_inflow/2019_Discharge_Flowmate.csv") # the location of the discharge_digitized.csv, should come from github
 flow$Date <- as.Date(flow$Date)
 
 # first convert the depth to m (it is always measured in cm in the field)
@@ -20,10 +20,10 @@ flow <-  flow %>% group_by(Site, Date) %>% mutate(Discharge_m3_s = sum(Discharge
 
 
 # now subset out only the unique discharge measurements
-discharge <- flow %>% select(Date, Site, Discharge_m3_s)
+discharge <- flow %>% select(Date, Site, Discharge_m3_s, Notes)
 discharge <- discharge[!duplicated(discharge[1:3]),]
 
-wetland <- discharge[discharge$Site=='WET',]
+wetland <- discharge[discharge$Site=='F200',]
 plot(wetland$Date, wetland$Discharge_m3_s)
 
-#write.csv(discharge, './DataAnalysis/Data/Inflow/discharge_calculations_flowmeter.csv', row.names = FALSE)
+#write.csv(wetland, './Data/DataNotYetUploadedToEDI/Raw_inflow/Wetland_Discharge_Data.csv', row.names = FALSE)
