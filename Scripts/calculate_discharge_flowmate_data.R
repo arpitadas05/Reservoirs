@@ -20,10 +20,10 @@ flow <-  flow %>% group_by(Site, Date) %>% mutate(Discharge_m3_s = sum(Discharge
 
 
 # now subset out only the unique discharge measurements
-discharge <- flow %>% select(Date, Site, Discharge_m3_s, Notes)
+discharge <- flow %>% select(Date, Site, Discharge_m3_s, FlowmeterSensorID, Notes)
 discharge <- discharge[!duplicated(discharge[1:3]),]
 
 wetland <- discharge[discharge$Site=='F200',]
 plot(wetland$Date, wetland$Discharge_m3_s)
 
-#write.csv(wetland, './Data/DataNotYetUploadedToEDI/Raw_inflow/Wetland_Discharge_Data.csv', row.names = FALSE)
+write.csv(wetland, './Data/DataNotYetUploadedToEDI/Raw_inflow/Wetland_Discharge_Data.csv', row.names = FALSE)
