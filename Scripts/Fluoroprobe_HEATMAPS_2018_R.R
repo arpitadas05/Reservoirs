@@ -8,11 +8,11 @@
 rm(list=ls())
 
 ########WHAT RESERVOIR ARE YOU WORKING WITH?########
-Reservoir = "CCR" #choose from FCR, BVR, CCR
+Reservoir = "BVR" #choose from FCR, BVR, CCR
 ####################################################
 
 ########WHAT YEAR WOULD YOU LIKE TO PLOT?###########
-plot_year = 2018 #choose from 2014-2018
+plot_year = 2019 #choose from 2014-2018
 ####################################################
 
 # load packages
@@ -24,10 +24,10 @@ pacman::p_load(tidyverse, lubridate, akima, reshape2,
 # Load .txt files for appropriate reservoir 
 
 #NOTE: this script is not currently set up to handle upstream sites in FCR
-col_names <- names(read_tsv("./Data/DataNotYetUploadedToEDI/Raw_fluoroprobe/FP_txt/20180410_FCR_50.txt", n_max = 0))
+col_names <- names(read_tsv("./Data/DataNotYetUploadedToEDI/Raw_fluoroprobe/20190208_FCR_50.txt", n_max = 0))
 
-raw_fp <- dir(path = "./Data/DataNotYetUploadedToEDI/Raw_fluoroprobe/FP_txt", pattern = paste0("*_",Reservoir,"_50.txt")) %>% 
-  map_df(~ read_tsv(file.path(path = "./Data/DataNotYetUploadedToEDI/Raw_fluoroprobe/FP_txt", .), col_types = cols(.default = "c"), col_names = col_names, skip = 2))
+raw_fp <- dir(path = "./Data/DataNotYetUploadedToEDI/Raw_fluoroprobe", pattern = paste0("*_",Reservoir,"_50.txt")) %>% 
+  map_df(~ read_tsv(file.path(path = "./Data/DataNotYetUploadedToEDI/Raw_fluoroprobe", .), col_types = cols(.default = "c"), col_names = col_names, skip = 2))
 
 fp <- raw_fp %>%
   mutate(DateTime = `Date/Time`, GreenAlgae_ugL = as.numeric(`Green Algae`), Bluegreens_ugL = as.numeric(`Bluegreen`),
@@ -110,49 +110,49 @@ trans <- select(fp_new, DateTime, Depth_m, Transmission_perc, Date, DOY)
 ##NOTE: the interp function WILL NOT WORK if your vectors are not numeric or have NAs or Infs
 interp_green <- interp(x=green$DOY, y = green$Depth_m, z = green$GreenAlgae_ugL,
                       xo = seq(min(green$DOY), max(green$DOY), by = .1), 
-                      yo = seq(0.1, 19.9, by = 0.01),
+                      yo = seq(0.1, 10.3, by = 0.01),
                       extrap = T, linear = T, duplicate = "strip")
 interp_green <- interp2xyz(interp_green, data.frame=T)
 
 #Bluegreen algae
 interp_bluegreen <- interp(x=bluegreen$DOY, y = bluegreen$Depth_m, z = bluegreen$Bluegreens_ugL,
                       xo = seq(min(bluegreen$DOY), max(bluegreen$DOY), by = .1), 
-                      yo = seq(0.1, 19.9, by = 0.01),
+                      yo = seq(0.1, 10.3, by = 0.01),
                       extrap = F, linear = T, duplicate = "strip")
 interp_bluegreen <- interp2xyz(interp_bluegreen, data.frame=T)
 
 #Browns
 interp_brown <- interp(x=brown$DOY, y = brown$Depth_m, z = brown$Browns_ugL,
                       xo = seq(min(brown$DOY), max(brown$DOY), by = .1), 
-                      yo = seq(0.1, 19.9, by = 0.01),
+                      yo = seq(0.1, 10.3, by = 0.01),
                       extrap = F, linear = T, duplicate = "strip")
 interp_brown <- interp2xyz(interp_brown, data.frame=T)
 
 #Mixed
 interp_mixed <- interp(x=mixed$DOY, y = mixed$Depth_m, z = mixed$Mixed_ugL,
                       xo = seq(min(mixed$DOY), max(mixed$DOY), by = .1), 
-                      yo = seq(0.1, 19.9, by = 0.01),
+                      yo = seq(0.1, 10.3, by = 0.01),
                       extrap = F, linear = T, duplicate = "strip")
 interp_mixed <- interp2xyz(interp_mixed, data.frame=T)
 
 #Yellow substances
 interp_yellow <- interp(x=yellow$DOY, y = yellow$Depth_m, z = yellow$YellowSubstances_ugL,
                       xo = seq(min(yellow$DOY), max(yellow$DOY), by = .1), 
-                      yo = seq(0.1, 19.9, by = 0.01),
+                      yo = seq(0.1, 10.3, by = 0.01),
                       extrap = F, linear = T, duplicate = "strip")
 interp_yellow <- interp2xyz(interp_yellow, data.frame=T)
 
 #Total conc.
 interp_total <- interp(x=total$DOY, y = total$Depth_m, z = total$TotalConc_ugL,
                       xo = seq(min(total$DOY), max(total$DOY), by = .1), 
-                      yo = seq(0.1, 19.9, by = 0.01),
+                      yo = seq(0.1, 10.3, by = 0.01),
                       extrap = F, linear = T, duplicate = "strip")
 interp_total <- interp2xyz(interp_total, data.frame=T)
 
 #Transmission
 interp_trans <- interp(x=trans$DOY, y = trans$Depth_m, z = trans$Transmission_perc,
                        xo = seq(min(trans$DOY), max(trans$DOY), by = .1), 
-                       yo = seq(0.1, 19.9, by = 0.01),
+                       yo = seq(0.1, 10.3, by = 0.01),
                        extrap = F, linear = T, duplicate = "strip")
 interp_trans <- interp2xyz(interp_trans, data.frame=T)
 
@@ -168,6 +168,7 @@ p1 <- ggplot(interp_green, aes(x=x, y=y))+
   scale_fill_gradientn(colours = blue2green2red(60), na.value="gray")+
   labs(x = "Day of year", y = "Depth (m)", title = paste0(Reservoir, " Green Algae Heatmap"),fill=expression(paste(mu,g/L)))+
   theme_bw()
+#ggsave(p1, filename = "./Data/DataNotYetUploadedToEDI/Raw_fluoroprobe/FCR_green_2019.pdf")
 
 #Bluegreens
 p2 <- ggplot(interp_bluegreen, aes(x=x, y=y))+
@@ -239,7 +240,7 @@ p7 <- ggplot(interp_trans, aes(x=x, y=y))+
 # dev.off()
 
 final_plot <- plot_grid(p1, p2, p3, p4, p5, p6, p7, ncol = 1) # rel_heights values control title margins
-ggsave(plot=final_plot, file= paste0("./Data/DataNotYetUploadedToEDI/Raw_fluoroprobe/",Reservoir,"_50_FP_2018.pdf"),
+ggsave(plot=final_plot, file= paste0("./Data/DataNotYetUploadedToEDI/Raw_fluoroprobe/",Reservoir,"_50_FP_2019.pdf"),
        h=30, w=10, units="in", dpi=300,scale = 1)
 
 #multi-year plots
