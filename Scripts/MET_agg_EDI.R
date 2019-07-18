@@ -429,4 +429,19 @@ ifelse((Met$InfaredRadiationDown_Average_W_m2 - (1.6278+(0.9008*Met$CR3000Panel_
 #met_inf=
 #if met_inf is outside range of lm during this doy, then correct based on this equation
 
+x11()
+plot(inf$Group.1, inf$x.x,
+     pch=19, xlab="Measurements", ylab="Mean +/- SD",
+     main="Scatter plot with std.dev error bars"
+)
+# hack: we draw arrows but with very special "arrowheads"
+arrows(inf$Group.1, inf$x.x-inf$x.y, inf$Group.1, inf$x.x+inf$x.y, length=0.05, angle=90, code=3)
+points(Met$DOY, Met$InfaredRadiationDown_Average_W_m2, col="red", type='l')
+
+merge(x, aggregate(value ~ group, data = x, mean), 
+      by = "group", suffixes = c("", ".mean"))
+
+Met$InfRad_DOYavg=ave(Met$InfaredRadiationDown_Average_W_m2, Met$DOY)
+Met$InfRad_DOYsd=ave(Met$InfaredRadiationDown_Average_W_m2, Met$DOY, FUN = sd)
+
 
