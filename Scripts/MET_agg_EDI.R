@@ -379,31 +379,45 @@ setwd('./Data/DataNotYetUploadedtoEDI/Raw_Met/')
 # range(lm_Panel$residuals)
 # sd(lm_Panel$residuals)
 
+#Trying to give values for InfRadDown that are reasonable during 2017 and 2018
+#using 2015/2016 to correct the values
+#need to substitute data with model data I think..
+#but I need to do so by replacing within a std dev of the mean of the day of year
+
+#for now, I am just going to try and replace it with the mean from 2015/2016 day
 
 #fitting sin curve
 Met_1516=Met[year(Met$DateTime)<2017,]
-Met_1718=Met[year(Met$DateTime)>2016,]
-Met_18=Met[year(Met$DateTime)>2017,]
+
+x11()
+plot(Met_1516$DateTime, Met_1516$InfaredRadiationDown_Average_W_m2, col="red", type='l')
+points(Met$DateTime, Met$InfaredRadiationDown_Average_W_m2, type = 'l')
+
+Met_1516$DOY=yday(Met_1516$DateTime)
+Metinfdown_1516=Met_1516[,c(16,46)]
+
+Infagg_1516=aggregate(Metinfdown_1516$InfaredRadiationDown_Average_W_m2, list(Metinfdown_1516$DOY), mean)
+Infaggsd_1516=aggregate(Metinfdown_1516$InfaredRadiationDown_Average_W_m2, list(Metinfdown_1516$DOY), sd)
+inf=merge(Infagg_1516,Infaggsd_1516, by = "Group.1")
+
+x11()
+plot(Met_1516$DOY, Met_1516$InfaredRadiationDown_Average_W_m2, col="red", type='l')
+points(inf$Group.1, inf$x.x, type = 'l')
+
+plot(Met$DOY, Met$InfaredRadiationDown_Average_W_m2, col="red", type='l')
+points(inf$Group.1, inf$x.x, type = 'l', lwd= 5)
+
 Time_1516 <- yday(Met_1516$DateTime) 
-Time_1718 <- yday(Met_1718$DateTime) 
-Time_18 <- yday(Met_18$DateTime) 
+
 infdown_1516 <- Met_1516$InfaredRadiationDown_Average_W_m2
-infdown_1718 <- Met_1718$InfaredRadiationDown_Average_W_m2
-infdown_18 <- Met_18$InfaredRadiationDown_Average_W_m2
+
 
 xc_1516<-cos(2*pi*Time_1516/366)
 xs_1516<-sin(2*pi*Time_1516/366)
-xc_1718<-cos(2*pi*Time_1718/366)
-xs_1718<-sin(2*pi*Time_1718/366)
-xc_18<-cos(2*pi*Time_18/366)
-xs_18<-sin(2*pi*Time_18/366)
 
 IRlm_1516 <- lm(infdown_1516~xc_1516+xs_1516)
 summary(IRlm_1516)
-IRlm_1718 <- lm(infdown_1718~xc_1718+xs_1718)
-summary(IRlm_1718)
-IRlm_18 <- lm(infdown_18~xc_18+xs_18)
-summary(IRlm_18)
+
 
 xc<-cos(2*pi*Time/366)
 xs<-sin(2*pi*Time/366)
