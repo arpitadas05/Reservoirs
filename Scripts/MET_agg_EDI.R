@@ -385,4 +385,100 @@ setwd('./Data/DataNotYetUploadedtoEDI/Raw_Met/')
 # range(lm_Panel$residuals)
 # sd(lm_Panel$residuals)
 
+#inf rad correction cleanup
+#1. Post volt correction raw, only inf rad +time
+#replace mean, 3sd
+Met$DOY=yday(Met$DateTime)
+Met_infrad=Met[, c(1,16,46)]
+Met_infradraw=Met[, c(1,16,46)]
+#2. Abs value, all data mean
+Met_infrad$AllDataavg=ave(Met_infrad$InfaredRadiationDown_Average_W_m2, Met_infrad$DOY) #creating column with mean of infraddown by day of year
+Met_infrad$AllDatasd=ave(Met_infrad$InfaredRadiationDown_Average_W_m2, Met_infrad$DOY, FUN = sd) #creating column with sd of infraddown by day of year
+
+Met_infrad$AllData_abs=ifelse((abs(Met_infrad$InfaredRadiationDown_Average_W_m2-Met_infrad$AllDataavg))>(3*Met_infrad$AllDatasd),Met_infrad$AllDataavg,Met_infrad$InfaredRadiationDown_Average_W_m2)
+
+#3. -sd, all data mean
+Met_infrad$AllData_negsd=ifelse((Met_infrad$InfaredRadiationDown_Average_W_m2-Met_infrad$AllDataavg)<(-3*Met_infrad$AllDatasd),Met_infrad$AllDataavg,Met_infrad$InfaredRadiationDown_Average_W_m2)
+
+#4. Abs value, <2017
+Met_infrad17=Met_infrad[year(Met_infrad$DateTime)<2017,]
+Met_infrad17$avg17=ave(Met_infrad17$InfaredRadiationDown_Average_W_m2, Met_infrad17$DOY) #creating column with mean of infraddown by day of year
+Met_infrad17$sd17=ave(Met_infrad17$InfaredRadiationDown_Average_W_m2, Met_infrad17$DOY, FUN = sd) #creating column with sd of infraddown by day of year
+Met_infrad17=unique(Met_infrad17[,c(3,6,7)])
+
+Met_infrad=merge(Met_infrad, Met_infrad17, by = "DOY")
+
+Met_infrad$Data17_abs=ifelse((abs(Met_infrad$InfaredRadiationDown_Average_W_m2-Met_infrad$avg17))>(3*Met_infrad$sd17),Met_infrad$avg17,Met_infrad$InfaredRadiationDown_Average_W_m2)
+#5. -sd, <2017
+Met_infrad$negsd17=ifelse((Met_infrad$InfaredRadiationDown_Average_W_m2-Met_infrad$avg17)<(-3*Met_infrad$sd17),Met_infrad$avg17,Met_infrad$InfaredRadiationDown_Average_W_m2)
+
+#6. Abs value, <2018
+Met_infrad18=Met_infrad[year(Met_infrad$DateTime)<2018,]
+Met_infrad18$avg18=ave(Met_infrad18$InfaredRadiationDown_Average_W_m2, Met_infrad18$DOY) #creating column with mean of infraddown by day of year
+Met_infrad18$sd18=ave(Met_infrad18$InfaredRadiationDown_Average_W_m2, Met_infrad18$DOY, FUN = sd) #creating column with sd of infraddown by day of year
+Met_infrad18=unique(Met_infrad18[,c(1,12,13)])
+
+Met_infrad=merge(Met_infrad, Met_infrad18, by = "DOY")
+
+Met_infrad$Data18_abs=ifelse((abs(Met_infrad$InfaredRadiationDown_Average_W_m2-Met_infrad$avg18))>(3*Met_infrad$sd18),Met_infrad$avg18,Met_infrad$InfaredRadiationDown_Average_W_m2)
+
+#7. -sd, <2018
+Met_infrad$negsd18=ifelse((Met_infrad$InfaredRadiationDown_Average_W_m2-Met_infrad$avg18)<(-3*Met_infrad$sd18),Met_infrad$avg18,Met_infrad$InfaredRadiationDown_Average_W_m2)
+Met_infrad$negsd182=ifelse((Met_infrad$InfaredRadiationDown_Average_W_m2-Met_infrad$avg18)<(-2*Met_infrad$sd18),Met_infrad$avg18,Met_infrad$InfaredRadiationDown_Average_W_m2)
+
+
+#8. abs, year = 2018
+Met_infrad18only=Met_infrad[year(Met_infrad$DateTime)==2018,]
+Met_infrad18only$avg18only=ave(Met_infrad18only$InfaredRadiationDown_Average_W_m2, Met_infrad18only$DOY) #creating column with mean of infraddown by day of year
+Met_infrad18only$sd18only=ave(Met_infrad18only$InfaredRadiationDown_Average_W_m2, Met_infrad18only$DOY, FUN = sd) #creating column with sd of infraddown by day of year
+Met_infrad18only=unique(Met_infrad18only[,c(1,17,18)])
+
+Met_infrad=merge(Met_infrad, Met_infrad18only, by = "DOY")
+
+Met_infrad$Data18only_abs=ifelse((abs(Met_infrad$InfaredRadiationDown_Average_W_m2-Met_infrad$avg18only))>(3*Met_infrad$sd18only),Met_infrad$avg18only,Met_infrad$InfaredRadiationDown_Average_W_m2)
+
+#9. -sd, year = 2018
+Met_infrad$negsd18only=ifelse((Met_infrad$InfaredRadiationDown_Average_W_m2-Met_infrad$avg18only)<(-3*Met_infrad$sd18only),Met_infrad$avg18only,Met_infrad$InfaredRadiationDown_Average_W_m2)
+Met_infrad$negsd18only2=ifelse((Met_infrad$InfaredRadiationDown_Average_W_m2-Met_infrad$avg18only)<(-2*Met_infrad$sd18only),Met_infrad$avg18only,Met_infrad$InfaredRadiationDown_Average_W_m2)
+Met_infrad$negsd18only1=ifelse((Met_infrad$InfaredRadiationDown_Average_W_m2-Met_infrad$avg18only)<(-Met_infrad$sd18only),Met_infrad$avg18only,Met_infrad$InfaredRadiationDown_Average_W_m2)
+
+#10. Plot comparison
+Met_infrad=Met_infrad[order(Met_infrad$DateTime),]
+x11(); par(mfrow=c(2,3))
+plot(Met_infrad$DateTime, Met_infrad$InfaredRadiationDown_Average_W_m2, type = 'l')
+points(Met_infrad$DateTime,Met_infrad$AllData_abs, type = 'l', col = 'deeppink')
+
+plot(Met_infrad$DateTime, Met_infrad$InfaredRadiationDown_Average_W_m2, type = 'l')
+points(Met_infrad$DateTime,Met_infrad$AllData_negsd, type = 'l', col = 'green')
+
+plot(Met_infrad$DateTime, Met_infrad$InfaredRadiationDown_Average_W_m2, type = 'l')
+points(Met_infrad$DateTime,Met_infrad$Data17_abs, type = 'l', col = 'blue')
+
+plot(Met_infrad$DateTime, Met_infrad$InfaredRadiationDown_Average_W_m2, type = 'l')
+points(Met_infrad$DateTime,Met_infrad$negsd18, type = 'l', col = 'orange')
+
+plot(Met_infrad$DateTime, Met_infrad$InfaredRadiationDown_Average_W_m2, type = 'l')
+points(Met_infrad$DateTime,Met_infrad$Data18_abs, type = 'l', col = 'red')
+
+plot(Met_infrad$DateTime, Met_infrad$InfaredRadiationDown_Average_W_m2, type = 'l')
+points(Met_infrad$DateTime,Met_infrad$negsd18, type = 'l', col = 'yellow')
+points(Met_infrad$DateTime,Met_infrad$negsd182, type = 'l', col = 'purple')
+
+plot(Met_infrad$DateTime, Met_infrad$InfaredRadiationDown_Average_W_m2, type = 'l')
+points(Met_infrad$DateTime,Met_infrad$Data18only_abs, type = 'l', col = 'brown')
+
+plot(Met_infrad$DateTime, Met_infrad$InfaredRadiationDown_Average_W_m2, type = 'l')
+points(Met_infrad$DateTime,Met_infrad$negsd18only, type = 'l', col = 'cyan3')
+points(Met_infrad$DateTime,Met_infrad$negsd18only2, type = 'l', col = 'cyan4')
+points(Met_infrad$DateTime,Met_infrad$negsd18only1, type = 'l', col = 'aquamarine')
+
+x11()
+plot(Met_infrad$DOY, Met_infrad$InfaredRadiationDown_Average_W_m2, type = 'l', col='red')
+points(Met_infrad$DOY,Met_infrad$AllDataavg, pch=19)
+arrows(Met_infrad$DOY, Met_infrad$AllDataavg-(3*Met_infrad$AllDatasd), Met_infrad$DOY, Met_infrad$AllDataavg+(3*Met_infrad$AllDatasd), length=0.05, angle=90, code=3)
+
+x11()
+plot(Met_infrad$DOY, Met_infrad$InfaredRadiationDown_Average_W_m2, type = 'l', col='red')
+points(Met_infrad$DOY,Met_infrad$AllDataavg, pch=19)
+arrows(Met_infrad$DOY, Met_infrad$AllDataavg-(2*Met_infrad$AllDatasd), Met_infrad$DOY, Met_infrad$AllDataavg+(2*Met_infrad$AllDatasd), length=0.05, angle=90, code=3)
 
