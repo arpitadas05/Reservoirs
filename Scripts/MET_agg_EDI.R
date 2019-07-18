@@ -379,13 +379,11 @@ setwd('./Data/DataNotYetUploadedtoEDI/Raw_Met/')
 # range(lm_Panel$residuals)
 # sd(lm_Panel$residuals)
 
-#Trying to give values for InfRadDown that are reasonable during 2017 and 2018
-#using 2015/2016 to correct the values
-#need to substitute data with model data I think..
+####Trying to give values for InfRadDown that are reasonable during 2017 and 2018####
 #but I need to do so by replacing within a std dev of the mean of the day of year
+#for now, I am just going to try and replace it with the mean from day of year
 
-#for now, I am just going to try and replace it with the mean from 2015/2016 day
-
+#1516 does not work as well as using the entire data set after eliminating values below 250
 #fitting sin curve
 Met_1516=Met[year(Met$DateTime)<2017,]
 
@@ -398,43 +396,31 @@ Metinfdown_1516=Met_1516[,c(16,46)]
 
 Infagg_1516=aggregate(Metinfdown_1516$InfaredRadiationDown_Average_W_m2, list(Metinfdown_1516$DOY), mean)
 Infaggsd_1516=aggregate(Metinfdown_1516$InfaredRadiationDown_Average_W_m2, list(Metinfdown_1516$DOY), sd)
-inf=merge(Infagg_1516,Infaggsd_1516, by = "Group.1")
+inf1516=merge(Infagg_1516,Infaggsd_1516, by = "Group.1")
 
+#entire data set
+Met$DOY=yday(Met$DateTime) #day of year
+
+Infagg=aggregate(Met$InfaredRadiationDown_Average_W_m2, list(Met$DOY), mean)
+Infaggsd=aggregate(Met$InfaredRadiationDown_Average_W_m2, list(Met$DOY), sd)
+inf=merge(Infagg,Infaggsd, by = "Group.1")
+
+#plot comparing everything
 x11()
-plot(Met_1516$DOY, Met_1516$InfaredRadiationDown_Average_W_m2, col="red", type='l')
-points(inf$Group.1, inf$x.x, type = 'l')
-
 plot(Met$DOY, Met$InfaredRadiationDown_Average_W_m2, col="red", type='l')
 points(inf$Group.1, inf$x.x, type = 'l', lwd= 5)
+points(inf1516$Group.1, inf1516$x.x, type = 'l', col ='blue', lwd=2)
+points(inf_raw$Group.1, inf_raw$x.x, type = 'l', col ='green')
 
-Time_1516 <- yday(Met_1516$DateTime) 
+#should I compare to raw met?? sure!
+#Results: raw would completely skew data
+Met_raw$DOY=yday(Met_raw$DateTime) #day of year
 
-infdown_1516 <- Met_1516$InfaredRadiationDown_Average_W_m2
+Infagg_raw=aggregate(Met_raw$InfaredRadiationDown_Average_W_m2, list(Met_raw$DOY), mean)
+Infaggsd_raw=aggregate(Met_raw$InfaredRadiationDown_Average_W_m2, list(Met_raw$DOY), sd)
+inf_raw=merge(Infagg_raw,Infaggsd_raw, by = "Group.1")
 
-
-xc_1516<-cos(2*pi*Time_1516/366)
-xs_1516<-sin(2*pi*Time_1516/366)
-
-IRlm_1516 <- lm(infdown_1516~xc_1516+xs_1516)
-summary(IRlm_1516)
-
-
-xc<-cos(2*pi*Time/366)
-xs<-sin(2*pi*Time/366)
-fit.lm <- lm(infdown~xc+xs)
-# access the fitted series (for plotting)
-fit <- fitted(fit.lm)  
-
-# find predictions for original time series
-pred <- predict(fit.lm, newdata=data.frame(Time=Time))    
-
-x11()
-plot(infdown ~ Time, xlim=c(1, 900))
-lines(fit, col="red")
-lines(Time, pred, col="blue")
-
-Met$DOY=yday(Met$DateTime)
-#How do I use this equation to correct the data? Having trouble figuring it out. 
+#using data set to correct bad values
 Met$InfaredRadiationDown_Average_W_m2=ifelse((Met$InfaredRadiationDown_Average_W_m2 - (1.6278+(0.9008*Met$CR3000Panel_temp_C)))>(3*sd(lm_Panel2015$residuals)),(1.6278+(0.9008*Met$CR3000Panel_temp_C)), Met$InfaredRadiationDown_Average_W_m2)
 
 #if inf rad on this yday is greater than 3 standard deviations away from the lm
@@ -442,4 +428,5 @@ Met$InfaredRadiationDown_Average_W_m2=ifelse((Met$InfaredRadiationDown_Average_W
 ifelse((Met$InfaredRadiationDown_Average_W_m2 - (1.6278+(0.9008*Met$CR3000Panel_temp_C)))>(3*sd(lm_Panel2015$residuals)),(1.6278+(0.9008*Met$CR3000Panel_temp_C)), Met$InfaredRadiationDown_Average_W_m2)
 #met_inf=
 #if met_inf is outside range of lm during this doy, then correct based on this equation
+
 
