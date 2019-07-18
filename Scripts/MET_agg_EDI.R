@@ -103,6 +103,15 @@ Met$Flag_InfaredRadiationDown_Average_W_m2=ifelse(Met$InfaredRadiationDown_Avera
 Met$Note_InfaredRadiationDown_Average_W_m2=ifelse(Met$InfaredRadiationDown_Average_W_m2<250,"Value corrected from Voltage with InfRadDn equation as decribed in metadata",Met$Note_InfaredRadiationDown_Average_W_m2)
 Met$InfaredRadiationDown_Average_W_m2=ifelse(Met$InfaredRadiationDown_Average_W_m2<250,5.67*10^-8*(Met$AirTemp_Average_C+273.15)^4,Met$InfaredRadiationDown_Average_W_m2)
 
+#Mean correction for InfRadDown (needs to be after voltage correction)
+Met$DOY=yday(Met$DateTime) #day of year
+Met$InfRad_DOYavg=ave(Met$InfaredRadiationDown_Average_W_m2, Met$DOY) #creating column with mean of infraddown by day of year
+Met$InfRad_DOYsd=ave(Met$InfaredRadiationDown_Average_W_m2, Met$DOY, FUN = sd) #creating column with sd of infraddown by day of year
+
+Met$Flag_InfaredRadiationDown_Average_W_m2=ifelse((abs(Met$InfaredRadiationDown_Average_W_m2-Met$InfRad_DOYavg))>(3*Met$InfRad_DOYsd),4,Met$Flag_InfaredRadiationDown_Average_W_m2)
+Met$Note_InfaredRadiationDown_Average_W_m2=ifelse((abs(Met$InfaredRadiationDown_Average_W_m2-Met$InfRad_DOYavg))>(3*Met$InfRad_DOYsd),"Outlier Value corrected post Voltage correction as decribed in metadata",Met$Note_InfaredRadiationDown_Average_W_m2)
+Met$InfaredRadiationDown_Average_W_m2=ifelse((abs(Met$InfaredRadiationDown_Average_W_m2-Met$InfRad_DOYavg))>(3*Met$InfRad_DOYsd),Met$InfRad_DOYavg,Met$InfaredRadiationDown_Average_W_m2)
+
 #Inf outliers, must go after corrections
 Met$Flag_InfaredRadiationUp_Average_W_m2=ifelse(Met$InfaredRadiationUp_Average_W_m2<150,4,Met$Flag_InfaredRadiationUp_Average_W_m2)
 Met$Note_InfaredRadiationUp_Average_W_m2=ifelse(Met$InfaredRadiationUp_Average_W_m2<150,"Outlier set to NA",Met$Note_InfaredRadiationUp_Average_W_m2)
