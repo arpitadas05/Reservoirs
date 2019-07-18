@@ -65,7 +65,7 @@ names(Met) = c("DateTime","Record", "CR3000_Batt_V", "CR3000Panel_temp_C",
 Met$Site=50 #add site
 Met$Reservoir= "FCR"#add reservoir
 
-Met_raw=Met
+Met_raw=Met #Met=Met_raw; reset your data
 #### c. load in maintenance txt file #### 
 RemoveMet=read.table("https://raw.githubusercontent.com/CareyLabVT/SCCData/carina-data/MET_MaintenanceLog.txt", sep = ",", header = T)
 #str(RemoveMet)
@@ -110,7 +110,8 @@ Met$InfRad_DOYsd=ave(Met$InfaredRadiationDown_Average_W_m2, Met$DOY, FUN = sd) #
 
 Met$Flag_InfaredRadiationDown_Average_W_m2=ifelse((abs(Met$InfaredRadiationDown_Average_W_m2-Met$InfRad_DOYavg))>(3*Met$InfRad_DOYsd),4,Met$Flag_InfaredRadiationDown_Average_W_m2)
 Met$Note_InfaredRadiationDown_Average_W_m2=ifelse((abs(Met$InfaredRadiationDown_Average_W_m2-Met$InfRad_DOYavg))>(3*Met$InfRad_DOYsd),"Outlier Value corrected post Voltage correction as decribed in metadata",Met$Note_InfaredRadiationDown_Average_W_m2)
-Met$InfaredRadiationDown_Average_W_m2=ifelse((abs(Met$InfaredRadiationDown_Average_W_m2-Met$InfRad_DOYavg))>(3*Met$InfRad_DOYsd),Met$InfRad_DOYavg,Met$InfaredRadiationDown_Average_W_m2)
+Met$InfaredRadiationDown_Average_W_m2=ifelse((abs(Met$InfaredRadiationDown_Average_W_m2-Met$InfRad_DOYavg))>(2*Met$InfRad_DOYsd),Met$InfRad_DOYavg,Met$InfaredRadiationDown_Average_W_m2)
+#Met$InfaredRadiationDown_Average_W_m2=ifelse((abs(Met$InfaredRadiationDown_Average_W_m2-Met$InfRad_DOYavg))>(3*Met$InfRad_DOYsd),rnorm(1, mean = Met$InfRad_DOYavg, sd = Met$InfRad_DOYsd),Met$InfaredRadiationDown_Average_W_m2)
 
 #Inf outliers, must go after corrections
 Met$Flag_InfaredRadiationUp_Average_W_m2=ifelse(Met$InfaredRadiationUp_Average_W_m2<150,4,Met$Flag_InfaredRadiationUp_Average_W_m2)
@@ -391,6 +392,7 @@ setwd('./Data/DataNotYetUploadedtoEDI/Raw_Met/')
 #1516 does not work as well as using the entire data set after eliminating values below 250
 #fitting sin curve
 Met_1516=Met[year(Met$DateTime)<2017,]
+Met_pre18=Met[year(Met$DateTime)<2018,]
 
 x11()
 plot(Met_1516$DateTime, Met_1516$InfaredRadiationDown_Average_W_m2, col="red", type='l')
@@ -435,13 +437,14 @@ ifelse((Met$InfaredRadiationDown_Average_W_m2 - (1.6278+(0.9008*Met$CR3000Panel_
 #if met_inf is outside range of lm during this doy, then correct based on this equation
 
 x11()
-plot(inf$Group.1, inf$x.x,
+plot(Met$DOY, Met$InfaredRadiationDown_Average_W_m2, col="red", type='l')
+points(inf$Group.1, inf$x.x,
      pch=19, xlab="Measurements", ylab="Mean +/- SD",
      main="Scatter plot with std.dev error bars"
 )
 # hack: we draw arrows but with very special "arrowheads"
-arrows(inf$Group.1, inf$x.x-inf$x.y, inf$Group.1, inf$x.x+inf$x.y, length=0.05, angle=90, code=3)
-points(Met$DOY, Met$InfaredRadiationDown_Average_W_m2, col="red", type='l')
+arrows(inf$Group.1, inf$x.x-(3*inf$x.y), inf$Group.1, inf$x.x+(3*inf$x.y), length=0.05, angle=90, code=3)
+
 
 merge(x, aggregate(value ~ group, data = x, mean), 
       by = "group", suffixes = c("", ".mean"))
@@ -452,3 +455,27 @@ Met$InfRad_DOYsd=ave(Met$InfaredRadiationDown_Average_W_m2, Met$DOY, FUN = sd)
 length(unique(ave(Met$InfaredRadiationDown_Average_W_m2, Met$DOY)))
 length(unique(ave(Met$InfaredRadiationDown_Average_W_m2[Met$InfaredRadiationDown_Average_W_m2>250], Met$DOY[Met$InfaredRadiationDown_Average_W_m2>250])))
 length(unique(Met_raw$DOY))
+
+
+Metinf_1516$DOY=Met$DOY[year(Met$DateTime)<2017] #day of year
+Metinf_1516$avg=ave(Met$InfaredRadiationDown_Average_W_m2[year(Met$DateTime)<2017], Met$DOY[year(Met$DateTime)<2017]) #creating column with mean of infraddown by day of year
+Metinf_1516$sd=ave(Met$InfaredRadiationDown_Average_W_m2[year(Met$DateTime)<2017], Met$DOY[year(Met$DateTime)<2017], FUN = sd) #creating column with sd of infraddown by day of year
+
+Met_1516$InfRad_DOYavg=ave(Met_1516$InfaredRadiationDown_Average_W_m2, Met_1516$DOY)
+Met_1516$InfRad_DOYsd=ave(Met_1516$InfaredRadiationDown_Average_W_m2, Met_1516$DOY, FUN = sd)
+
+Met_infmeantest=merge(Met, Met_inf1516, by = "DOY")
+Met_infmeantest=Met_infmeantest[order(Met_infmeantest$DateTime),]
+
+Met_inf1516=unique(Met_1516[,c(46:48)])
+
+Met$DOY=yday(Met$DateTime) #day of year
+Met$InfRad_DOYavg=ave(Met$InfaredRadiationDown_Average_W_m2, Met$DOY) #creating column with mean of infraddown by day of year
+Met$InfRad_DOYsd=ave(Met$InfaredRadiationDown_Average_W_m2, Met$DOY, FUN = sd) #creating column with sd of infraddown by day of year
+
+Met$Flag_InfaredRadiationDown_Average_W_m2=ifelse((abs(Met$InfaredRadiationDown_Average_W_m2-Met$InfRad_DOYavg))>(3*Met$InfRad_DOYsd),4,Met$Flag_InfaredRadiationDown_Average_W_m2)
+Met$Note_InfaredRadiationDown_Average_W_m2=ifelse((abs(Met$InfaredRadiationDown_Average_W_m2-Met$InfRad_DOYavg))>(3*Met$InfRad_DOYsd),"Outlier Value corrected post Voltage correction as decribed in metadata",Met$Note_InfaredRadiationDown_Average_W_m2)
+Met$InfaredRadiationDown_Average_W_m2=ifelse((abs(Met$InfaredRadiationDown_Average_W_m2-Met$InfRad_DOYavg))>(2*Met$InfRad_DOYsd),Met$InfRad_DOYavg,Met$InfaredRadiationDown_Average_W_m2)
+#Met$InfaredRadiationDown_Average_W_m2=ifelse((abs(Met$InfaredRadiationDown_Average_W_m2-Met$InfRad_DOYavg))>(3*Met$InfRad_DOYsd),rnorm(1, mean = Met$InfRad_DOYavg, sd = Met$InfRad_DOYsd),Met$InfaredRadiationDown_Average_W_m2)
+plot(Met_infmeantest$DateTime, Met_infmeantest$InfaredRadiationDown_Average_W_m2, type = 'l')
+points(Met_infmeantest18$DateTime, Met_infmeantest18$InfaredRadiationDown_Average_W_m2, type = 'l', col='blue')
