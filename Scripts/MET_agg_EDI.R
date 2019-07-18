@@ -108,10 +108,6 @@ Met$Flag_InfaredRadiationUp_Average_W_m2=ifelse(Met$InfaredRadiationUp_Average_W
 Met$Note_InfaredRadiationUp_Average_W_m2=ifelse(Met$InfaredRadiationUp_Average_W_m2<150,"Outlier set to NA",Met$Note_InfaredRadiationUp_Average_W_m2)
 Met$InfaredRadiationUp_Average_W_m2=ifelse(Met$InfaredRadiationUp_Average_W_m2<150,NA,Met$InfaredRadiationUp_Average_W_m2)
 
-# Met$Flag_InfaredRadiationDown_Average_W_m2=ifelse(Met$InfaredRadiationDown_Average_W_m2<200,4,Met$Flag_InfaredRadiationDown_Average_W_m2)
-# Met$Note_InfaredRadiationDown_Average_W_m2=ifelse(Met$InfaredRadiationDown_Average_W_m2<200,"Outlier set to NA",Met$Note_InfaredRadiationDown_Average_W_m2)
-# Met$InfaredRadiationDown_Average_W_m2=ifelse(Met$InfaredRadiationDown_Average_W_m2<200,NA,Met$InfaredRadiationDown_Average_W_m2)
-
 ##BP low outliers
 Met$Flag_BP_Average_kPa=ifelse(Met$BP_Average_kPa<99,4,Met$Flag_BP_Average_kPa)
 Met$Note_BP_Average_kPa=ifelse(Met$BP_Average_kPa<99,"Outlier set to NA",Met$Note_BP_Average_kPa)
@@ -444,4 +440,6 @@ merge(x, aggregate(value ~ group, data = x, mean),
 Met$InfRad_DOYavg=ave(Met$InfaredRadiationDown_Average_W_m2, Met$DOY)
 Met$InfRad_DOYsd=ave(Met$InfaredRadiationDown_Average_W_m2, Met$DOY, FUN = sd)
 
-
+length(unique(ave(Met$InfaredRadiationDown_Average_W_m2, Met$DOY)))
+length(unique(ave(Met$InfaredRadiationDown_Average_W_m2[Met$InfaredRadiationDown_Average_W_m2>250], Met$DOY[Met$InfaredRadiationDown_Average_W_m2>250])))
+length(unique(Met_raw$DOY))
