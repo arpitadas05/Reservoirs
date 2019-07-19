@@ -3,13 +3,16 @@
 ##Tasks/Questions Left:
 #1. Uploading Large Files to Github
 #2.  Inf Rad fix DN with sin curve equation, by DOY
-#3. Set RH flag same as AirTemp flag
-#4. make table for flags to publish with data
-#5. Inf Rad DN with sin curve equation, by DOY
+#3. Change data to EST (GMT -5), fix parsing issue?
+#4. Prep RemoveMet for publishing
+#5. Prep R script for publishg
+#a. annotate
+#b. take out any unnecessary code
+#c. Title File and put authorship on it
 
 ###packages needed
-library("lubridate")
 ##install.packages("lubridate"); install.packages("tidyverse")
+library(lubridate)
 library(tidyverse)
 
 ###Loading in 3 datasets and aggregating: 
