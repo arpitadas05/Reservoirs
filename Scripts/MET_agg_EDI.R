@@ -1,15 +1,11 @@
 ###EDI MET STATION File
 
 ##Tasks/Questions Left:
-#1a. Uploading Large Files to Github
-#1b. (opt) Relative paths in smarter way?
-#2. PAR TOT weirdness at end of 2018
-#Trim PAR TOT by highest value in 2016
-#3. Inf Rad fix
-#4. BP check low dates with weather reports
-#5. SW rad up highest val 
-#6. make table for flags to publish with data
-#7. Inf Rad DN with sin curve equation, by DOY
+#1. Uploading Large Files to Github
+#2.  Inf Rad fix DN with sin curve equation, by DOY
+#3. Set RH flag same as AirTemp flag
+#4. make table for flags to publish with data
+#5. Inf Rad DN with sin curve equation, by DOY
 
 ###packages needed
 library("lubridate")
