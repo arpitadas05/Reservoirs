@@ -381,7 +381,7 @@ setwd('./Data/DataNotYetUploadedtoEDI/Raw_Met/')
 # range(lm_Panel$residuals)
 # sd(lm_Panel$residuals)
 
-#inf rad correction cleanup
+####Inf rad down correction cleanup####
 #1. Post volt correction raw, only inf rad +time
 #replace mean, 3sd
 Met$DOY=yday(Met$DateTime)
@@ -477,4 +477,41 @@ x11()
 plot(Met_infrad$DOY, Met_infrad$InfaredRadiationDown_Average_W_m2, type = 'l', col='red')
 points(Met_infrad$DOY,Met_infrad$AllDataavg, pch=19)
 arrows(Met_infrad$DOY, Met_infrad$AllDataavg-(2*Met_infrad$AllDatasd), Met_infrad$DOY, Met_infrad$AllDataavg+(2*Met_infrad$AllDatasd), length=0.05, angle=90, code=3)
+
+######MORE SIN CURVE MAYBE I CAN MAKE THIS WORK########
+#1. Basic sin curve
+
+xc=cos(2*pi*Met_infrad$DOY/366)
+xs=cos(2*pi*Met_infrad$DOY/366)
+
+IRlm <- lm(Met_infrad$InfaredRadiationDown_Average_W_m2~xc+xs)
+summary(IRlm)
+
+# access the fitted series (for plotting)
+fit <- fitted(IRlm)  
+pred <- predict(IRlm, newdata=data.frame(Time=Met_infrad$DOY))  
+
+x11()
+plot(Met_infrad$InfaredRadiationDown_Average_W_m2 ~ Met_infrad$DOY, xlim=c(1, 900))
+lines(fit, col="red")
+lines(Met_infrad$DOY, pred, col="blue")
+
+InfRadlm <- lm(InfaredRadiationDown_Average_W_m2 ~ sin(2*pi*DOY/366)+cos(2*pi*DOY/366),data=Met_infrad)
+summary(InfRadlm)
+
+x11()
+plot(InfaredRadiationDown_Average_W_m2~DOY,data=Met_infrad)
+lines(Met_infrad$DOY,InfRadlm$fitted,col=2)
+Met_infrad=cbind(Met_infrad, lmfitData)
+summary(InfRadlm$fitted.values)
+
+Met_infrad$sinlm=ifelse((Met_infrad$InfaredRadiationDown_Average_W_m2-Met_infrad$lmfit)<(-sd(InfRadlm$residuals)),Met_infrad$lmfit,Met_infrad$InfaredRadiationDown_Average_W_m2)
+x11()
+plot(Met_infrad$DateTime, Met_infrad$InfaredRadiationDown_Average_W_m2, type = 'l')
+points(Met_infrad$DateTime,Met_infrad$sinlm, type = 'l', col = 'red')
+points(Met_infrad$DateTime, Met_infrad$lmfit, type='l')
+abline(v=ymd_hms('2018-09-10 12:32:00'), col='red')
+abline(v=ymd_hms('2018-08-02 02:32:00'), col='red')
+sd(InfRadlm$residuals)
+
 
