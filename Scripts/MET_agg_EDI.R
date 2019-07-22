@@ -102,15 +102,18 @@ Met$Flag_InfaredRadiationDown_Average_W_m2=ifelse(Met$InfaredRadiationDown_Avera
 Met$Note_InfaredRadiationDown_Average_W_m2=ifelse(Met$InfaredRadiationDown_Average_W_m2<250,"Value corrected from Voltage with InfRadDn equation as decribed in metadata",Met$Note_InfaredRadiationDown_Average_W_m2)
 Met$InfaredRadiationDown_Average_W_m2=ifelse(Met$InfaredRadiationDown_Average_W_m2<250,5.67*10^-8*(Met$AirTemp_Average_C+273.15)^4,Met$InfaredRadiationDown_Average_W_m2)
 
-# #Mean correction for InfRadDown (needs to be after voltage correction)
-# Met$DOY=yday(Met$DateTime) #day of year
-# Met$InfRad_DOYavg=ave(Met$InfaredRadiationDown_Average_W_m2, Met$DOY) #creating column with mean of infraddown by day of year
-# Met$InfRad_DOYsd=ave(Met$InfaredRadiationDown_Average_W_m2, Met$DOY, FUN = sd) #creating column with sd of infraddown by day of year
-# 
-# Met$Flag_InfaredRadiationDown_Average_W_m2=ifelse((abs(Met$InfaredRadiationDown_Average_W_m2-Met$InfRad_DOYavg))>(3*Met$InfRad_DOYsd),4,Met$Flag_InfaredRadiationDown_Average_W_m2)
-# Met$Note_InfaredRadiationDown_Average_W_m2=ifelse((abs(Met$InfaredRadiationDown_Average_W_m2-Met$InfRad_DOYavg))>(3*Met$InfRad_DOYsd),"Outlier Value corrected post Voltage correction as decribed in metadata",Met$Note_InfaredRadiationDown_Average_W_m2)
-# Met$InfaredRadiationDown_Average_W_m2=ifelse((abs(Met$InfaredRadiationDown_Average_W_m2-Met$InfRad_DOYavg))>(2*Met$InfRad_DOYsd),Met$InfRad_DOYavg,Met$InfaredRadiationDown_Average_W_m2)
-# #Met$InfaredRadiationDown_Average_W_m2=ifelse((abs(Met$InfaredRadiationDown_Average_W_m2-Met$InfRad_DOYavg))>(3*Met$InfRad_DOYsd),rnorm(1, mean = Met$InfRad_DOYavg, sd = Met$InfRad_DOYsd),Met$InfaredRadiationDown_Average_W_m2)
+#Mean correction for InfRadDown (needs to be after voltage correction)
+#Using 2018 data, taking the mean and sd of values on DOY to correct to
+Met$DOY=yday(Met$DateTime) #day of year
+
+Met_infrad18only=Met_infrad[year(Met_infrad$DateTime)==2018,] #subsetting 2018 data
+Met_infrad18only$avg18only=ave(Met_infrad18only$InfaredRadiationDown_Average_W_m2, Met_infrad18only$DOY) #creating column with mean of infraddown by day of year from 2018
+Met_infrad18only$sd18only=ave(Met_infrad18only$InfaredRadiationDown_Average_W_m2, Met_infrad18only$DOY, FUN = sd) #creating column with sd of infraddown by day of year from 2018
+Met_infrad18only=unique(Met_infrad18only[,c(1,17,18)]) #creating data set with only 1 DOY
+
+Met_infrad=merge(Met_infrad, Met_infrad18only, by = "DOY") #putting in columns for infrared mean and sd by DOY into main data set
+
+Met_infrad$Data18only_abs=ifelse((abs(Met_infrad$InfaredRadiationDown_Average_W_m2-Met_infrad$avg18only))>(3*Met_infrad$sd18only),Met_infrad$avg18only,Met_infrad$InfaredRadiationDown_Average_W_m2)
 
 #Inf outliers, must go after corrections
 Met$Flag_InfaredRadiationUp_Average_W_m2=ifelse(Met$InfaredRadiationUp_Average_W_m2<150,4,Met$Flag_InfaredRadiationUp_Average_W_m2)
