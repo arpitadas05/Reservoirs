@@ -259,6 +259,13 @@ for (u in 20:45) {
   print(unique(Met[,u]))
 }
 
+###Prep RemoveMet for final file version
+names(RemoveMet) = c("Station", "DateTime_start","DateTime_end", "Parameter", "ColumnNumber", "Flag", "Notes") #finalized column names
+RemoveMet$Site=50 #add site column for EDI archiving
+RemoveMet$Reservoir= "FCR"#add reservoir name for EDI archiving
+
+RemoveMet=RemoveMet[,c(8:9,1:7)]
+
 ###7) Write file with final cleaned dataset! ###
 Met_final=Met[,c(18:19,1:17, 20:45)] #final column order
 setwd('./Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEML_MetData')
