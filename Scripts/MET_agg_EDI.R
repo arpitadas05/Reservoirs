@@ -3,13 +3,6 @@
 ###Last modified 21 July 2019 to publish 2015-2018 met data to EDI
 ###Contact info: Cayelan Carey, Virginia Tech, cayelan@vt.edu
 
-##Tasks/Questions Left:
-#1. Uploading Large Files to Github
-#2.  Inf Rad fix DN with sin curve equation, by DOY
-#3. Change data to EST (GMT -5), fix parsing issue?
-#4. Prep RemoveMet for publishing
-
-
 ###1) Install and load packages needed
 #install.packages("lubridate")
 #install.packages("tidyverse")
@@ -270,4 +263,5 @@ for (u in 20:45) {
 Met_final=Met[,c(18:19,1:17, 20:45)] #final column order
 setwd('./Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEML_MetData')
 write.csv(Met_final, "Met_final_2015_2018.csv", row.names=F)
+write.csv(RemoveMet, "Met_Maintenance_2015_2018.csv", row.names=F)
 
