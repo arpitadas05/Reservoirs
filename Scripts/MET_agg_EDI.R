@@ -105,17 +105,17 @@ summary(lm_Panel2015)#gives data on linear model parameters
 
 #if Air - Panel > 3 sd(lm_Panel2015) then replace with PanelTemp predicted by lm equation rather than raw value
 Met$Flag_AirTemp_Average_C=ifelse((Met$AirTemp_Average_C - (1.6278+(0.9008*Met$CR3000Panel_temp_C)))>(3*sd(lm_Panel2015$residuals)), 4, Met$Flag_AirTemp_Average_C)
-Met$Note_AirTemp_Average_C=ifelse((Met$AirTemp_Average_C - (1.6278+(0.9008*Met$CR3000Panel_temp_C)))>(3*sd(lm_Panel2015$residuals)),"Substituted value calculated from Panel Temp and linear model", Met$Note_AirTemp_Average_C)
+Met$Note_AirTemp_Average_C=ifelse((Met$AirTemp_Average_C - (1.6278+(0.9008*Met$CR3000Panel_temp_C)))>(3*sd(lm_Panel2015$residuals)),"Substituted_value_calculated_from_Panel_Temp_and_linear_model", Met$Note_AirTemp_Average_C)
 Met$AirTemp_Average_C=ifelse((Met$AirTemp_Average_C - (1.6278+(0.9008*Met$CR3000Panel_temp_C)))>(3*sd(lm_Panel2015$residuals)),(1.6278+(0.9008*Met$CR3000Panel_temp_C)), Met$AirTemp_Average_C)
 
 #Infared radiation cleaning
 #fix infrared radiation voltage reading after airtemp correction
 Met$Flag_InfaredRadiationUp_Average_W_m2=ifelse(Met$InfaredRadiationUp_Average_W_m2<100,4,Met$Flag_InfaredRadiationUp_Average_W_m2)
-Met$Note_InfaredRadiationUp_Average_W_m2=ifelse(Met$InfaredRadiationUp_Average_W_m2<100,"Value corrected from Voltage with InfRadUp equation as described in metadata",Met$Note_InfaredRadiationUp_Average_W_m2)
+Met$Note_InfaredRadiationUp_Average_W_m2=ifelse(Met$InfaredRadiationUp_Average_W_m2<100,"Value_corrected_from_Voltage_with_InfRadUp_equation_as_described_in_metadata",Met$Note_InfaredRadiationUp_Average_W_m2)
 Met$InfaredRadiationUp_Average_W_m2=ifelse(Met$InfaredRadiationUp_Average_W_m2<100,Met$InfaredRadiationUp_Average_W_m2+5.67*10^-8*(Met$AirTemp_Average_C+273.15)^4,Met$InfaredRadiationUp_Average_W_m2)
 
 Met$Flag_InfaredRadiationDown_Average_W_m2=ifelse(Met$InfaredRadiationDown_Average_W_m2<250,4,Met$Flag_InfaredRadiationDown_Average_W_m2)
-Met$Note_InfaredRadiationDown_Average_W_m2=ifelse(Met$InfaredRadiationDown_Average_W_m2<250,"Value corrected from Voltage with InfRadDn equation as described in metadata",Met$Note_InfaredRadiationDown_Average_W_m2)
+Met$Note_InfaredRadiationDown_Average_W_m2=ifelse(Met$InfaredRadiationDown_Average_W_m2<250,"Value_corrected_from_Voltage_with_InfRadDn_equation_as_described_in_metadata",Met$Note_InfaredRadiationDown_Average_W_m2)
 Met$InfaredRadiationDown_Average_W_m2=ifelse(Met$InfaredRadiationDown_Average_W_m2<250,5.67*10^-8*(Met$AirTemp_Average_C+273.15)^4,Met$InfaredRadiationDown_Average_W_m2)
 
 #Mean correction for InfRadDown (needs to be after voltage correction)
@@ -129,59 +129,59 @@ Met=merge(Met, Met_infrad, by = "DOY") #putting in columns for infrared mean and
 Met=Met[order(Met$DateTime),] #ordering table after merging and removing unnecessary columns
 
 Met$Flag_InfaredRadiationDown_Average_W_m2=ifelse((Met$InfaredRadiationDown_Average_W_m2-Met$infradavg)<(-3*Met$infradsd),4,Met$Flag_InfaredRadiationDown_Average_W_m2)
-Met$Note_InfaredRadiationDown_Average_W_m2=ifelse((Met$InfaredRadiationDown_Average_W_m2-Met$infradavg)<(-3*Met$infradsd),"Value corrected from Mean InfRadDn before fouling as described in metadata",Met$Note_InfaredRadiationDown_Average_W_m2)
+Met$Note_InfaredRadiationDown_Average_W_m2=ifelse((Met$InfaredRadiationDown_Average_W_m2-Met$infradavg)<(-3*Met$infradsd),"Value_corrected_from_mean_InfRadDn_before_fouling_as_described_in_metadata",Met$Note_InfaredRadiationDown_Average_W_m2)
 Met$InfaredRadiationDown_Average_W_m2=ifelse((Met$InfaredRadiationDown_Average_W_m2-Met$infradavg)<(-3*Met$infradsd),Met$infradavg,Met$InfaredRadiationDown_Average_W_m2)
 
 Met=Met[,-c(1,47,48)]
 
 #Inf outliers, must go after corrections
 Met$Flag_InfaredRadiationUp_Average_W_m2=ifelse(Met$InfaredRadiationUp_Average_W_m2<150,4,Met$Flag_InfaredRadiationUp_Average_W_m2)
-Met$Note_InfaredRadiationUp_Average_W_m2=ifelse(Met$InfaredRadiationUp_Average_W_m2<150,"Outlier set to NA",Met$Note_InfaredRadiationUp_Average_W_m2)
+Met$Note_InfaredRadiationUp_Average_W_m2=ifelse(Met$InfaredRadiationUp_Average_W_m2<150,"Outlier_set_to_NA",Met$Note_InfaredRadiationUp_Average_W_m2)
 Met$InfaredRadiationUp_Average_W_m2=ifelse(Met$InfaredRadiationUp_Average_W_m2<150,NA,Met$InfaredRadiationUp_Average_W_m2)
 
 #Remove barometric pressure outliers
 Met$Flag_BP_Average_kPa=ifelse(Met$BP_Average_kPa<99,4,Met$Flag_BP_Average_kPa)
-Met$Note_BP_Average_kPa=ifelse(Met$BP_Average_kPa<99,"Outlier set to NA",Met$Note_BP_Average_kPa)
+Met$Note_BP_Average_kPa=ifelse(Met$BP_Average_kPa<99,"Outlier_set_to_NA",Met$Note_BP_Average_kPa)
 Met$BP_Average_kPa=ifelse(Met$BP_Average_kPa<99,NA,Met$BP_Average_kPa)
 
 #Remove total PAR (PAR_Tot) outliers
 Met$Flag_PAR_Total_mmol_m2=ifelse(Met$PAR_Total_mmol_m2>200, 4, Met$Flag_PAR_Total_mmol_m2)
-Met$Note_PAR_Total_mmol_m2=ifelse(Met$PAR_Total_mmol_m2>200, "Outlier set to NA", Met$Note_PAR_Total_mmol_m2)
+Met$Note_PAR_Total_mmol_m2=ifelse(Met$PAR_Total_mmol_m2>200, "Outlier_set_to_NA", Met$Note_PAR_Total_mmol_m2)
 Met$PAR_Total_mmol_m2=ifelse(Met$PAR_Total_mmol_m2>200, NA, Met$PAR_Total_mmol_m2)
 
 #Remove shortwave radiation outliers
 #first shortwave upwelling
 Met$Flag_ShortwaveRadiationUp_Average_W_m2=ifelse(Met$ShortwaveRadiationUp_Average_W_m2>1600, 4, Met$Flag_ShortwaveRadiationUp_Average_W_m2)
-Met$Note_ShortwaveRadiationUp_Average_W_m2=ifelse(Met$ShortwaveRadiationUp_Average_W_m2>1600, "Outlier set to NA", Met$Note_ShortwaveRadiationUp_Average_W_m2)
+Met$Note_ShortwaveRadiationUp_Average_W_m2=ifelse(Met$ShortwaveRadiationUp_Average_W_m2>1600, "Outlier_set_to_NA", Met$Note_ShortwaveRadiationUp_Average_W_m2)
 Met$ShortwaveRadiationUp_Average_W_m2=ifelse(Met$ShortwaveRadiationUp_Average_W_m2>1600, NA, Met$ShortwaveRadiationUp_Average_W_m2)
 #and then shortwave downwelling (what goes up must come down)
 Met$Flag_ShortwaveRadiationDown_Average_W_m2=ifelse(Met$ShortwaveRadiationDown_Average_W_m2>300, 4, Met$Flag_ShortwaveRadiationDown_Average_W_m2)
-Met$Note_ShortwaveRadiationDown_Average_W_m2=ifelse(Met$ShortwaveRadiationDown_Average_W_m2>300, "Outlier set to NA", Met$Note_ShortwaveRadiationDown_Average_W_m2)
+Met$Note_ShortwaveRadiationDown_Average_W_m2=ifelse(Met$ShortwaveRadiationDown_Average_W_m2>300, "Outlier_set_to_NA", Met$Note_ShortwaveRadiationDown_Average_W_m2)
 Met$ShortwaveRadiationDown_Average_W_m2=ifelse(Met$ShortwaveRadiationDown_Average_W_m2>300, NA, Met$ShortwaveRadiationDown_Average_W_m2)
 
 #Remove albedo outliers
 Met$Flag_Albedo_Average_W_m2=ifelse(Met$Albedo_Average_W_m2>1000, 4, Met$Flag_Albedo_Average_W_m2)
-Met$Note_Albedo_Average_W_m2=ifelse(Met$Albedo_Average_W_m2>1000, "Outliers set to NA", Met$Note_Albedo_Average_W_m2)
+Met$Note_Albedo_Average_W_m2=ifelse(Met$Albedo_Average_W_m2>1000, "Outlier_set_to_NA", Met$Note_Albedo_Average_W_m2)
 Met$Albedo_Average_W_m2=ifelse(Met$Albedo_Average_W_m2>1000, NA, Met$Albedo_Average_W_m2)
 
 Met$Flag_Albedo_Average_W_m2=ifelse(is.na(Met$ShortwaveRadiationUp_Average_W_m2)|is.na(Met$ShortwaveRadiationDown_Average_W_m2), 4, Met$Flag_Albedo_Average_W_m2)
-Met$Note_Albedo_Average_W_m2=ifelse(is.na(Met$ShortwaveRadiationUp_Average_W_m2)|is.na(Met$ShortwaveRadiationDown_Average_W_m2), "Set to NA because Shortwave = NA", Met$Note_Albedo_Average_W_m2)
+Met$Note_Albedo_Average_W_m2=ifelse(is.na(Met$ShortwaveRadiationUp_Average_W_m2)|is.na(Met$ShortwaveRadiationDown_Average_W_m2), "Set_to_NA_because_Shortwave_equals_NA", Met$Note_Albedo_Average_W_m2)
 Met$Albedo_Average_W_m2=ifelse(is.na(Met$ShortwaveRadiationUp_Average_W_m2)|is.na(Met$ShortwaveRadiationDown_Average_W_m2), NA, Met$Albedo_Average_W_m2)
 
 #set flag 3 (see metadata: this corrects for impossible outliers)
 for(i in 5:17) { #for loop to create new columns in data frame
   Met[c(which(is.infinite(Met[,i]))),paste0("Flag_",colnames(Met[i]))] <-3 #puts in flag 3
-  Met[c(which(is.infinite(Met[,i]))),paste0("Note_",colnames(Met[i]))] <- "Infinite value set to NA" #note for flag 3
+  Met[c(which(is.infinite(Met[,i]))),paste0("Note_",colnames(Met[i]))] <- "Infinite_value_set_to_NA" #note for flag 3
   Met[c(which(is.infinite(Met[,i]))),i] <- NA #set infinite vals to NA
   
   if(i!=8) { #flag 3 for negative values for everything except air temp
     Met[c(which((Met[,i]<0))),paste0("Flag_",colnames(Met[i]))] <- 3
-    Met[c(which((Met[,i]<0))),paste0("Note_",colnames(Met[i]))] <- "Negative value set to 0"
+    Met[c(which((Met[,i]<0))),paste0("Note_",colnames(Met[i]))] <- "Negative_value_set_to_0"
     Met[c(which((Met[,i]<0))),i] <- 0 #replaces value with 0
   }
   if(i==9) { #flag for RH over 100
     Met[c(which((Met[,i]>100))),paste0("Flag_",colnames(Met[i]))] <- 3
-    Met[c(which((Met[,i]>100))),paste0("Note_",colnames(Met[i]))] <- "Value set to 100"
+    Met[c(which((Met[,i]>100))),paste0("Note_",colnames(Met[i]))] <- "Value_set_to_100"
     Met[c(which((Met[,i]>100))),i] <- 100 #replaces value with 100
   }
 }
