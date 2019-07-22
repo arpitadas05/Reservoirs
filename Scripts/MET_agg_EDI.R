@@ -127,7 +127,7 @@ Met$InfaredRadiationDown_Average_W_m2=ifelse(Met$InfaredRadiationDown_Average_W_
 Met_infrad=Met[year(Met$DateTime)<2018,]
 Met_infrad$infradavg=ave(Met_infrad$InfaredRadiationDown_Average_W_m2, Met_infrad$DOY) #creating column with mean of infraddown by day of year
 Met_infrad$infradsd=ave(Met_infrad$InfaredRadiationDown_Average_W_m2, Met_infrad$DOY, FUN = sd) #creating column with sd of infraddown by day of year
-Met_infrad=unique(Met_infrad[,c(1,12,13)])
+Met_infrad=unique(Met_infrad[,c(18,47,48)])
 
 Met=merge(Met, Met_infrad, by = "DOY") #putting in columns for infrared mean and sd by DOY into main data set
 
