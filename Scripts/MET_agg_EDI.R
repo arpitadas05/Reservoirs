@@ -51,10 +51,10 @@ Met = Met[year(Met$TIMESTAMP)<2019,] #all data before 2019
 
 #order data by timestamp
 Met=Met[order(Met$TIMESTAMP),]
+Met$DOY=yday(Met$TIMESTAMP)
 
 #check record for gaps
 #daily record gaps by day of year
-Met$DOY=yday(Met$TIMESTAMP)
 for(i in 2:nrow(Met)){ #this identifies if there are any data gaps in the long-term record, and where they are by record number
   if(Met$DOY[i]-Met$DOY[i-1]>1){
     print(c(Met$TIMESTAMP[i-1],Met$TIMESTAMP[i]))
