@@ -49,8 +49,9 @@ Met = Met[year(Met$TIMESTAMP)<2019,] #all data before 2019
 Met=Met[order(Met$TIMESTAMP),]
 
 #check record for gaps
-for(i in 2:length(Met$RECORD)){ #this identifies if there are any data gaps in the long-term record, and where they are by record number
-  if(Met$RECORD[i]-Met$RECORD[i-1]>1){
+Met$DOY=yday(Met$TIMESTAMP)
+for(i in 2:nrow(Met)){ #this identifies if there are any data gaps in the long-term record, and where they are by record number
+  if(Met$DOY[i]-Met$DOY[i-1]>1){
     print(c(Met$TIMESTAMP[i-1],Met$TIMESTAMP[i]))
   }
 }
