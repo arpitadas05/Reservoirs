@@ -76,11 +76,10 @@ names(Met) = c("DateTime","Record", "CR3000_Batt_V", "CR3000Panel_temp_C",
                "PAR_Average_umol_s_m2", "PAR_Total_mmol_m2", "BP_Average_kPa", "AirTemp_Average_C", 
                "RH_percent", "Rain_Total_mm", "WindSpeed_Average_m_s", "WindDir_degrees", "ShortwaveRadiationUp_Average_W_m2",
                "ShortwaveRadiationDown_Average_W_m2", "InfaredRadiationUp_Average_W_m2",
-               "InfaredRadiationDown_Average_W_m2", "Albedo_Average_W_m2") #finalized column names
+               "InfaredRadiationDown_Average_W_m2", "Albedo_Average_W_m2", "DOY") #finalized column names
 Met$Site=50 #add site column for EDI archiving
 Met$Reservoir= "FCR"#add reservoir name for EDI archiving
 Met_raw=Met #Met=Met_raw; reset your data
-
 
 ####4) Load in maintenance txt file #### 
 # the maintenance file tracks when sensors were repaired or offline due to maintenance
@@ -125,14 +124,15 @@ Met$InfaredRadiationDown_Average_W_m2=ifelse(Met$InfaredRadiationDown_Average_W_
 
 #Mean correction for InfRadDown (needs to be after voltage correction)
 #Using 2018 data, taking the mean and sd of values on DOY to correct to
-Met$DOY=yday(Met$DateTime) #day of year
+Met_infrad=Met[year(Met$DateTime)<2018,]
+Met_infrad$infradavg=ave(Met_infrad$InfaredRadiationDown_Average_W_m2, Met_infrad$DOY) #creating column with mean of infraddown by day of year
+Met_infrad$infradsd=ave(Met_infrad$InfaredRadiationDown_Average_W_m2, Met_infrad$DOY, FUN = sd) #creating column with sd of infraddown by day of year
+Met_infrad=unique(Met_infrad[,c(1,12,13)])
 
-Met_infrad18only=Met_infrad[year(Met_infrad$DateTime)==2018,] #subsetting 2018 data
-Met_infrad18only$avg18only=ave(Met_infrad18only$InfaredRadiationDown_Average_W_m2, Met_infrad18only$DOY) #creating column with mean of infraddown by day of year from 2018
-Met_infrad18only$sd18only=ave(Met_infrad18only$InfaredRadiationDown_Average_W_m2, Met_infrad18only$DOY, FUN = sd) #creating column with sd of infraddown by day of year from 2018
-Met_infrad18only=unique(Met_infrad18only[,c(1,17,18)]) #creating data set with only 1 DOY
+Met=merge(Met, Met_infrad, by = "DOY") #putting in columns for infrared mean and sd by DOY into main data set
 
-Met_infrad=merge(Met_infrad, Met_infrad18only, by = "DOY") #putting in columns for infrared mean and sd by DOY into main data set
+Met_infrad$negsd18=ifelse((Met_infrad$InfaredRadiationDown_Average_W_m2-Met_infrad$avg18)<(-3*Met_infrad$sd18),Met_infrad$avg18,Met_infrad$InfaredRadiationDown_Average_W_m2)
+
 
 Met_infrad$Data18only_abs=ifelse((abs(Met_infrad$InfaredRadiationDown_Average_W_m2-Met_infrad$avg18only))>(3*Met_infrad$sd18only),Met_infrad$avg18only,Met_infrad$InfaredRadiationDown_Average_W_m2)
 
