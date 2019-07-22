@@ -45,7 +45,7 @@ Met_agg = Met_agg[!duplicated(Met_agg$TIMESTAMP),] #takes out duplicated values 
 
 ####3) Aggregate data set for QA/QC ####
 #Met= Met_agg #reset data so you don't have to load from scratch 
-Met = Met_past #if you are only archiving past data
+Met = Met_past #if you are *only* archiving past data - note! you won't do this if you are adding in new data after 2018
 Met$TIMESTAMP=ymd_hms(Met$TIMESTAMP, tz="Etc/GMT+5") #formats timestamp as double check; resulted in 1 failed parse
 Met = Met[year(Met$TIMESTAMP)<2019,] #all data before 2019
 
@@ -239,7 +239,7 @@ points(Met$DateTime, Met$Rain_Total_mm, type = 'h')
 #Wind
 plot(Met$DateTime, Met$WindSpeed_Average_m_s, type = 'l')
 hist(Met$WindDir_degrees)
-#SW Rad
+#SW Radiation
 plot(Met_raw$DateTime, Met_raw$ShortwaveRadiationUp_Average_W_m2, col="red", type='l')
 plot(Met$DateTime, Met$ShortwaveRadiationUp_Average_W_m2, type = 'l')
 plot(Met_raw$DateTime, Met_raw$ShortwaveRadiationDown_Average_W_m2, col="red", type='l')
