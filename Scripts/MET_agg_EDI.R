@@ -269,6 +269,6 @@ RemoveMet=RemoveMet[,c(8:9,1:7)]
 ###7) Write file with final cleaned dataset! ###
 Met_final=Met[,c(18:19,1:17, 20:45)] #final column order
 setwd('./Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEML_MetData')
-write.csv(Met_final, "Met_final_2015_2018.csv", row.names=F)
-write.csv(RemoveMet, "Met_Maintenance_2015_2018.csv", row.names=F)
+write.csv(Met_final, "Met_final_2015_2018.csv", row.names=F, quote=F)
+write.csv(RemoveMet, "Met_Maintenance_2015_2018.csv", row.names=F, quote = F)
 
