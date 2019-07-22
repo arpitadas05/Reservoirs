@@ -133,11 +133,13 @@ Met_infrad$infradsd=ave(Met_infrad$InfaredRadiationDown_Average_W_m2, Met_infrad
 Met_infrad=unique(Met_infrad[,c(18,47,48)])
 
 Met=merge(Met, Met_infrad, by = "DOY") #putting in columns for infrared mean and sd by DOY into main data set
-Met=Met[order(Met$DateTime),] #ordering table after merging
+Met=Met[order(Met$DateTime),] #ordering table after merging and removing unnecessary columns
 
 Met$Flag_InfaredRadiationDown_Average_W_m2=ifelse((Met$InfaredRadiationDown_Average_W_m2-Met$infradavg)<(-3*Met$infradsd),4,Met$Flag_InfaredRadiationDown_Average_W_m2)
 Met$Note_InfaredRadiationDown_Average_W_m2=ifelse((Met$InfaredRadiationDown_Average_W_m2-Met$infradavg)<(-3*Met$infradsd),"Value corrected from Mean InfRadDn before fouling as described in metadata",Met$Note_InfaredRadiationDown_Average_W_m2)
 Met$InfaredRadiationDown_Average_W_m2=ifelse((Met$InfaredRadiationDown_Average_W_m2-Met$infradavg)<(-3*Met$infradsd),Met$infradavg,Met$InfaredRadiationDown_Average_W_m2)
+
+Met=Met[,-c(1,47,48)]
 
 #Inf outliers, must go after corrections
 Met$Flag_InfaredRadiationUp_Average_W_m2=ifelse(Met$InfaredRadiationUp_Average_W_m2<150,4,Met$Flag_InfaredRadiationUp_Average_W_m2)
