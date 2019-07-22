@@ -73,8 +73,8 @@ names(Met) = c("DateTime","Record", "CR3000_Batt_V", "CR3000Panel_temp_C",
                "RH_percent", "Rain_Total_mm", "WindSpeed_Average_m_s", "WindDir_degrees", "ShortwaveRadiationUp_Average_W_m2",
                "ShortwaveRadiationDown_Average_W_m2", "InfaredRadiationUp_Average_W_m2",
                "InfaredRadiationDown_Average_W_m2", "Albedo_Average_W_m2", "DOY") #finalized column names
-Met$Site=50 #add site column for EDI archiving
 Met$Reservoir= "FCR"#add reservoir name for EDI archiving
+Met$Site=50 #add site column for EDI archiving
 Met_raw=Met #Met=Met_raw; reset your data
 
 ####4) Load in maintenance txt file #### 
@@ -261,8 +261,8 @@ for (u in 20:45) {
 
 ###Prep RemoveMet for final file version
 names(RemoveMet) = c("Station", "DateTime_start","DateTime_end", "Parameter", "ColumnNumber", "Flag", "Notes") #finalized column names
-RemoveMet$Site=50 #add site column for EDI archiving
 RemoveMet$Reservoir= "FCR"#add reservoir name for EDI archiving
+RemoveMet$Site=50 #add site column for EDI archiving
 
 RemoveMet=RemoveMet[,c(8:9,1:7)]
 
