@@ -12,7 +12,7 @@ catdata$TIMESTAMP <- as.POSIXct(catdata$TIMESTAMP, format = "%Y-%m-%d %H:%M:%S" 
 for(j in 5:ncol(catdata)){
   catdata[,j]<-as.numeric(levels(catdata[,j]))[catdata[,j]]#need to set all columns to numeric values
 }
-# remove NANs at beginning
+# remove NANs at beginning when sensor was first installed
 catdata <- catdata[catdata$TIMESTAMP>"2018-07-05 14:50:00",]
 catdata <- catdata %>% select(-EXO_Date, -EXO_Time)
 catdata <- catdata %>% select(-RECORD, -BattV, -Ptemp_C, everything())
@@ -20,6 +20,7 @@ catdata$Reservoir <- "FCR"
 catdata$Site <- "50"
 catdata <- catdata %>% select(Reservoir, Site,everything() )
 
+#rename columns to match EDI nomenclature
 colnames(catdata) <- c("Reservoir", "Site", "DateTime", "ThermistorTemp_C_surface", "ThermistorTemp_C_1", "ThermistorTemp_C_2", "ThermistorTemp_C_3", "ThermistorTemp_C_4", "ThermistorTemp_C_5", "ThermistorTemp_C_6",
                      "ThermistorTemp_C_7", "ThermistorTemp_C_8", "ThermistorTemp_C_9" ,"RDO_mgL_5", "RDOsat_percent_5", "RDOTemp_C_5", "RDO_mgL_9",
                      "RDOsat_percent_9",  "RDOTemp_C_9","EXOTemp_C_1", "EXOCond_uScm_1", "EXOSpCond_uScm_1",
@@ -27,6 +28,7 @@ colnames(catdata) <- c("Reservoir", "Site", "DateTime", "ThermistorTemp_C_surfac
                      "EXOBGAPC_ugL_1" , "EXOfDOM_RFU_1", "EXOfDOM_QSU_1", "EXO_pressure", "EXO_depth",
                      "EXO_battery", "EXO_cablepower", "EXO_wiper", "RECORD", "CR6_Batt_V", "CR6Panel_Temp_C"  )
 
+# add flag columns to code for various corrections to data
 catdata$Flag_All <- "0"
 catdata$Flag_DO_1 <- '0'
 catdata$Flag_DO_5 <- '0'
@@ -35,8 +37,20 @@ catdata$Flag_Chla <- '0'
 catdata$Flag_Phyco <- '0'
 catdata$Flag_TDS <- '0'
 
+nov <- catdata[catdata$DateTime>"2018-11-19" & catdata$DateTime<"2018-11-21",]
+plot(nov$DateTime, nov$EXODO_mgL_1, col = 'pink', ylim = c(8, 15), type = 'l')
+points(nov$DateTime, nov$RDO_mgL_5, type = 'l')
+points(nov$DateTime, nov$RDO_mgL_9, col = 'green', type = 'l')
+legend('topright', c('1m', '5m', '9m'), col = c('pink', 'black', 'green'), lty = c(1,1))
 
+dec <- catdata[catdata$DateTime>"2018-12-17" & catdata$DateTime<'2018-12-20',]
+plot(dec$DateTime, dec$EXODO_mgL_1, col = 'pink', type = 'l', ylim = c(9,13.3))
+points(dec$DateTime, dec$RDO_mgL_5, type = 'l')
+points(dec$DateTime, dec$RDO_mgL_9, col = 'green', type = 'l')
+legend('topright', c('1m', '5m', '9m'), col = c('pink', 'black', 'green'), lty = c(1,1))
+abline(v = as.POSIXct("2018-12-17 11:20:00", "%Y-%m-%d %H:%M:%S"), col = 'blue') # this is when the reservoir was dosed with copper sulfate
 
+# given a list of dates/times that the sensor was up for cleaning, replace data with NA and define flag at '1'
 # replace data with NA and create flag for day that it was up for cleaning
 # 2018-11-19 13:10:00 EDT, 2018-11-19 13:30:00 EDT, All_Cat, sensor string up for cleaning, 1
 # and set the Flag_all to 1
@@ -58,7 +72,7 @@ catdata[catdata$DateTime >'2018-12-17 11:20:00' & catdata$DateTime <'2018-12-17 
 catdata[catdata$DateTime >'2018-12-17 11:20:00' & catdata$DateTime <'2018-12-17 14:00:00', 14:15] <- 'NA'
 catdata[catdata$DateTime >'2018-12-17 11:20:00' & catdata$DateTime <'2018-12-17 14:00:00', 42] <- '1'
 
-# RDO 9m has not difference before and after this time period--maybe it wasn't brought up
+# RDO 9m has no difference before and after this time period--maybe it wasn't brought up
 
 # after October, remove EXOChl_ugL_1 values that are above 4X the standard deviation as these are caused by fouling
 #sd(catdata$EXOChla_ugL_1, na.rm= TRUE)*4, so anything greater than 15 in the late season goes
@@ -70,7 +84,7 @@ catdata$EXOChla_RFU_1 <- as.numeric(catdata$EXOChla_RFU_1)
 catdata <- catdata %>%
   mutate(Flag_Chla = ifelse(DateTime > '2018-10-01 00:00:00' & EXOChla_ugL_1 > 15, 4, Flag_Chla))
 # now change the fouled data to NA for chla in ugL and RFU
-plot(catdata$Date, catdata$EXOChla_ugL_1)
+plot(catdata$Date, catdata$EXOChla_ugL_1, type = 'l')
 catdata <- catdata %>%
   mutate(EXOChla_ugL_1 = ifelse(DateTime > '2018-10-01 00:00:00' & EXOChla_ugL_1 > 15, NA, EXOChla_ugL_1))
 plot(catdata$Date, catdata$EXOChla_ugL_1)
