@@ -1,10 +1,11 @@
 # script to calculate discharge from digitized stream width/depth/velocity measurements
+#install.packages("tidyverse")
 library(tidyverse)
 
 flow <- read.csv("./Data/DataNotYetUploadedToEDI/Raw_inflow/2019_Discharge_Flowmate.csv") # the location of the discharge_digitized.csv, should come from github
 flow$Date <- as.Date(flow$Date)
 
-# first convert the depth to m (it is always measured in cm in the field)
+# first convert the depth to m in a new column (it is always measured in cm in the field)
 flow$Depth_m <- flow$Depth_cm/100
 
 # now convert the velocity to m/s (the flowmeter measures in ft/s)
@@ -22,6 +23,8 @@ flow <-  flow %>% group_by(Site, Date) %>% mutate(Discharge_m3_s = sum(Discharge
 # now subset out only the unique discharge measurements
 discharge <- flow %>% select(Date, Site, Discharge_m3_s, FlowmeterSensorID, Notes)
 discharge <- discharge[!duplicated(discharge[1:3]),]
+
+
 
 wetland <- discharge[discharge$Site=='F200',]
 plot(wetland$Date, wetland$Discharge_m3_s)
