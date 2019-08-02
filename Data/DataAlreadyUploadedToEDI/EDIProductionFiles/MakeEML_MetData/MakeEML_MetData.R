@@ -129,17 +129,18 @@ library(EMLassemblyline)
 # package.id: enter the ID you obtained in Step 6
 make_eml(path = "/Users/cayelan/Dropbox/ComputerFiles/Virginia_Tech/Falling Creek/Github/Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEML_MetData",
          dataset.title = "Time series of high-frequency meteorological data at Falling Creek Reservoir, Virginia, USA 2015-2018",
-         other.entity = c('Met_data.zip', 'Met_maintenance.zip', 'Met_QAQC.R.zip'),
-         other.entity.description = c('Zipped folder containing all meteorological parameters measured at Falling Creek Reservoir during 2015-2018 with attributes table',
-                                      'Zipped folder containing the log of all maintenance applied to the meteorological station with attributes table', 
-                                      'Data aggregation and QA/QC R script'),
+         data.table = c('Met_final_2015_2018.csv', 'Met_Maintenance_2015_2018.csv'),
+         data.table.description = c('All meteorological parameters measured at Falling Creek Reservoir during 2015-2018',
+                                    'The log of all maintenance applied to the meteorological station'),
+         other.entity = 'Met_QAQC.R',
+         other.entity.description = 'Data aggregation and QA/QC R script',
          temporal.coverage = c("2015-07-07", "2018-12-31"),
          geographic.description = c("Falling Creek Reservoir, Vinton, Virginia, USA"),
          geographic.coordinates = c('37.309589', '-79.836009', '37.302660', '-79.839249'), #N, E, S, W
          maintenance.description = "ongoing", 
          user.id = "ccarey",
          user.domain = 'EDI',
-         package.id = "edi.389.1") # Put your package.id here, followed by .1 (for 1st version)
+         package.id = "edi.389.2") # Put your package.id here, followed by .1 (for 1st version)
 
 # Once your xml file with your PUBLISHED package.id is Done, return to the 
 # EDI Production environment (https://portal.edirepository.org/nis/home.jsp)
