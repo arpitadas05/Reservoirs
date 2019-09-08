@@ -127,7 +127,6 @@ template_categorical_variables(path = "C:/Users/Mary Lofton/Documents/Github/Res
 ## Step 16: Obtain a package.id. ####
 # Go to the EDI staging environment (https://portal-s.edirepository.org/nis/home.jsp),
 # then login using one of the Carey Lab usernames and passwords.
-#Mine is: carylab6 p&NYsih9Ja0@T1R6 Mary Lofton
 
 # Select Tools --> Data Package Identifier Reservations and click 
 # "Reserve Next Available Identifier"
@@ -140,17 +139,52 @@ template_categorical_variables(path = "C:/Users/Mary Lofton/Documents/Github/Res
 ?make_eml
 
 # Run this function
-make_eml(path = "C:/Users/Mary Lofton/Documents/RProjects/Reservoirs/Formatted_Data/MakeEMLChemistry",
-         dataset.title = "Water chemistry time series for Beaverdam Reservoir, Carvins Cove Reservoir, Falling Creek Reservoir, Gatewood Reservoir, and Spring Hollow Reservoir in southwestern Virginia, USA 2013-2017",
-         data.files = c("chemistry"),
-         data.files.description = c("Reservoir water chemistry dataset."),
-         #data.files.quote.character = c("\"", "\""),
-         temporal.coverage = c("2013-04-04", "2017-12-11"),
-         geographic.description = "Southwestern Virginia, USA, North America",
-         #geographic.coordinates = c("69.0", "28.53", "28.38", "-119.95"),
-         maintenance.description = "ongoing", 
-         user.id = "carylab6",
-         package.id = "edi.199.3")
+make_eml(
+  path = "C:/Users/Mary Lofton/Documents/Github/Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLChemistry/2018",
+  data.path = "C:/Users/Mary Lofton/Documents/Github/Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLChemistry/2018",
+  eml.path = "C:/Users/Mary Lofton/Documents/Github/Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLChemistry/2018",
+  dataset.title = "Water chemistry time series for Beaverdam Reservoir, Carvins Cove Reservoir, Falling Creek Reservoir, Gatewood Reservoir, and Spring Hollow Reservoir in southwestern Virginia, USA 2013-2018",
+  temporal.coverage = c("2013-04-04", "2018-12-17"),
+  maintenance.description = 'ongoing',
+  data.table = "chemistry.csv",
+  data.table.description = "Reservoir water chemistry dataset",
+  user.id = 'carylab6',
+  user.domain = 'EDI',
+  package.id = 'edi.267.0')
+
+## Step 8: Check your data product! ####
+# Return to the EDI staging environment (https://portal-s.edirepository.org/nis/home.jsp),
+# then login using one of the Carey Lab usernames and passwords. 
+
+# Select Tools --> Evaluate/Upload Data Packages, then under "EML Metadata File", 
+# choose your metadata (.xml) file (e.g., edi.270.1.xml), check "I want to 
+# manually upload the data by selecting files on my local system", then click Upload.
+
+# Now, Choose File for each file within the data package (e.g., each zip folder), 
+# then click Upload. Files will upload and your EML metadata will be checked 
+# for errors. If there are no errors, your data product is now published! 
+# If there were errors, click the link to see what they were, then fix errors 
+# in the xml file. 
+# Note that each revision results in the xml file increasing one value 
+# (e.g., edi.270.1, edi.270.2, etc). Re-upload your fixed files to complete the 
+# evaluation check again, until you receive a message with no errors.
+
+## Step 9: PUBLISH YOUR DATA! ####
+# Reserve a package.id for your error-free data package. 
+# NEVER ASSIGN this identifier to a staging environment package.
+# Go to the EDI Production environment (https://portal.edirepository.org/nis/home.jsp)
+# and login using the ccarey (permanent) credentials. 
+
+# Select Tools --> Data Package Identifier Reservations and click "Reserve Next 
+# Available Identifier". A new value will appear in the "Current data package 
+# identifier reservations" table (e.g., edi.518)
+# This will be your PUBLISHED package.id
+
+# In the make_eml command below, change the package.id to match your 
+# PUBLISHED package id. This id should end in .1 (e.g., edi.518.1)
+
+# ALL OTHER entries in the make_eml() command should match what you ran above,
+# in step 7
 
 make_eml(
   path = "C:/Users/Mary Lofton/Documents/Github/Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLChemistry/2018",
@@ -158,10 +192,28 @@ make_eml(
   eml.path = "C:/Users/Mary Lofton/Documents/Github/Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLChemistry/2018",
   dataset.title = "Water chemistry time series for Beaverdam Reservoir, Carvins Cove Reservoir, Falling Creek Reservoir, Gatewood Reservoir, and Spring Hollow Reservoir in southwestern Virginia, USA 2013-2018",
   temporal.coverage = c("2013-04-04", "2018-12-17"),
-  maintenance.description = 'completed',
-  data.table = c('decomp.csv', 'nitrogen.csv'),
-  data.table.description = c('Decomposition data', 'Nitrogen data'),
-  user.id = 'csmith',
+  maintenance.description = 'ongoing',
+  data.table = "chemistry.csv",
+  data.table.description = "Reservoir water chemistry dataset",
+  user.id = 'carylab6',
   user.domain = 'EDI',
-  package.id = 'edi.267'
-)
+  package.id = 'edi.267.0')
+
+# Once your xml file with your PUBLISHED package.id is Done, return to the 
+# EDI Production environment (https://portal.edirepository.org/nis/home.jsp)
+
+# Select Tools --> Preview Your Metadata, then upload your metadata (.xml) file 
+# associated with your PUBLISHED package.id. Look through the rendered 
+# metadata one more time to check for mistakes (author order, bounding box, etc.)
+
+# Select Tools --> Evaluate/Upload Data Packages, then under "EML Metadata File", 
+# choose your metadata (.xml) file associated with your PUBLISHED package.id 
+# (e.g., edi.518.1.xml), check "I want to manually upload the data by selecting 
+# files on my local system", then click Upload.
+
+# Now, Choose File for each file within the data package (e.g., each zip folder), 
+# then click Upload. Files will upload and your EML metadata will be checked for 
+# errors. Since you checked for and fixed errors in the staging environment, this 
+# should run without errors, and your data product is now published! 
+
+# Click the package.id hyperlink to view your final product! HOORAY!
