@@ -1,1 +1,9 @@
 id	unitType	parentSI	multiplierToSI	description
+PAR_Average_umol_s_m2	light	mole	0.000001	Photosynthetically active radiation averaged over measurement interval per meter squared
+PAR_Total_mmol_m2	light	mole	0.001	PAR_Total_mmol_m2
+RH_percent	humidity	NA	NA	"Relative Humidity at time of measurement, normalized out of 100%"
+ShortwaveRadiationUp_Average_W_m2	light	watt	1	Short wave radiation facing the sky averaged over measurement interval.
+ShortwaveRadiationDown_Average_W_m2	light	watt	1	Short wave radiation facing the reservoir averaged over measurement interval.
+InfaredRadiationUp_Average_W_m2	light	watt	1	Infrared wave radiation facing the sky averaged over measurement interval.
+InfaredRadiationDown_Average_W_m2	light	watt	1	Infrared wave radiation facing the reservoir averaged over measurement interval.
+Albedo_Average_W_m2	light	watt	1	Calculated from ShortwaveRadiationDown_Average_W_m2 divided by ShortwaveRadiationUp_Average_W_m2
