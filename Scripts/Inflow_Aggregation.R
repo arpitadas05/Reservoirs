@@ -141,6 +141,12 @@ inflow <- read_csv("./Data/DataNotYetUploadedToEDI/Raw_inflow/inflow.csv")
 #correct datetime wonkiness from 2013-09-04 10:30 AM to 2014-02-05 11:00 AM
 inflow$DateTime[24304:39090] = inflow$DateTime[24304:39090] - (6*60+43)
 
+# correct dateime problems from 2019-04-15 11:06:18 for barometric pressure data and 
+# 2019-04-15 15:07:20 for pressure transducer which are not on an even 15 minute interval
+baro$DateTime <- floor_date(baro$DateTime, "15 minutes")
+inflow$DateTime <- floor_date(inflow$DateTime, "15 minutes")
+
+
 #merge inflow and barometric pressures to do differencing
 diff = left_join(baro, inflow, by = "DateTime") %>%
   select(-c(1,4))
