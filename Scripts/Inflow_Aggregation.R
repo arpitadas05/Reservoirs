@@ -201,20 +201,47 @@ ggsave(filename = "./Data/DataNotYetUploadedToEDI/Raw_inflow/all_pressure_types.
 diff <- diff %>%
   filter(!is.na(Pressure_psia)) %>%
   filter(Pressure_psia >= 0)
-flow2 <- diff$Pressure_psia 
-  
+
+# WW 13-sep-2019 hashtag'ed out some of the script originally written by MEL to incorporate new script that includes the equation for the
+# v-notch weir which was installed 06-Jun-2019
+# the calculations for pre-v-notch weir remain the same, just in a different format
+
+#flow2 <- diff$Pressure_psia 
 ### CALCULATE THE FLOW RATES AT INFLOW ### #(MEL 2018-07-06)
 #################################################################################################
-flow3 <- flow2*0.70324961490205 - 0.1603375 + 0.03048  # Response: Height above the weir (m)
+#flow3 <- flow2*0.70324961490205 - 0.1603375 + 0.03048  # Response: Height above the weir (m)
 #pressure*conversion factor for head in m - distance from tip of transducer to lip of weir + distance from tip of transducer to pressure sensor (eq converted to meters)
-flow4 <- (0.62 * (2/3) * (1.1) * 4.43 * (flow3 ^ 1.5) * 35.3147) # Flow CFS - MEL: I have not changed this; should be rating curve with area of weir
-flow_final <- flow4*0.028316847                                  # Flow CMS - just a conversion factor from cfs to cms
+#flow4 <- (0.62 * (2/3) * (1.1) * 4.43 * (flow3 ^ 1.5) * 35.3147) # Flow CFS - MEL: I have not changed this; should be rating curve with area of weir
+#flow_final <- flow4*0.028316847                                  # Flow CMS - just a conversion factor from cfs to cms
 #################################################################################################
+
+
+# separate the dataframe into pre and post v-notch weir to apply different equations
+diff_pre <- diff[diff$DateTime< as.POSIXct('2019-06-06 09:30:00'),]
+diff_post <- diff[diff$DateTime > as.POSIXct('2019-06-07 00:00:00'),]
+
+# the old weir equations are taken directly from MEL's Inlow Aggregation script
+diff_pre <- diff_pre %>% mutate(flow1 = (Pressure_psia )*0.70324961490205 - 0.1603375 + 0.03048) %>% 
+  mutate(flow_cfs = (0.62 * (2/3) * (1.1) * 4.43 * (flow1 ^ 1.5) * 35.3147)) %>% 
+  mutate(Flow_cms = flow_cfs*0.028316847   )%>% 
+  select(DateTime, Temp_C, Baro_pressure_psi, Pressure_psi, Pressure_psia, Flow_cms)
+
+# q = 2.391 * H^2.5
+# where H = head in meters above the notch
+# the head was 14.8 cm on June 24 at ~13:30
+#14.8 cm is 0.148 m 
+#14.9cm on Jun 27 at 3:49PM
+diff_post <- diff_post %>%  mutate(head = (0.149*Pressure_psia)/0.293) %>% 
+  mutate(Flow_cms = 2.391* (head^2.5)) %>% 
+  select(DateTime, Temp_C, Baro_pressure_psi, Pressure_psi, Pressure_psia, Flow_cms)
+
+
+# and put pre and post back together
+diff <- rbind(diff_pre, diff_post)
 
 #creating columns for EDI
 diff$Reservoir <- "FCR" #creates reservoir column to match other data sets
 diff$Site <- 100  #creates site column to match other data sets
-diff$Flow_cms <- flow_final #creates column for flow
 
 ##visualization of inflow
 plot_inflow <- diff %>%
@@ -285,7 +312,9 @@ ggsave(filename = "./Data/DataNotYetUploadedToEDI/Raw_inflow/inflow_temp_boxplot
 
 
 #final data wrangling 
-Inflow_Final <- diff[,c(6,7,2,4,1,5,8,3)] #orders columns
+#Inflow_Final <- diff[,c(6,7,2,4,1,5,8,3)] #orders columns
+Inflow_Final <- diff %>% select(Reservoir, Site, DateTime, Pressure_psi, Baro_pressure_psi, Pressure_psia, Flow_cms, Temp_C, everything())
+
 Inflow_Final <- Inflow_Final[order(Inflow_Final$DateTime),] #orders file by date
 
 Inflow_Final <- Inflow_Final %>%
@@ -303,6 +332,7 @@ Inflow_Final <- Inflow_Final %>%
                                                  ifelse(Pressure_psia <= 0.18 & is.na(Flow_cms),3,0))))))
 
 Inflow_Final$Flag_Pressure_psia <- 0
+
 
 Inflow_Final <- Inflow_Final[,c(1,2,3,4,5,6,7,8,9,10,13,12,11)]
 Inflow_Final <- Inflow_Final[-1,]
