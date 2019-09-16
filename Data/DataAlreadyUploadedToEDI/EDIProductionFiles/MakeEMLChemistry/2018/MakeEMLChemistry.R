@@ -197,7 +197,7 @@ make_eml(
   data.table.description = "Reservoir water chemistry dataset",
   user.id = 'carylab6',
   user.domain = 'EDI',
-  package.id = 'edi.419.1')
+  package.id = 'edi.199.5')
 
 # Once your xml file with your PUBLISHED package.id is Done, return to the 
 # EDI Production environment (https://portal.edirepository.org/nis/home.jsp)
