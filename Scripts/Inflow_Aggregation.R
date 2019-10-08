@@ -353,9 +353,9 @@ write.csv(Inflow_Final, './Data/DataAlreadyUploadedToEDI/EDIProductionFiles/Make
 
 ##BONUS!! :)
 #calculating water residence time
-wrt <- read_csv('./Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLInflow/inflow_downcorrected_02OCT18.csv') %>%
+wrt <- read_csv('./Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLInflow/inflow_working.csv') %>%
   mutate(date = date(DateTime))%>%
-  filter(date >= "2016-05-30" & date <= "2016-07-11") %>% #SELECT YOUR DATE RANGE HERE
+  filter(date >= "2019-06-30" & date <= "2019-07-11") %>% #SELECT YOUR DATE RANGE HERE
   mutate(wtr_res_time = 3.1E5/(Flow_cms*60*60*24))
 
 plot_wrt <- ggplot(data = wrt, aes(x = DateTime, y = wtr_res_time))+
@@ -369,7 +369,7 @@ hist_wrt <- ggplot(data = wrt, aes(x = wtr_res_time))+
   theme_bw()
 hist_wrt
 
-mean(wrt$wtr_res_time)
+mean(wrt$wtr_res_time, na.rm = TRUE)
 sd(wrt$wtr_res_time)
 
 ##plot BVR wtr level
