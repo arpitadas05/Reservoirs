@@ -8,11 +8,11 @@
 rm(list=ls())
 
 ########WHAT RESERVOIR ARE YOU WORKING WITH?########
-Reservoir = "BVR" #choose from FCR, BVR, CCR
+Reservoir = "FCR" #choose from FCR, BVR, CCR
 ####################################################
 
 ########WHAT YEAR WOULD YOU LIKE TO PLOT?###########
-plot_year = 2019 #choose from 2014-2018
+plot_year = 2019 #choose from 2014-2019
 ####################################################
 
 # load packages
