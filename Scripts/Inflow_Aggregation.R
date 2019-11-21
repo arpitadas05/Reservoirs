@@ -341,6 +341,7 @@ Inflow_Final <- Inflow_Final[-1,]
 
 #write to file for working lab copy - USE THIS IF YOU HAVE RUN LINES 152-162
 write.csv(Inflow_Final, './Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLInflow/inflow_working.csv', row.names=F) 
+write.csv(Inflow_Final, './Data/DataNotYetUploadedToEDI/Raw_inflow/inflow_working.csv', row.names=F) 
 
 #write to file for EDI copy - if you have NOT run lines 152-162
 Inflow_Final <- Inflow_Final %>%
