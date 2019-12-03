@@ -1,6 +1,6 @@
 # Title: Fluoroprobe Heatmaps
 # Author: Ryan McClure & Mary Lofton
-# Date last updated: 08AUG18
+# Date last updated: 02DEC19
 # Description: Makes heatmaps of fluoroprobe data
 
 #Note: currently this script plots DOY on the x-axis and so can only plot 1 year at a time
@@ -274,3 +274,24 @@ plot_all
 ggsave(plot_all, filename = "./Data/DataNotYetUploadedToEDI/Raw_fluoroprobe/CCR_epi_2018.png",
        h = 3, w = 8, units = "in")
 
+#timeseries line plots of average across epilimnion
+lineplot_data <- fp %>%
+  group_by(Date) %>%
+  summarize(Total = mean(TotalConc_ugL, na.rm = TRUE),
+            GreenAlgae = mean(GreenAlgae_ugL, na.rm = TRUE),
+            BluegreenAlgae = mean(Bluegreens_ugL, na.rm = TRUE),
+            BrownAlgae = mean(Browns_ugL, na.rm = TRUE),
+            MixedAlgae = mean(Mixed_ugL, na.rm = TRUE)) %>%
+  gather(Total:MixedAlgae, key = "spectral_group", value = "ugL")
+
+plot_all <- ggplot(data = lineplot_data, aes(x = Date, y = ugL, group = spectral_group, colour = spectral_group))+
+  geom_line(size = 1)+
+  scale_colour_manual(values = c("darkcyan","chocolate1","chartreuse4","purple","black"))+
+  ylab("micrograms per liter")+
+  ggtitle("FCR 2019")+
+  # ylim(c(0,5))+
+  # xlim(c(125,275))+
+  theme_bw()
+plot_all
+ggsave(plot_all, filename = "C:/Users/Mary Lofton/Desktop/FCR_FP_2019_lineplot.png",
+       h = 3, w = 8, units = "in")
