@@ -8,7 +8,7 @@
 rm(list=ls())
 
 ########WHAT RESERVOIR ARE YOU WORKING WITH?########
-Reservoir = "FCR" #choose from FCR, BVR, CCR
+Reservoir = "SHR" #choose from FCR, BVR, CCR
 ####################################################
 
 ########WHAT YEAR WOULD YOU LIKE TO PLOT?###########
@@ -295,3 +295,23 @@ plot_all <- ggplot(data = lineplot_data, aes(x = Date, y = ugL, group = spectral
 plot_all
 ggsave(plot_all, filename = "C:/Users/Mary Lofton/Desktop/FCR_FP_2019_lineplot.png",
        h = 3, w = 8, units = "in")
+
+#single profiles
+dat <- fp %>%
+  select(-YellowSubstances_ugL)%>%
+  gather(GreenAlgae_ugL:TotalConc_ugL, key = spectral_group, value = ugL) %>%
+  mutate(Depth_m = as.numeric(Depth_m))
+
+profile <- ggplot(data = dat, aes(x = ugL, y = Depth_m, color = spectral_group, group = spectral_group))+
+  geom_path(size = 1)+
+  scale_colour_manual(values = c("darkcyan","chocolate1","chartreuse4","purple","black"))+
+  xlab("micrograms per liter")+
+  ggtitle("SHR")+
+  scale_y_reverse()+
+  theme(axis.title = element_text(size = 16),legend.title = element_text(size = 16),
+        axis.text = element_text(size = 14),legend.text = element_text(size = 14),
+        panel.background = element_blank(),title = element_text(size = 16))
+profile  
+ggsave(profile, filename = "C:/Users/Mary Lofton/Desktop/SHR_FP_2019_profile.png",
+       h = 6, w = 5, units = "in")
+  
