@@ -97,6 +97,7 @@ for(i in 5:17) { #for loop to create new columns in data frame
 }
 
 #Air temperature data cleaning
+#add if time frame statement
 #create linear model between the panel temp and the air temperature sensor for 2015,
     # (lm_Panel2015) and then apply correction to air temperature dataset
 MetAir_2015=Met[Met$DateTime<"2016-01-01 00:00:00",c(1,4,8)]
@@ -109,6 +110,7 @@ Met$Note_AirTemp_Average_C=ifelse((Met$AirTemp_Average_C - (1.6278+(0.9008*Met$C
 Met$AirTemp_Average_C=ifelse((Met$AirTemp_Average_C - (1.6278+(0.9008*Met$CR3000Panel_temp_C)))>(3*sd(lm_Panel2015$residuals)),(1.6278+(0.9008*Met$CR3000Panel_temp_C)), Met$AirTemp_Average_C)
 
 #Infared radiation cleaning
+#include in above if time frame
 #fix infrared radiation voltage reading after airtemp correction
 Met$Flag_InfaredRadiationUp_Average_W_m2=ifelse(Met$InfaredRadiationUp_Average_W_m2<100,4,Met$Flag_InfaredRadiationUp_Average_W_m2)
 Met$Note_InfaredRadiationUp_Average_W_m2=ifelse(Met$InfaredRadiationUp_Average_W_m2<100,"Value_corrected_from_Voltage_with_InfRadUp_equation_as_described_in_metadata",Met$Note_InfaredRadiationUp_Average_W_m2)
@@ -134,6 +136,7 @@ Met$InfaredRadiationDown_Average_W_m2=ifelse((Met$InfaredRadiationDown_Average_W
 
 Met=Met[,-c(1,47,48)]
 
+#full data set QAQC
 #Inf outliers, must go after corrections
 Met$Flag_InfaredRadiationUp_Average_W_m2=ifelse(Met$InfaredRadiationUp_Average_W_m2<150,4,Met$Flag_InfaredRadiationUp_Average_W_m2)
 Met$Note_InfaredRadiationUp_Average_W_m2=ifelse(Met$InfaredRadiationUp_Average_W_m2<150,"Outlier_set_to_NA",Met$Note_InfaredRadiationUp_Average_W_m2)
