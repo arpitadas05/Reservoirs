@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eml:eml xmlns:eml="https://eml.ecoinformatics.org/eml-2.2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:stmml="http://www.xml-cml.org/schema/stmml-1.2" packageId="edi.454.2" xsi:schemaLocation="eml://ecoinformatics.org/eml-2.1.1  http://nis.lternet.edu/schemas/EML/eml-2.1.1/eml.xsd" system="edi">
+  <access authSystem="https://pasta.edirepository.org/authentication" order="allowFirst" scope="document">
+    <allow>
+      <principal>uid=ccarey,o=EDI,dc=edirepository,dc=org</principal>
+      <permission>all</permission>
+    </allow>
+    <allow>
+      <principal>public</principal>
+      <permission>read</permission>
+    </allow>
+  </access>
+  <dataset>
+    <title>Manually-collected discharge data for multiple inflow tributaries entering Falling Creek Reservoir and Beaverdam Reservoir, Vinton, Virginia, USA in 2019</title>
+    <creator>
+      <individualName>
+        <givenName>Cayelan</givenName>
+        <givenName>C</givenName>
+        <surName>Carey</surName>
+      </individualName>
+      <organizationName>Virginia Tech</organizationName>
+      <electronicMailAddress>cayelan@vt.edu</electronicMailAddress>
+      <userId directory="https://orcid.org">https://orcid.org/0000-0001-8835-4476</userId>
+    </creator>
+    <creator>
+      <individualName>
+        <givenName>Whitney</givenName>
+        <givenName>M</givenName>
+        <surName>Woelmer</surName>
+      </individualName>
+      <organizationName>Virginia Tech</organizationName>
+      <electronicMailAddress>wwoelmer@vt.edu</electronicMailAddress>
+      <userId directory="https://orcid.org">https://orcid.org/0000-0001-5147-3877</userId>
+    </creator>
+    <creator>
+      <individualName>
+        <givenName>James</givenName>
+        <givenName>T</givenName>
+        <surName>Maze</surName>
+      </individualName>
+      <organizationName>Virginia Tech</organizationName>
+      <electronicMailAddress>jtmaze@vt.edu</electronicMailAddress>
+    </creator>
+    <creator>
+      <individualName>
+        <givenName>Alex</givenName>
+        <givenName>G</givenName>
+        <surName>Hounshell</surName>
+      </individualName>
+      <organizationName>Virginia Tech</organizationName>
+      <electronicMailAddress>alexgh@vt.edu</electronicMailAddress>
+      <userId directory="https://orcid.org">https://orcid.org/0000-0003-1616-9399</userId>
+    </creator>
+    <pubDate>2019-12-16</pubDate>
+    <abstract>
+      <para>
+  Discharge rates at five inflow streams into Falling Creek Reservoir
+  (Vinton, Virginia, USA) and Beaverdam Reservoir (Vinton, Virginia,
+  USA) were measured manually using multiple methods in 2019. Falling
+  Creek Reservoir and Beaverdam Reservoir are owned and operated by the
+  Western Virginia Water Authority as primary and secondary drinking
+  water sources, respectively, for Roanoke, Virginia, and this dataset
+  is used for creating a water budget for the two reservoirs. The
+  dataset consists of discharge rates calculated using one of three
+  methods: propeller flowmate, salt injection, or velocity float method.
+  Data were collected weekly to monthly from February through October
+  2019. References: Gordon, N.D., T.A. McMahon, and B.L. Finlayson.
+  2004. Stream Hydrology: an Introduction for Ecologists, 2nd edition.
+  John Wiley &amp;amp; Sons, Inc., New York.
+</para>
+    </abstract>
+    <keywordSet>
+      <keyword>Virginia Tech</keyword>
+      <keyword>Carey Lab</keyword>
+      <keyword>Western Virginia Water Authority</keyword>
+      <keyword>Falling Creek Reservoir</keyword>
+      <keyword>Beaverdam Reservoir</keyword>
+    </keywordSet>
+    <keywordSet>
+      <keyword>stream discharge</keyword>
+      <keyword>streamflow</keyword>
+      <keyword>water balance</keyword>
+      <keyword>stream</keyword>
+      <keywordThesaurus>LTER Controlled Vocabulary</keywordThesaurus>
+    </keywordSet>
+    <intellectualRights>
+      <para>
+  This information is released under the Creative Commons license -
+  Attribution - CC BY (https://creativecommons.org/licenses/by/4.0/).
+  The consumer of these data ("Data User" herein) is required
+  to cite it appropriately in any publication that results from its use.
+  The Data User should realize that these data may be actively used by
+  others for ongoing research and that coordination may be necessary to
+  prevent duplicate publication. The Data User is urged to contact the
+  authors of these data if any questions about methodology or results
+  occur. Where appropriate, the Data User is encouraged to consider
+  collaboration or co-authorship with the authors. The Data User should
+  realize that misinterpretation of data may occur if used out of
+  context of the original study. While substantial efforts are made to
+  ensure the accuracy of data and associated documentation, complete
+  accuracy of data sets cannot be guaranteed. All data are made
+  available "as is." The Data User should be aware, however,
+  that data are updated periodically and it is the responsibility of the
+  Data User to check for new versions of the data. The data authors and
+  the repository where these data were obtained shall not be liable for
+  damages resulting from any use or misinterpretation of the data. Thank
+  you.
+</para>
+    </intellectualRights>
+    <coverage>
+      <geographicCoverage>
+        <geographicDescription>Falling Creek Reservoir and Beaverdam Reservoir are located in Vinton, Virginia, USA</geographicDescription>
+        <boundingCoordinates>
+         <westBoundingCoordinate>-79.83692</westBoundingCoordinate>
+  <eastBoundingCoordinate>-79.81721</eastBoundingCoordinate>
+  <northBoundingCoordinate>37.322851</northBoundingCoordinate>
+  <southBoundingCoordinate>37.30247</southBoundingCoordinate>
+        </boundingCoordinates>
+      </geographicCoverage>
+      <temporalCoverage>
+        <rangeOfDates>
+          <beginDate>
+            <calendarDate>2019-02-08</calendarDate>
+          </beginDate>
+          <endDate>
+            <calendarDate>2019-10-30</calendarDate>
+          </endDate>
+        </rangeOfDates>
+      </temporalCoverage>
+    </coverage>
+    <maintenance>
+      <description>ongoing</description>
+    </maintenance>
+    <contact>
+      <individualName>
+        <givenName>Cayelan</givenName>
+        <givenName>C</givenName>
+        <surName>Carey</surName>
+      </individualName>
+      <organizationName>Virginia Tech</organizationName>
+      <electronicMailAddress>cayelan@vt.edu</electronicMailAddress>
+      <userId directory="https://orcid.org">https://orcid.org/0000-0001-8835-4476</userId>
+    </contact>
+    <methods>
+      <methodStep>
+        <description>
+          <para>
+  We calculated the discharge rate of water in cubic meters per second
+  at 8 sites along 5 tributaries into Falling Creek Reservoir and
+  Beaverdam Reservoir using three different methods: a handheld
+  flowmeter probe, salt injection, and velocity floats with
+  cross-sectional discharge calculations. For the flowmeter method,
+  discharge was estimated by measuring the velocity (in meters per
+  second) using a propeller flowmeter (Forestry Supplies, Inc. Model FP
+  111) or an instantaneous velocity meter (Marsh-Mcbirney Flo-Mate Model
+  2000656) and depth (in m) at 0.1m width intervals along a
+  cross-section of the stream. The velocity was multiplied by the width
+  and depth, to calculate discharge at each transect, which were then
+  summed to calculate total discharge along the stream width, following
+  the methods in Gordon et al. (2004) and detailed further within the
+  standard operating protocol (SOP) included in this data package. For
+  the salt injection method, discharge was calculated by injecting a
+  known mass (in g) determined as a relative proportion of stream width
+  (see SOP included in this data package for more information) of NaCl
+  into the stream and measuring the change in conductivity over time
+  downstream using an EcoSense (EC 300A, serial number JC01635)
+  conductivity meter, following Gordon et al. (2004). Conductivity
+  measurements were taken at 3-second intervals until the conductivity
+  returned to baseline readings (see SOP for more information). When
+  streamflow was not conducive to using flowmeter or salt injection
+  methods because it was very low, discharge was estimated using a
+  velocity float method, following methods outlined in Gordon et
+  al. (2004) and within the SOP included in this data package.
+</para>
+        </description>
+      </methodStep>
+    </methods>
+    <project>
+      <title>No project title to report</title>
+      <personnel>
+        <individualName>
+          <givenName>Cayelan</givenName>
+          <givenName>C</givenName>
+          <surName>Carey</surName>
+        </individualName>
+        <organizationName>Virginia Tech</organizationName>
+        <electronicMailAddress>cayelan@vt.edu</electronicMailAddress>
+        <userId directory="https://orcid.org">https://orcid.org/0000-0001-8835-4476</userId>
+        <role>Principal Investigator</role>
+      </personnel>
+      <funding/>
+      <relatedProject>
+        <title>SCC-IRG Track 2: Resilient Water Systems: Integrating Environmental Sensor Networks and Real-Time Forecasting to Adaptively Manage Drinking Water Quality and Build Social Trust</title>
+        <personnel>
+          <individualName>
+            <givenName>Cayelan</givenName>
+            <givenName>C</givenName>
+            <surName>Carey</surName>
+          </individualName>
+          <organizationName>Virginia Tech</organizationName>
+          <electronicMailAddress>cayelan@vt.edu</electronicMailAddress>
+          <userId directory="https://orcid.org">https://orcid.org/0000-0001-8835-4476</userId>
+          <role>Principal Investigator</role>
+        </personnel>
+        <funding>National Science Foundation: 1737424</funding>
+      </relatedProject>
+      <relatedProject>
+        <title>Collaborative Research: Consequences of changing oxygen availability for carbon cycling in freshwater ecosystems</title>
+        <personnel>
+          <individualName>
+            <givenName>Cayelan</givenName>
+            <givenName>C</givenName>
+            <surName>Carey</surName>
+          </individualName>
+          <organizationName>Virginia Tech</organizationName>
+          <electronicMailAddress>cayelan@vt.edu</electronicMailAddress>
+          <userId directory="https://orcid.org">https://orcid.org/0000-0001-8835-4476</userId>
+          <role>Principal Investigator</role>
+        </personnel>
+        <funding>National Science Foundation: 1753639</funding>
+      </relatedProject>
+    </project>
+    <dataTable>
+      <entityName>Reservoir Continuum Manual Discharge Data</entityName>
+      <entityDescription>Reservoir Continuum Manual Discharge Data</entityDescription>
+      <physical>
+        <objectName>2019_Continuum_Discharge.csv</objectName>
+        <size unit="bytes">2554</size>
+        <authentication method="MD5">9a22c9ee139d590f3006c56c3b7befe0</authentication>
+        <dataFormat>
+          <textFormat>
+            <numHeaderLines>1</numHeaderLines>
+            <recordDelimiter>\r\n</recordDelimiter>
+            <attributeOrientation>column</attributeOrientation>
+            <simpleDelimited>
+              <fieldDelimiter>,</fieldDelimiter>
+            </simpleDelimited>
+          </textFormat>
+        </dataFormat>
+      </physical>
+      <attributeList>
+        <attribute>
+          <attributeName>Reservoir</attributeName>
+          <attributeDefinition>Three-letter code corresponding to sampled reservoir</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>FCR</code>
+                    <definition>Falling Creek Reservoir</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>BVR</code>
+                    <definition>Beaverdam Reservoir</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Site</attributeName>
+          <attributeDefinition>Stream sampling site at each reservoir</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>200</code>
+                    <definition>Secondary inflow (wetland) stream to Falling Creek Reservoir (37.30943,-79.83619) or right arm inflow to Beaverdam Reservoir (37.322851,-79.81721)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>99</code>
+                    <definition>Farthest downstream site on inflow stream to Falling Creek Reservoir (37.307613,-79.8360878)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>100</code>
+                    <definition>Inflow stream to Falling Creek Reservoir (37.30858,-79.83494) or Beaverdam Reservoir (37.31957,-79.82437)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>101</code>
+                    <definition>Upstream site along inflow to Falling Creek Reservoir (37.309653,-79.830467)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>102</code>
+                    <definition>Furthest upstream site on inflow stream to Falling Creek Reservoir (37.311678,-79.827357)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>1</code>
+                    <definition>Outflow site at spillway of Falling Creek Reservoir (37.30247,-79.83692)</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Date</attributeName>
+          <attributeDefinition>Date of sampling. All data were collected in the eastern time zone of the U.S.A., with daylight savings time observed</attributeDefinition>
+          <storageType>date</storageType>
+          <measurementScale>
+            <dateTime>
+              <formatString>YYYY-MM-DD</formatString>
+              <dateTimeDomain/>
+            </dateTime>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Flow_cms</attributeName>
+          <attributeDefinition>Discharge flow rate derived using flowmeter, salt injection, or float velocity methods, see metadata for more information</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>cubicMetersPerSecond</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">0</minimum>
+                  <maximum exclusive="false">0.23</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Method</attributeName>
+          <attributeDefinition>Code for method used to calculate discharge</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>F</code>
+                    <definition>Flowmeter</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>S</code>
+                    <definition>Salt injection</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>V</code>
+                    <definition>Velocity float</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Flag_Flow</attributeName>
+          <attributeDefinition>Flag for flow</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>0</code>
+                    <definition>data not suspect</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>3</code>
+                    <definition>Value suspect, conditions not well captured by flowmeter method</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>5</code>
+                    <definition>Value suspect, conditions not well captured by velocity float method</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+      </attributeList>
+      <numberOfRecords>74</numberOfRecords>
+    </dataTable>
+    <otherEntity>
+      <entityName>Script used to calculate discharge from flowmate measurements</entityName>
+      <entityDescription>Script used to calculate discharge from flowmate measurements</entityDescription>
+      <physical>
+        <objectName>calculate_discharge_flowmate_data.R</objectName>
+        <size unit="bytes">1366</size>
+        <authentication method="MD5">1854ac85fe41381864746ac99f5fd493</authentication>
+        <dataFormat>
+          <externallyDefinedFormat>
+            <formatName>unknown</formatName>
+          </externallyDefinedFormat>
+        </dataFormat>
+      </physical>
+      <entityType>unknown</entityType>
+    </otherEntity>
+    <otherEntity>
+      <entityName>SOPs for discharge data collection and calculation using flowmeter, salt injection, and velocity float methods</entityName>
+      <entityDescription>SOPs for discharge data collection and calculation using flowmeter, salt injection, and velocity float methods</entityDescription>
+      <physical>
+        <objectName>SOP for Manual Reservoir Continuum Discharge Data Collection and Calculation.pdf</objectName>
+        <size unit="bytes">130372</size>
+        <authentication method="MD5">063c4c944383efebf41d37cb35968dc4</authentication>
+        <dataFormat>
+          <externallyDefinedFormat>
+            <formatName>unknown</formatName>
+          </externallyDefinedFormat>
+        </dataFormat>
+      </physical>
+      <entityType>unknown</entityType>
+    </otherEntity>
+  </dataset>
+</eml:eml>
