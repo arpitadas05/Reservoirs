@@ -8,7 +8,7 @@
 rm(list=ls())
 
 ########WHAT RESERVOIR ARE YOU WORKING WITH?########
-Reservoir = "SHR" #choose from FCR, BVR, CCR
+Reservoir = "BVR" #choose from FCR, BVR, CCR
 ####################################################
 
 ########WHAT YEAR WOULD YOU LIKE TO PLOT?###########
@@ -274,7 +274,7 @@ plot_all
 ggsave(plot_all, filename = "./Data/DataNotYetUploadedToEDI/Raw_fluoroprobe/CCR_epi_2018.png",
        h = 3, w = 8, units = "in")
 
-#timeseries line plots of average across epilimnion
+#BVR timeseries line plots of average across epilimnion
 lineplot_data <- fp %>%
   group_by(Date) %>%
   summarize(Total = mean(TotalConc_ugL, na.rm = TRUE),
@@ -288,13 +288,50 @@ plot_all <- ggplot(data = lineplot_data, aes(x = Date, y = ugL, group = spectral
   geom_line(size = 1)+
   scale_colour_manual(values = c("darkcyan","chocolate1","chartreuse4","purple","black"))+
   ylab("micrograms per liter")+
-  ggtitle("FCR 2019")+
+  ggtitle("BVR 2019")+
   # ylim(c(0,5))+
   # xlim(c(125,275))+
-  theme_bw()
+  theme(axis.title = element_text(size = 16),legend.title = element_text(size = 16),
+        axis.text = element_text(size = 14),legend.text = element_text(size = 14),
+        panel.background = element_blank(),title = element_text(size = 16))
+plot_all
+ggsave(plot_all, filename = "C:/Users/Mary Lofton/Desktop/BVR_FP_2019_lineplot.png",
+       h = 5, w = 10, units = "in")
+
+#FCR timeseries line plots of average across epilimnion
+lineplot_data <- fp %>%
+  group_by(Date) %>%
+  summarize(Total = mean(TotalConc_ugL, na.rm = TRUE),
+            GreenAlgae = mean(GreenAlgae_ugL, na.rm = TRUE),
+            BluegreenAlgae = mean(Bluegreens_ugL, na.rm = TRUE),
+            BrownAlgae = mean(Browns_ugL, na.rm = TRUE),
+            MixedAlgae = mean(Mixed_ugL, na.rm = TRUE)) %>%
+  gather(Total:MixedAlgae, key = "spectral_group", value = "ugL")
+
+#solid is on; dashed is off
+plot_all <- ggplot(data = lineplot_data, aes(x = Date, y = ugL, group = spectral_group, colour = spectral_group))+
+  geom_line(size = 1)+
+  scale_colour_manual(values = c("darkcyan","chocolate1","chartreuse4","purple","black"))+
+  ylab("micrograms per liter")+
+  geom_vline(xintercept = as.Date("2019-06-03"))+
+  geom_vline(xintercept = as.Date("2019-07-08"))+
+  geom_vline(xintercept = as.Date("2019-08-05"))+
+  geom_vline(xintercept = as.Date("2019-09-02"))+
+  geom_vline(xintercept = as.Date("2019-09-28"))+
+  geom_vline(xintercept = as.Date("2019-06-17"), linetype = "dashed")+
+  geom_vline(xintercept = as.Date("2019-07-22"), linetype = "dashed")+
+  geom_vline(xintercept = as.Date("2019-08-19"), linetype = "dashed")+
+  geom_vline(xintercept = as.Date("2019-09-28")+0.5, linetype = "dashed")+
+  geom_vline(xintercept = as.Date("2019-11-20"), linetype = "dashed")+
+  ggtitle("FCR 2019")+
+  theme(axis.title = element_text(size = 16),legend.title = element_text(size = 16),
+        axis.text = element_text(size = 14),legend.text = element_text(size = 14),
+        panel.background = element_blank(),title = element_text(size = 16))
 plot_all
 ggsave(plot_all, filename = "C:/Users/Mary Lofton/Desktop/FCR_FP_2019_lineplot.png",
-       h = 3, w = 8, units = "in")
+       h = 5, w = 10, units = "in")
+
+
 
 #single profiles
 dat <- fp %>%
@@ -314,4 +351,6 @@ profile <- ggplot(data = dat, aes(x = ugL, y = Depth_m, color = spectral_group, 
 profile  
 ggsave(profile, filename = "C:/Users/Mary Lofton/Desktop/SHR_FP_2019_profile.png",
        h = 6, w = 5, units = "in")
+
+
   
