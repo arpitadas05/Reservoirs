@@ -188,9 +188,11 @@ make_eml(
   maintenance.description = 'ongoing',
   data.table = "FluoroProbe.csv",
   data.table.description = "Reservoir FluoroProbe dataset",
+  other.entity = "FluoroProbe_QAQC.R",
+  other.entity.description = "data aggregation and quality control script",
   user.id = 'ccarey',
   user.domain = 'EDI',
-  package.id = 'edi.272.3')
+  package.id = 'edi.272.4')
 
 # Once your xml file with your PUBLISHED package.id is Done, return to the 
 # EDI Production environment (https://portal.edirepository.org/nis/home.jsp)
