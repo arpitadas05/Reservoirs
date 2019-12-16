@@ -47,7 +47,6 @@ Met_agg = Met_agg[!duplicated(Met_agg$TIMESTAMP),] #takes out duplicated values 
 Met= Met_agg #reset data so you don't have to load from scratch 
 #Met = Met_past #if you are *only* archiving past data - note! you won't do this if you are adding in new data after 2018
 Met$TIMESTAMP=ymd_hms(Met$TIMESTAMP, tz="Etc/GMT+5") #formats timestamp as double check; resulted in 1 failed parse
-Met = Met[year(Met$TIMESTAMP)<2019,] #all data before 2019
 
 #order data by timestamp
 Met=Met[order(Met$TIMESTAMP),]
@@ -116,7 +115,6 @@ Met_prefilter$AirTemp_Average_C=ifelse((Met_prefilter$AirTemp_Average_C - (1.627
 Met<-rbind(Met_prefilter,Met_postfilter)
 
 #Infared radiation cleaning
-#include in above if time frame
 #fix infrared radiation voltage reading after airtemp correction
 Met$Flag_InfaredRadiationUp_Average_W_m2=ifelse(Met$InfaredRadiationUp_Average_W_m2<100,4,Met$Flag_InfaredRadiationUp_Average_W_m2)
 Met$Note_InfaredRadiationUp_Average_W_m2=ifelse(Met$InfaredRadiationUp_Average_W_m2<100,"Value_corrected_from_Voltage_with_InfRadUp_equation_as_described_in_metadata",Met$Note_InfaredRadiationUp_Average_W_m2)
