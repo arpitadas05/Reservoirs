@@ -109,26 +109,13 @@ catdata_adj = catdata_flag%>%
                                 RDOsat_percent_9_adjusted))
 
 
-toPlot <- catdata_adj%>%
-  filter(DateTime>as.Date("2019-09-01"),
-         DateTime<as.Date("2019-10-04"))
 
-toPlot <- catdata_adj%>%
-  filter(DateTime>as.Date("2019-08-05 12:45:00"),
-         DateTime<as.Date("2019-08-15 12:40:00"))
-
-plot(as.POSIXct(toPlot$DateTime), toPlot$RDOsat_percent_9_adjusted, type = "l", xlab = "", ylab = "DO (mg/L)")
-lines(as.POSIXct(toPlot$DateTime), toPlot$RDOsat_percent_9, col = "red")
-points(ctd_1.0$Date, ctd_1.0$DO_mgL, type = "p", pch = 21, col = "black", bg = "black", cex = 2, lwd = 2)
-points(ctd_5.0$Date, ctd_5.0$DO_mgL, type = "p", pch = 21, col = "black", bg = "blue", cex = 2, lwd = 2)
-points(ctd_9.0$Date, ctd_9.0$DO_mgL, type = "p", pch = 21, col = "black", bg = "magenta", cex = 2, lwd = 2)
-abline(v=on, lwd = 1.5)
-abline(v=off,lty=2, lwd = 1.5)
-legend("topright", legend=c("SSS on", "SSS off"), lty = c(1,2), bg = "white")
 
 catdata_final <- catdata_published%>%
   full_join(catdata_adj)%>%
   select(Reservoir, Site, DateTime, ThermistorTemp_C_surface, ThermistorTemp_C_1, ThermistorTemp_C_2, ThermistorTemp_C_3, ThermistorTemp_C_4, ThermistorTemp_C_5, ThermistorTemp_C_6, ThermistorTemp_C_7, ThermistorTemp_C_8, ThermistorTemp_C_9, RDO_mgL_5, RDOsat_percent_5, RDOTemp_C_5, RDO_mgL_9, RDOsat_percent_9, RDOTemp_C_9, EXOTemp_C_1, EXOCond_uScm_1, EXOSpCond_uScm_1, EXOTDS_mgL_1, EXODOsat_percent_1, EXODO_mgL_1, EXOChla_RFU_1, EXOChla_ugL_1, EXOBGAPC_RFU_1, EXOBGAPC_ugL_1, EXOfDOM_RFU_1, EXOfDOM_QSU_1, EXO_pressure, EXO_depth, EXO_battery, EXO_cablepower, EXO_wiper, RECORD, CR6_Batt_V, CR6Panel_Temp_C, RDO_mgL_5_adjusted, RDOsat_percent_5_adjusted, RDO_mgL_9_adjusted, RDOsat_percent_9_adjusted, Flag_All, Flag_DO_1, Flag_DO_5, Flag_DO_9, Flag_Chla, Flag_Phyco, Flag_TDS)
+
+catdata_final <- catdata_final[!is.na(catdata_final$Reservoir),]
 
 write_csv(catdata_final,"catdata_edited_withDO.csv")
 ```
