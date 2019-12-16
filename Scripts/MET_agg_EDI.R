@@ -1,6 +1,6 @@
 ###QA/QC script for FCR meteorological data Environmental Data Initiative publishing
 ###Script written by Bethany Bookout & Cayelan Carey
-###Last modified 21 July 2019 to publish 2015-2018 met data to EDI
+###Last modified 16 DEC 2019 to publish 2015-2019 met data to EDI
 ###Contact info: Cayelan Carey, Virginia Tech, cayelan@vt.edu
 
 ###1) Install and load packages needed
