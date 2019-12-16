@@ -1,15 +1,16 @@
 ##MakeEMLInflow
 ##Author: Mary Lofton
 ##Date: 19DEC18
+## Updated: 16Dec19, A Hounshell and R. Corrigan
 
 # # Install devtools
-# install.packages("devtools")
+install.packages("devtools")
 # 
 # # Load devtools
-# library(devtools)
+library(devtools)
 # 
 # # Install and load EMLassemblyline
-# install_github("EDIorg/EMLassemblyline")
+install_github("EDIorg/EMLassemblyline")
 library(EMLassemblyline)
 
 #Step 1: Create a directory for your dataset
@@ -29,9 +30,9 @@ library(EMLassemblyline)
 ?import_templates
 
 # Import templates for an example dataset licensed under CC0, with 2 tables.
-import_templates(path = "C:/Users/Mary Lofton/Documents/Github/Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLInflow",
+import_templates(path = "C:/Users/ahoun/OneDrive/Desktop/Reservoir/Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLInflow",
                  license = "CCBY",
-                 data.files = c("inflow"))
+                 data.files = c('inflow_for_EDI_2013_2019.csv'))
 
 #Step 6: Script your workflow
 #that's what this is, silly!
@@ -59,6 +60,8 @@ import_templates(path = "C:/Users/Mary Lofton/Documents/Github/Reservoirs/Data/D
 #copy-paste this information in from your metadata document
 #Cayelan needs to be listed several times; she has to be listed separately for her roles as
 #PI, creator, and contact, and also separately for each separate funding source (!!)
+
+#############STOPPED HERE! 16DEC19  - start here on 17DEC19
 
 #Step 12: Attributes
 #grab attribute names and definitions from your metadata word document
