@@ -158,18 +158,6 @@ diff <- diff %>%
          Pressure_psi = ifelse(DateTime <= "2017-11-13 10:45:00" & DateTime >= "2017-10-15 06:00:00",NA,Pressure_psi),
          Temp_C = ifelse(DateTime <= "2017-11-13 10:45:00" & DateTime >= "2017-10-15 06:00:00",NA,Temp_C)) %>%
   mutate(Pressure_psia = Pressure_psi - Baro_pressure_psi)
-  
-#interpolate missing data - DO NOT DO THIS FOR EDI PUBLICATION FILES!####################
-x_2014 <- diff$DateTime[35864:39597]
-y_2014 <- diff$Baro_pressure_psi[35864:39597]
-inter_2014 = as.data.frame(approx(y_2014, method = "linear", n = 3734))
-diff$Baro_pressure_psi[35864:39597] <- inter_2014$y
-
-x_2017 <- diff$DateTime[169318:171456]
-y_2017 <- diff$Pressure_psi[169318:171456]
-inter_2017 = as.data.frame(approx(y_2017, method = "linear", n = 2139))
-diff$Pressure_psi[169318:171456] <- inter_2017$y
-#########################################################################################
 
 diff <- diff %>%
   mutate(Pressure_psia = Pressure_psi - Baro_pressure_psi)
@@ -238,6 +226,11 @@ diff_post <- diff_post %>%  mutate(head = (0.149*Pressure_psia)/0.293) %>%
 
 # and put pre and post back together
 diff <- rbind(diff_pre, diff_post)
+
+
+
+
+
 
 #creating columns for EDI
 diff$Reservoir <- "FCR" #creates reservoir column to match other data sets
@@ -320,37 +313,61 @@ Inflow_Final <- Inflow_Final[order(Inflow_Final$DateTime),] #orders file by date
 Inflow_Final <- Inflow_Final %>%
   mutate(Flow_cms = ifelse(Flow_cms <= 0, NA, Flow_cms))
 
+colnames(Inflow_Final) <- c('Reservoir', 'Site', 'DateTime', 'WVWA_Pressure_psi', 'WVWA_Baro_pressure_psi',  'WVWA_Pressure_psia', 'WVWA_Flow_cms', 'WVWA_Temp_C')
+
+#add VT sensor data to the WVWA transducer data ('Inflow_Final')
+VTsens <- read_csv(file.path('https://raw.githubusercontent.com/CareyLabVT/SCCData/diana-data/FCRweir.csv'), skip=5)
+VTdat <- VTsens[,c(1,6,7)]
+colnames(VTdat) <- c('DateTime', 'VT_Pressure_psia', 'VT_Temp_C')
+
+VT_pre <- VTdat[VTdat$DateTime< as.POSIXct('2019-06-06 09:30:00'),]  
+VT_pre <- VT_pre %>% mutate(head = (VT_Pressure_psia)*0.70324961490205 - 0.1603375 + 0.03048) %>% 
+  mutate(flow_cfs = (0.62 * (2/3) * (1.1) * 4.43 * (head ^ 1.5) * 35.3147)) %>% 
+  mutate(VT_Flow_cms = flow_cfs*0.028316847   )%>% 
+  select(DateTime, VT_Pressure_psia, VT_Flow_cms, VT_Temp_C) 
+
+VT_post <- VTdat[VTdat$DateTime > as.POSIXct('2019-06-07 00:00:00'),]  
+VT_post <- VT_post %>%  mutate(head = (0.149*VT_Pressure_psia)/0.293) %>% 
+  mutate(VT_Flow_cms = 2.391* (head^2.5)) %>% 
+  select(DateTime, VT_Pressure_psia, VT_Flow_cms, VT_Temp_C)
+VTinflow <- rbind(VT_pre, VT_post)
+VTinflow$Reservoir <- 'FCR'
+VTinflow$Site <- 100
+Inflow_Final <- merge(Inflow_Final, VTinflow, by=c('DateTime', 'Reservoir', 'Site'), all=TRUE)
+
+
 #add flags
 Inflow_Final <- Inflow_Final %>%
-  mutate(Flag_Pressure_psi = ifelse(DateTime <= "2017-11-13 10:45:00" & DateTime >= "2017-10-15 06:00:00",5,ifelse(DateTime >= "2016-04-18 15:15:00 EST",1,0)),
-         Flag_Baro_pressure_psi = ifelse(DateTime <= "2014-04-28 05:45:00" & DateTime >= "2014-03-20 09:00:00",2,0),
-         Flag_Temp = ifelse(DateTime <= "2017-11-13 10:45:00" & DateTime >= "2017-10-15 06:00:00",5,0),
-         Flag_Flow = ifelse(DateTime <= "2014-04-28 05:45:00" & DateTime >= "2014-03-20 09:00:00",2,
+  mutate(WVWA_Flag_Pressure_psia = ifelse(DateTime > '2019-09-20 14:30:00', NA,0),
+         WVWA_Flag_Pressure_psi = ifelse(DateTime > '2019-09-20 14:30:00', NA,
+                                         ifelse(DateTime <= "2017-11-13 10:45:00" & DateTime >= "2017-10-15 06:00:00",5,
+                                                ifelse(DateTime >= "2016-04-18 15:15:00 EST",1,0))),                        
+         WVWA_Flag_Baro_pressure_psi = ifelse(DateTime > '2019-09-20 14:30:00', NA,
+                                              ifelse(DateTime <= "2014-04-28 05:45:00" & DateTime >= "2014-03-20 09:00:00",2,0)),                  
+         WVWA_Flag_Temp = ifelse(DateTime > '2019-09-20 14:30:00', NA,
+                                 ifelse(DateTime <= "2017-11-13 10:45:00" & DateTime >= "2017-10-15 06:00:00",5,0)),
+         WVWA_Flag_Flow = ifelse(DateTime <= "2014-04-28 05:45:00" & DateTime >= "2014-03-20 09:00:00",2,
                             ifelse(DateTime <= "2017-11-13 10:45:00" & DateTime >= "2017-10-15 06:00:00",5,
                                    ifelse(DateTime >= "2019-06-03 00:00:00" & DateTime <= "2019-06-07 00:00:00",14,
-                                          ifelse(DateTime > "2019-06-07 00:00:00" & (0.149*Pressure_psia/0.293) >= 0.3, 16,
-                                          ifelse(DateTime >= "2016-04-18 15:15:00 EST" & Pressure_psia <= 0.18 & is.na(Flow_cms),13,
+                                          ifelse(DateTime > "2019-06-07 00:00:00" & (0.149*WVWA_Pressure_psia/0.293) >= 0.3, 16,
+                                          ifelse(DateTime >= "2016-04-18 15:15:00 EST" & WVWA_Pressure_psia <= 0.18 & is.na(WVWA_Flow_cms),13,
                                                  ifelse(DateTime >= "2016-04-18 15:15:00 EST",1,
-                                                      ifelse(Pressure_psia <= 0.18 & is.na(Flow_cms),3,0))))))))
+                                                      ifelse(WVWA_Pressure_psia <= 0.18 & is.na(WVWA_Flow_cms),3,0))))))),
+          VT_Flag_Flow = ifelse(DateTime >= "2019-06-03 00:00:00" & DateTime <= "2019-06-07 00:00:00",14,
+                                ifelse((0.149*VT_Pressure_psia/0.293) >= 0.3, 16,
+                                  ifelse(VT_Pressure_psia <= 0.18 & is.na(VT_Flow_cms),3,0))),
+          VT_Flag_Pressure_psia = ifelse(DateTime < '2019-04-22 12:00:00', NA,0),
+          VT_Flag_Temp_C = ifelse(DateTime < '2019-04-22 12:00:00',NA,0))
 
 
-Inflow_Final$Flag_Pressure_psia <- 0
 
-Inflow_Final <- Inflow_Final[,c(1,2,3,4,5,6,7,8,9,10,13,12,11)]
+
+Inflow_Final <- Inflow_Final[,c(2,3,1,4,5,6,7,8,9,10,11,13,14,12,16,15,18,17,19)]
 Inflow_Final <- Inflow_Final[-1,]
 
 
-
-#write to file for working lab copy - USE THIS IF YOU HAVE RUN LINES 152-162
-write.csv(Inflow_Final, './Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLInflow/inflow_working.csv', row.names=F) 
-write.csv(Inflow_Final, './Data/DataNotYetUploadedToEDI/Raw_inflow/inflow_working.csv', row.names=F) 
-
-#write to file for EDI copy - if you have NOT run lines 152-162
-Inflow_Final <- Inflow_Final %>%
-  filter(DateTime <= "2018-12-31 23:45:00" & DateTime >= "2013-05-15 12:15:00")
-
 # Write to CSV
-write.csv(Inflow_Final, './Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLInflow/inflow_for_EDI_2013_2018.csv', row.names=F) 
+write.csv(Inflow_Final, './Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLInflow/inflow_for_EDI_2013_2019.csv', row.names=F) 
 
 
 
