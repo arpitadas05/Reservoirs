@@ -30,26 +30,16 @@ cat <- read.csv("./catdata_edited_withDO.csv")
 view_unit_dictionary()
 define_catvars(getwd())
 
-template_core_metadata(
-      path = getwd(),
-      license = "CCBY",
-      file.type = '.txt',
-      write.file = TRUE)
-
-template_table_attributes(
-      path = getwd(),
-      data.path = getwd(),
-      data.table = "CTD_final_2013_2019.csv",
-      write.file = TRUE)
-
 make_eml(path = getwd(),
          dataset.title = "Time series of high-frequency sensor data measuring water temperature, dissolved oxygen, conductivity, specific conductivity, total dissolved solids, chlorophyll a, phycocyanin, and fluorescent dissolved organic matter at discrete depths in Falling Creek Reservoir, Virginia, USA in 2018",
          data.files = "catdata_edited_withDO.csv",
          data.files.description = "Catwalk Sensor String",
          temporal.coverage = c("2018-07-05", "2019-12-16"),
+         geographic.description = "Southwestern Virginia, USA, North America",
+         geographic.coordinates = c("37.309589","-79.836009","37.30266","-79.839249"),
          maintenance.description = "ongoing",
-         user.id = c("ccarey"),
-         package.id = "edi.271.3", #### this is the one that I need to change!!!
-         affiliation = "EDI")
+         user.id = c("carylab1", "ccarey"),
+         package.id = "edi.271.2", #### this is the one that I need to change!!!
+         affiliation = c("EDI", "EDI"))
 ```
 

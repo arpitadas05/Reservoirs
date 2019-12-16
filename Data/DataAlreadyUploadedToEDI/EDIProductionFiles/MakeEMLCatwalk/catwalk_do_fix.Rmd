@@ -21,6 +21,7 @@ catdata <- read.csv("Catwalk_final.csv")
 catdata$DateTime<-as.POSIXct(catdata$DateTime,format = "%Y-%m-%d %H:%M:%S")
 
 catdata_published <- catdata[catdata$DateTime<="2018-12-16",]
+catdata_published <- catdata_published[!is.na(catdata_published$Flag_All),]
 catdata_flag <- catdata[catdata$DateTime>"2018-12-16",]
 
 catdata_flag$Flag_All <- 0
