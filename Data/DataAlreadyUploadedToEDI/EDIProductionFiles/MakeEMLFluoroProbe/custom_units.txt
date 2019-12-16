@@ -1,3 +1,0 @@
-id	unitType	parentSI	multiplierToSI	description
-relativeFluorescenceUnits	dimensionless	NA	NA	measurement of the relative amount of fluorescence excitation detected in response to particular wavelength of light
-
