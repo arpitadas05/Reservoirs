@@ -97,20 +97,24 @@ for(i in 5:17) { #for loop to create new columns in data frame
 }
 
 #Air temperature data cleaning
-#add if time frame statement; air temp filter installed 2019-02-21 11:50:00
+#separate data by date; before and after air temp filter installed 2019-02-21 11:50:00
+Met_prefilter=Met[Met$DateTime<"2019-02-21 11:50:00",]
+Met_postfilter=Met[Met$DateTime>="2019-02-21 11:50:00",]
 #create linear model between the panel temp and the air temperature sensor for 2015,
-    # (lm_Panel2015) and then apply correction to air temperature dataset
+# (lm_Panel2015) and then apply correction to air temperature dataset
 
 MetAir_2015=Met[Met$DateTime<"2016-01-01 00:00:00",c(1,4,8)]
 lm_Panel2015=lm(MetAir_2015$AirTemp_Average_C ~ MetAir_2015$CR3000Panel_temp_C)
 summary(lm_Panel2015)#gives data on linear model parameters
 
-if(Met$DateTime[Met$DateTime<"2019-02-21 11:50:00"]){
 #if Air - Panel > 3 sd(lm_Panel2015) then replace with PanelTemp predicted by lm equation rather than raw value
-Met$Flag_AirTemp_Average_C=ifelse((Met$AirTemp_Average_C - (1.6278+(0.9008*Met$CR3000Panel_temp_C)))>(3*sd(lm_Panel2015$residuals)), 4, Met$Flag_AirTemp_Average_C)
-Met$Note_AirTemp_Average_C=ifelse((Met$AirTemp_Average_C - (1.6278+(0.9008*Met$CR3000Panel_temp_C)))>(3*sd(lm_Panel2015$residuals)),"Substituted_value_calculated_from_Panel_Temp_and_linear_model", Met$Note_AirTemp_Average_C)
-Met$AirTemp_Average_C=ifelse((Met$AirTemp_Average_C - (1.6278+(0.9008*Met$CR3000Panel_temp_C)))>(3*sd(lm_Panel2015$residuals)),(1.6278+(0.9008*Met$CR3000Panel_temp_C)), Met$AirTemp_Average_C)
-}
+Met_prefilter$Flag_AirTemp_Average_C=ifelse((Met_prefilter$AirTemp_Average_C - (1.6278+(0.9008*Met_prefilter$CR3000Panel_temp_C)))>(3*sd(lm_Panel2015$residuals)), 4, Met_prefilter$Flag_AirTemp_Average_C)
+Met_prefilter$Note_AirTemp_Average_C=ifelse((Met_prefilter$AirTemp_Average_C - (1.6278+(0.9008*Met_prefilter$CR3000Panel_temp_C)))>(3*sd(lm_Panel2015$residuals)),"Substituted_value_calculated_from_Panel_Temp_and_linear_model", Met_prefilter$Note_AirTemp_Average_C)
+Met_prefilter$AirTemp_Average_C=ifelse((Met_prefilter$AirTemp_Average_C - (1.6278+(0.9008*Met_prefilter$CR3000Panel_temp_C)))>(3*sd(lm_Panel2015$residuals)),(1.6278+(0.9008*Met_prefilter$CR3000Panel_temp_C)), Met_prefilter$AirTemp_Average_C)
+
+#merge back air temp correction data
+Met<-rbind(Met_prefilter,Met_postfilter)
+
 #Infared radiation cleaning
 #include in above if time frame
 #fix infrared radiation voltage reading after airtemp correction
