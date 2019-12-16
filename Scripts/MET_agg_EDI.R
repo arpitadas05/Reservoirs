@@ -1,6 +1,6 @@
 ###QA/QC script for FCR meteorological data Environmental Data Initiative publishing
 ###Script written by Bethany Bookout & Cayelan Carey
-###Last modified 21 July 2019 to publish 2015-2018 met data to EDI
+###Last modified 16 DEC 2019 to publish 2015-2019 met data to EDI
 ###Contact info: Cayelan Carey, Virginia Tech, cayelan@vt.edu
 
 ###1) Install and load packages needed
@@ -34,7 +34,7 @@ met_timechange=max(which(Met_now$TIMESTAMP=="2019-04-15 10:19:00")) #shows time 
 Met_now$TIMESTAMP<-as.POSIXct(strptime(Met_now$TIMESTAMP, "%Y-%m-%d %H:%M"), tz = "Etc/GMT+5") #get dates aligned
 Met_now$TIMESTAMP[c(1:met_timechange-1)]<-with_tz(force_tz(Met_now$TIMESTAMP[c(1:met_timechange-1)],"Etc/GMT+4"), "Etc/GMT+5") #pre time change data gets assigned proper timezone then corrected to GMT -5 to match the rest of the data set
 
-Met_now=Met_now[-c(which(is.na(Met_now$TIMESTAMP))),] #checks for NA from failed parse, and deletes from dataset
+#Met_now=Met_now[-c(which(is.na(Met_now$TIMESTAMP))),] #checks for NA from failed parse, and deletes from dataset; no NAs present
 Met_now$PAR_Tot_Tot=as.numeric(Met_now$PAR_Tot_Tot) #matching str to past data
 #str(Met_now); str(Met_past) #checks structure for matching of historical dataset with
 # current data
@@ -44,8 +44,8 @@ Met_agg = Met_agg[!duplicated(Met_agg$TIMESTAMP),] #takes out duplicated values 
 
 
 ####3) Aggregate data set for QA/QC ####
-#Met= Met_agg #reset data so you don't have to load from scratch 
-Met = Met_past #if you are *only* archiving past data - note! you won't do this if you are adding in new data after 2018
+Met= Met_agg #reset data so you don't have to load from scratch 
+#Met = Met_past #if you are *only* archiving past data - note! you won't do this if you are adding in new data after 2018
 Met$TIMESTAMP=ymd_hms(Met$TIMESTAMP, tz="Etc/GMT+5") #formats timestamp as double check; resulted in 1 failed parse
 Met = Met[year(Met$TIMESTAMP)<2019,] #all data before 2019
 
@@ -75,7 +75,7 @@ names(Met) = c("DateTime","Record", "CR3000_Batt_V", "CR3000Panel_temp_C",
                "InfaredRadiationDown_Average_W_m2", "Albedo_Average_W_m2", "DOY") #finalized column names
 Met$Reservoir= "FCR"#add reservoir name for EDI archiving
 Met$Site=50 #add site column for EDI archiving
-Met_raw=Met #Met=Met_raw; reset your data
+Met_raw=Met #Met=Met_raw; reset your data, compare QAQC
 
 ####4) Load in maintenance txt file #### 
 # the maintenance file tracks when sensors were repaired or offline due to maintenance
@@ -97,18 +97,26 @@ for(i in 5:17) { #for loop to create new columns in data frame
 }
 
 #Air temperature data cleaning
+#separate data by date; before and after air temp filter installed 2019-02-21 11:50:00
+Met_prefilter=Met[Met$DateTime<"2019-02-21 11:50:00",]
+Met_postfilter=Met[Met$DateTime>="2019-02-21 11:50:00",]
 #create linear model between the panel temp and the air temperature sensor for 2015,
-    # (lm_Panel2015) and then apply correction to air temperature dataset
+# (lm_Panel2015) and then apply correction to air temperature dataset
+
 MetAir_2015=Met[Met$DateTime<"2016-01-01 00:00:00",c(1,4,8)]
 lm_Panel2015=lm(MetAir_2015$AirTemp_Average_C ~ MetAir_2015$CR3000Panel_temp_C)
 summary(lm_Panel2015)#gives data on linear model parameters
 
 #if Air - Panel > 3 sd(lm_Panel2015) then replace with PanelTemp predicted by lm equation rather than raw value
-Met$Flag_AirTemp_Average_C=ifelse((Met$AirTemp_Average_C - (1.6278+(0.9008*Met$CR3000Panel_temp_C)))>(3*sd(lm_Panel2015$residuals)), 4, Met$Flag_AirTemp_Average_C)
-Met$Note_AirTemp_Average_C=ifelse((Met$AirTemp_Average_C - (1.6278+(0.9008*Met$CR3000Panel_temp_C)))>(3*sd(lm_Panel2015$residuals)),"Substituted_value_calculated_from_Panel_Temp_and_linear_model", Met$Note_AirTemp_Average_C)
-Met$AirTemp_Average_C=ifelse((Met$AirTemp_Average_C - (1.6278+(0.9008*Met$CR3000Panel_temp_C)))>(3*sd(lm_Panel2015$residuals)),(1.6278+(0.9008*Met$CR3000Panel_temp_C)), Met$AirTemp_Average_C)
+Met_prefilter$Flag_AirTemp_Average_C=ifelse((Met_prefilter$AirTemp_Average_C - (1.6278+(0.9008*Met_prefilter$CR3000Panel_temp_C)))>(3*sd(lm_Panel2015$residuals)), 4, Met_prefilter$Flag_AirTemp_Average_C)
+Met_prefilter$Note_AirTemp_Average_C=ifelse((Met_prefilter$AirTemp_Average_C - (1.6278+(0.9008*Met_prefilter$CR3000Panel_temp_C)))>(3*sd(lm_Panel2015$residuals)),"Substituted_value_calculated_from_Panel_Temp_and_linear_model", Met_prefilter$Note_AirTemp_Average_C)
+Met_prefilter$AirTemp_Average_C=ifelse((Met_prefilter$AirTemp_Average_C - (1.6278+(0.9008*Met_prefilter$CR3000Panel_temp_C)))>(3*sd(lm_Panel2015$residuals)),(1.6278+(0.9008*Met_prefilter$CR3000Panel_temp_C)), Met_prefilter$AirTemp_Average_C)
+
+#merge back air temp correction data
+Met<-rbind(Met_prefilter,Met_postfilter)
 
 #Infared radiation cleaning
+#include in above if time frame
 #fix infrared radiation voltage reading after airtemp correction
 Met$Flag_InfaredRadiationUp_Average_W_m2=ifelse(Met$InfaredRadiationUp_Average_W_m2<100,4,Met$Flag_InfaredRadiationUp_Average_W_m2)
 Met$Note_InfaredRadiationUp_Average_W_m2=ifelse(Met$InfaredRadiationUp_Average_W_m2<100,"Value_corrected_from_Voltage_with_InfRadUp_equation_as_described_in_metadata",Met$Note_InfaredRadiationUp_Average_W_m2)
@@ -134,6 +142,7 @@ Met$InfaredRadiationDown_Average_W_m2=ifelse((Met$InfaredRadiationDown_Average_W
 
 Met=Met[,-c(1,47,48)]
 
+#full data set QAQC
 #Inf outliers, must go after corrections
 Met$Flag_InfaredRadiationUp_Average_W_m2=ifelse(Met$InfaredRadiationUp_Average_W_m2<150,4,Met$Flag_InfaredRadiationUp_Average_W_m2)
 Met$Note_InfaredRadiationUp_Average_W_m2=ifelse(Met$InfaredRadiationUp_Average_W_m2<150,"Outlier_set_to_NA",Met$Note_InfaredRadiationUp_Average_W_m2)

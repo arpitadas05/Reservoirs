@@ -125,7 +125,7 @@ check <- fp4 %>%
 
 
 #merge two datasets
-fp_og <- read_csv("./Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLFluoroProbe/FluoroProbe.csv")
+fp_og <- read_csv("./Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLFluoroProbe/2014-2018/FluoroProbe.csv")
 colnames(fp_og)
 colnames(fp4)
 head(fp4$DateTime)
