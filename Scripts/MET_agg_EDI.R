@@ -46,7 +46,7 @@ Met_agg = Met_agg[!duplicated(Met_agg$TIMESTAMP),] #takes out duplicated values 
 ####3) Aggregate data set for QA/QC ####
 Met= Met_agg #reset data so you don't have to load from scratch 
 #Met = Met_past #if you are *only* archiving past data - note! you won't do this if you are adding in new data after 2018
-Met$TIMESTAMP=ymd_hms(Met$TIMESTAMP, tz="Etc/GMT+5") #formats timestamp as double check; resulted in 1 failed parse
+Met$TIMESTAMP=ymd_hms(Met$TIMESTAMP, tz="Etc/GMT+5") #formats timestamp as double check
 
 #order data by timestamp
 Met=Met[order(Met$TIMESTAMP),]
@@ -86,11 +86,13 @@ RemoveMet$notes=as.character(RemoveMet$notes)
 
 
 ####5) Create data flags for publishing ####
+#get rid of NaNs
 #create flag + notes columns for data columns c(5:17)
 #set flag 2
 for(i in 5:17) { #for loop to create new columns in data frame
   Met[,paste0("Flag_",colnames(Met[i]))] <- 0 #creates flag column + name of variable
   Met[,paste0("Note_",colnames(Met[i]))] <- NA #creates note column + names of variable
+  Met[which(is.nan(Met[,i])),i] <- NA
   Met[c(which(is.na(Met[,i]))),paste0("Flag_",colnames(Met[i]))] <-2 #puts in flag 2
   Met[c(which(is.na(Met[,i]))),paste0("Note_",colnames(Met[i]))] <- "Sample not collected" #note for flag 2
 }
@@ -156,6 +158,25 @@ Met$Flag_PAR_Total_mmol_m2=ifelse(Met$PAR_Total_mmol_m2>200, 4, Met$Flag_PAR_Tot
 Met$Note_PAR_Total_mmol_m2=ifelse(Met$PAR_Total_mmol_m2>200, "Outlier_set_to_NA", Met$Note_PAR_Total_mmol_m2)
 Met$PAR_Total_mmol_m2=ifelse(Met$PAR_Total_mmol_m2>200, NA, Met$PAR_Total_mmol_m2)
 
+#PAR TOT and AVG 2019 QAQC
+#Take out bad data due to sensor failure. Aug 4-5; Aug 17 - Dec 13
+#PAR_failure=c("2019-08-04":"2019-08-05", "2019-08-15":"2019-12-13")
+Met$Flag_PAR_Total_mmol_m2=ifelse((Met$DateTime>"2019-08-04 00:00:00"&Met$DateTime<"2019-08-05 00:00:00"), 4, Met$Flag_PAR_Total_mmol_m2)
+Met$Note_PAR_Total_mmol_m2=ifelse((Met$DateTime>"2019-08-04 00:00:00"&Met$DateTime<"2019-08-05 00:00:00"), "Outlier_set_to_NA_due_to_probable_sensor_failure", Met$Note_PAR_Total_mmol_m2)
+Met$PAR_Total_mmol_m2=ifelse((Met$DateTime>"2019-08-04 00:00:00"&Met$DateTime<"2019-08-05 00:00:00"), NA, Met$PAR_Total_mmol_m2)
+
+Met$Flag_PAR_Average_umol_s_m2=ifelse((Met$DateTime>"2019-08-04 00:00:00"&Met$DateTime<"2019-08-05 00:00:00"), 4, Met$Flag_PAR_Average_umol_s_m2)
+Met$Note_PAR_Average_umol_s_m2=ifelse((Met$DateTime>"2019-08-04 00:00:00"&Met$DateTime<"2019-08-05 00:00:00"), "Outlier_set_to_NA_due_to_probable_sensor_failure", Met$Note_PAR_Average_umol_s_m2)
+Met$PAR_Average_umol_s_m2=ifelse((Met$DateTime>"2019-08-04 00:00:00"&Met$DateTime<"2019-08-05 00:00:00"), NA, Met$PAR_Average_umol_s_m2)
+
+Met$Flag_PAR_Total_mmol_m2=ifelse(Met$DateTime>"2019-08-15 00:00:00", 4, Met$Flag_PAR_Total_mmol_m2)
+Met$Note_PAR_Total_mmol_m2=ifelse(Met$DateTime>"2019-08-15 00:00:00", "Outlier_set_to_NA_due_to_probable_sensor_failure", Met$Note_PAR_Total_mmol_m2)
+Met$PAR_Total_mmol_m2=ifelse(Met$DateTime>"2019-08-15 00:00:00", NA, Met$PAR_Total_mmol_m2)
+
+Met$Flag_PAR_Average_umol_s_m2=ifelse(Met$DateTime>"2019-08-15 00:00:00", 4, Met$Flag_PAR_Average_umol_s_m2)
+Met$Note_PAR_Average_umol_s_m2=ifelse(Met$DateTime>"2019-08-15 00:00:00", "Outlier_set_to_NA_due_to_probable_sensor_failure", Met$Note_PAR_Average_umol_s_m2)
+Met$PAR_Average_umol_s_m2=ifelse(Met$DateTime>"2019-08-15 00:00:00", NA, Met$PAR_Average_umol_s_m2)
+
 #Remove shortwave radiation outliers
 #first shortwave upwelling
 Met$Flag_ShortwaveRadiationUp_Average_W_m2=ifelse(Met$ShortwaveRadiationUp_Average_W_m2>1600, 4, Met$Flag_ShortwaveRadiationUp_Average_W_m2)
@@ -196,17 +217,18 @@ for(i in 5:17) { #for loop to create new columns in data frame
 #create loop putting in maintenance flags 1 + 4 (these are flags for values removed due
     # to maintenance and also flags potentially questionable values)
 for(j in 1:nrow(RemoveMet)){
-  # #if statement to only write in flag 4 if there are no other flags
+ print(j) # #if statement to only write in flag 4 if there are no other flags
   if(RemoveMet$flag[j]==4){
-    Met[c(which(Met[,1]>=RemoveMet[j,2] & Met[,1]<=RemoveMet[j,3]& (Met[,paste0("Flag_",colnames(Met[RemoveMet$colnumber[j]]))]==0))), paste0("Note_",colnames(Met[RemoveMet$colnumber[j]]))]=RemoveMet$notes[j]#same as above, but for notes
-    Met[c(which(Met[,1]>=RemoveMet[j,2] & Met[,1]<=RemoveMet[j,3] & (Met[,paste0("Flag_",colnames(Met[RemoveMet$colnumber[j]]))]==0))), paste0("Flag_",colnames(Met[RemoveMet$colnumber[j]]))]<-RemoveMet$flag[j]#when met timestamp is between remove timestamp
-    #and met column derived from remove column
+    Met[c(which(Met[,1]>=RemoveMet[j,2] & Met[,1]<=RemoveMet[j,3] & (Met[,paste0("Flag_",colnames(Met[RemoveMet$colnumber[j]]))]==0))), paste0("Note_",colnames(Met[RemoveMet$colnumber[j]]))]=RemoveMet$notes[j]#same as above, but for notes
+    Met[c(which(Met[,1]>=RemoveMet[j,2] & Met[,1]<=RemoveMet[j,3] & (Met[,paste0("Flag_",colnames(Met[RemoveMet$colnumber[j]]))]==0))), paste0("Flag_",colnames(Met[RemoveMet$colnumber[j]]))]=RemoveMet$flag[j]#when met timestamp is between remove timestamp
+    #print(j)#and met column derived from remove column
     #matching time frame, inserting flag
   }
   #if flag == 1, set parameter to NA, overwrites any other flag
   
   if(RemoveMet$flag[j]==1){
-    Met[c(which((Met[,1]>=RemoveMet[j,2]) & (Met[,1]<=RemoveMet[j,3]))),paste0("Flag_",colnames(Met[RemoveMet$colnumber[j]]))] <- RemoveMet$flag[j] #when met timestamp is between remove timestamp
+    #print(j)
+    Met[c(which((Met[,1]>=RemoveMet[j,2]) & (Met[,1]<=RemoveMet[j,3]))),paste0("Flag_",colnames(Met[RemoveMet$colnumber[j]]))] = RemoveMet$flag[j] #when met timestamp is between remove timestamp
     #and met column derived from remove column
     #matching time frame, inserting flag
     Met[Met[,1]>=RemoveMet[j,2] & Met[,1]<=RemoveMet[j,3], paste0("Note_",colnames(Met[RemoveMet$colnumber[j]]))]=RemoveMet$notes[j]#same as above, but for notes
