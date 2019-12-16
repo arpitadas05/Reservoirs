@@ -1,15 +1,20 @@
 ##MakeEMLFluoroProbe
 ##Author: Mary Lofton
-##Date: 19DEC18
+##Date: 16DEC19
 
-# # Install devtools
-# install.packages("devtools")
-# 
-# # Load devtools
-# library(devtools)
-# 
-# # Install and load EMLassemblyline
-# install_github("EDIorg/EMLassemblyline")
+#good sites for step-by-step instructions
+#https://ediorg.github.io/EMLassemblyline/articles/overview.html
+#https://github.com/EDIorg/EMLassemblyline/blob/master/documentation/instructions.md
+#and links therein
+
+# Install devtools
+install.packages("devtools")
+
+# Load devtools
+library(devtools)
+
+# Install and load EMLassemblyline
+install_github("EDIorg/EMLassemblyline")
 library(EMLassemblyline)
 
 #Step 1: Create a directory for your dataset
