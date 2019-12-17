@@ -1,0 +1,4 @@
+attributeName	code	definition
+Reservoir	FCR	Falling Creek Reservoir
+Method	V	V = visual observation
+Method	T	T = water temperature data

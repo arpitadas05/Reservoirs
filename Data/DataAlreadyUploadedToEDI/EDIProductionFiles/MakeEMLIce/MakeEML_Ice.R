@@ -1,8 +1,9 @@
-##MakeEML_MetData
+##MakeEML_Ice
 ##Author: Cayelan Carey
-##Date: 21 July 2019
+##Date: 16 Dec 2019
+# useful ref: https://github.com/EDIorg/EMLassemblyline/blob/master/documentation/instructions.md
 
-setwd("./Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEML_MetData")
+setwd("./Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEML_Ice")
 # # Install devtools
 # install.packages("devtools")
 # 
@@ -13,7 +14,7 @@ devtools::install_github("EDIorg/EMLassemblyline")
 library(EMLassemblyline)
 
 #Step 1: Create a directory for your dataset
-#in this case, our directory is Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEML_MetData
+#in this case, our directory is Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEML_Ice
 
 #Step 2: Move your dataset to the directory
 
@@ -24,32 +25,18 @@ library(EMLassemblyline)
 #right now the only supported option is "table"
 
 #Step 5: Import the core metadata templates
-#Prepare metadata file templates using the 
-#template_table_attributes(
-#  path = "/Users/cayelan/Dropbox/ComputerFiles/Virginia_Tech/Falling Creek/Github/Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEML_MetData",
-#  data.path = "/Users/cayelan/Dropbox/ComputerFiles/Virginia_Tech/Falling Creek/Github/Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEML_MetData",
-#  data.table = 'Met_final_2015_2018.csv')
+import_templates(path = "/Users/cayelan/Dropbox/ComputerFiles/Virginia_Tech/FallingCreek/Github/Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLIce",
+                 license = "CCBY",
+                 data.files = c("Ice_Data.csv"))
 
-# command. **Note:** 'import_templates' command currently (Dec. 2018) only works 
-# for data products that include table-based data files (e.g., .csv). To 
-# prepare module metadata files, manually copy the following metadata file 
-# templates from a previous module directory (e.g., the Module 1 EDI folder):
-# - start with the metadata template word doc and then populate for all of the text files, which include:
-# - abstract.txt
-# - intellectual_rights.txt (we use CCBY); won't be altered
-# - keywords.txt (EDIT THIS FILE IN EXCEL; see LabKeywords.txt for Carey 
-# Lab-specific keywords) and also http://vocab.lternet.edu/vocab/vocab/index.php
-# https://environmentaldatainitiative.org/resources/five-phases-of-data-publishing/phase-3/controlled-vocabularies/
-# if there is not a word in the existing vocabularies, make it:
-# "carey lab controlled vocabulary"
-# - methods.txt
-# - personnel.txt (EDIT THIS FILE IN EXCEL) Author order in the citation is in the order that 'creators' are listed in this file
-# Edit each of these files for your current module upload, by copying and 
+# Edit each of these files for your current data package upload, by copying and 
 # pasting the relevant information from the EDI_metadata_template you prepared
 
 # Important! Before saving, check that the contents of each .txt file do not include any 
 # non-allowed characters by going to: https://pteo.paranoiaworks.mobi/diacriticsremover/, 
 # pasting your text, and clicking remove diacritics. copy and paste that text back into the .txt file.
+
+view_unit_dictionary()
 
 # After saving each file, make sure it is closed.
 
@@ -96,7 +83,7 @@ library(EMLassemblyline)
 #?define_catvars
 
 # Run this function for your dataset
-#define_catvars(path = "C:/Users/Mary Lofton/Documents/RProjects/Reservoirs/Formatted_Data/MakeEMLChemistry")
+define_catvars(path = "/Users/cayelan/Dropbox/ComputerFiles/Virginia_Tech/FallingCreek/Github/Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLIce")
 
 #open the created value IN A SPREADSHEET EDITOR and add a definition for each category
 
@@ -127,20 +114,17 @@ library(EMLassemblyline)
 # zip.dir: Change the name of the module files zip folder
 # temporal.coverage: Update the dates
 # package.id: enter the ID you obtained in Step 6
-make_eml(path = "/Users/cayelan/Dropbox/ComputerFiles/Virginia_Tech/Falling Creek/Github/Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEML_MetData",
-         dataset.title = "Time series of high-frequency meteorological data at Falling Creek Reservoir, Virginia, USA 2015-2018",
-         data.table = c('Met_final_2015_2018.csv', 'Met_Maintenance_2015_2018.csv'),
-         data.table.description = c('All meteorological parameters measured at Falling Creek Reservoir during 2015-2018',
-                                    'The log of all maintenance applied to the meteorological station'),
-         other.entity = 'Met_QAQC.R',
-         other.entity.description = 'Data aggregation and QA/QC R script',
-         temporal.coverage = c("2015-07-07", "2018-12-31"),
-         geographic.description = c("Falling Creek Reservoir, Vinton, Virginia, USA"),
-         geographic.coordinates = c('37.309589', '-79.836009', '37.302660', '-79.839249'), #N, E, S, W
+make_eml(path = "/Users/cayelan/Dropbox/ComputerFiles/Virginia_Tech/FallingCreek/Github/Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLIce",
+         dataset.title = "Ice cover data for Falling Creek Reservoir, Vinton, Virginia, USA for 2013-2019",
+         data.table = c('Ice_Data.csv'),
+         data.table.description = c('All ice-on and ice-off data recorded for Falling Creek Reservoir during 2013-2019'),
+         temporal.coverage = c("2014-01-06", "2019-02-02"),
+         #geographic.description = c("Falling Creek Reservoir, Vinton, Virginia, USA"),
+         #geographic.coordinates = c('37.309589', '-79.836009', '37.302660', '-79.839249'), #N, E, S, W
          maintenance.description = "ongoing", 
          user.id = "ccarey",
          user.domain = 'EDI',
-         package.id = "edi.389.2") # Put your package.id here, followed by .1 (for 1st version)
+         package.id = "edi.456.1") # Put your package.id here, followed by .1 (for 1st version)
 
 #PROBLEMS WITH MAKING METATDATA! SO, COLIN SUGGESTED THAT THE FALLING CREEK SPACE IN THE PATH NAME WAS
 #  PROBLEMATIC, SO I COPIED AND PASTED THE ENTIRE DIRECTORY TO MY DESKTOP AND RAN THE MAKE_EML PATH THERE. THAT SEEMED TO WORK
