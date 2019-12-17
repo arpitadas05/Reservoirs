@@ -1,6 +1,9 @@
 # Title: Prepare FCR inflow data for publication to EDI
 # Author: Mary Lofton
 # Date 18DEC18
+# Updated: 17Dec19 by R. Corrigan and A. Hounshell
+#   Added script to incorporate Diana (VT) data for publication
+#   Updated flags for v-notch weir
 
 #install.packages('pacman') #installs pacman package, making it easier to load in packages
 pacman::p_load(tidyverse, lubridate, magrittr, ggplot2) #installs and loads in necessary packages for script
@@ -9,7 +12,7 @@ pacman::p_load(tidyverse, lubridate, magrittr, ggplot2) #installs and loads in n
 mytheme = theme(axis.title = element_text(size = 16),
                 axis.text = element_text(size = 16))
 
-##Data from pressure transducer
+##Data from pressure transducer installed at weir
 # Load in files with names starting with FCR_inf_15min, should only be .csv files
 inflow_pressure <- dir(path = "./Data/DataNotYetUploadedToEDI/Raw_inflow/Inflow_CSV", pattern = "FCR_15min_Inf*") %>% 
   map_df(~ read_csv(file.path(path = "./Data/DataNotYetUploadedToEDI/Raw_inflow/Inflow_CSV", .), col_types = cols(.default = "c"), skip = 28))
@@ -53,7 +56,7 @@ pressure_boxplot = ggplot(data = daily_flow, aes(x = Year, y = daily_pressure_av
 pressure_boxplot
 ggsave(filename = "./Data/DataNotYetUploadedToEDI/Raw_inflow/raw_inflow_pressure_boxplot.png", pressure_boxplot, device = "png")
 
-##Read in catwalk pressure data
+##Read in catwalk pressure data: from WVWA instruments
 pressure <- read_csv("./Data/DataNotYetUploadedToEDI/WVWA_DO_sondes/FCR_DOsonde_2012to2017.csv",col_types=list("c","d","d","d","d","d","d","d","l","l","l","l","l","l","l","l"))
 pressure_a4d <- dir(path = "./Data/DataNotYetUploadedToEDI/Raw_inflow/Barometric_CSV", pattern = "FCR_BV*") %>% 
   map_df(~ read_csv(file.path(path = "./Data/DataNotYetUploadedToEDI/Raw_inflow/Barometric_CSV", .), col_types = cols(.default = "c"), skip = 28))
@@ -112,6 +115,7 @@ pressure_boxplot
 ggsave(filename = "./Data/DataNotYetUploadedToEDI/Raw_inflow/raw_catwalk_pressure_boxplot.png", pressure_boxplot, device = "png")
 
 ##correction to inflow pressure to down-correct data after 18APR16
+## NOTE: Need to think about whether we want to stop this down-correction at some point!!!!
 #for some reasons the DateTimes are one hour off? I am confused about this but whatever
 #just setting the downcorrect cutoff to be an hour off to compensate
 inflow_pressure1 <- inflow_pressure %>%
@@ -227,11 +231,6 @@ diff_post <- diff_post %>%  mutate(head = (0.149*Pressure_psia)/0.293) %>%
 # and put pre and post back together
 diff <- rbind(diff_pre, diff_post)
 
-
-
-
-
-
 #creating columns for EDI
 diff$Reservoir <- "FCR" #creates reservoir column to match other data sets
 diff$Site <- 100  #creates site column to match other data sets
@@ -335,31 +334,32 @@ VTinflow$Reservoir <- 'FCR'
 VTinflow$Site <- 100
 Inflow_Final <- merge(Inflow_Final, VTinflow, by=c('DateTime', 'Reservoir', 'Site'), all=TRUE)
 
-
 #add flags
 Inflow_Final <- Inflow_Final %>%
-  mutate(WVWA_Flag_Pressure_psia = ifelse(DateTime > '2019-09-20 14:30:00', NA,0),
-         WVWA_Flag_Pressure_psi = ifelse(DateTime > '2019-09-20 14:30:00', NA,
-                                         ifelse(DateTime <= "2017-11-13 10:45:00" & DateTime >= "2017-10-15 06:00:00",5,
-                                                ifelse(DateTime >= "2016-04-18 15:15:00 EST",1,0))),                        
-         WVWA_Flag_Baro_pressure_psi = ifelse(DateTime > '2019-09-20 14:30:00', NA,
-                                              ifelse(DateTime <= "2014-04-28 05:45:00" & DateTime >= "2014-03-20 09:00:00",2,0)),                  
-         WVWA_Flag_Temp = ifelse(DateTime > '2019-09-20 14:30:00', NA,
-                                 ifelse(DateTime <= "2017-11-13 10:45:00" & DateTime >= "2017-10-15 06:00:00",5,0)),
-         WVWA_Flag_Flow = ifelse(DateTime <= "2014-04-28 05:45:00" & DateTime >= "2014-03-20 09:00:00",2,
-                            ifelse(DateTime <= "2017-11-13 10:45:00" & DateTime >= "2017-10-15 06:00:00",5,
-                                   ifelse(DateTime >= "2019-06-03 00:00:00" & DateTime <= "2019-06-07 00:00:00",14,
-                                          ifelse(DateTime > "2019-06-07 00:00:00" & (0.149*WVWA_Pressure_psia/0.293) >= 0.3, 16,
-                                          ifelse(DateTime >= "2016-04-18 15:15:00 EST" & WVWA_Pressure_psia <= 0.18 & is.na(WVWA_Flow_cms),13,
-                                                 ifelse(DateTime >= "2016-04-18 15:15:00 EST",1,
-                                                      ifelse(WVWA_Pressure_psia <= 0.18 & is.na(WVWA_Flow_cms),3,0))))))),
-          VT_Flag_Flow = ifelse(DateTime >= "2019-06-03 00:00:00" & DateTime <= "2019-06-07 00:00:00",14,
-                                ifelse((0.149*VT_Pressure_psia/0.293) >= 0.3, 16,
-                                  ifelse(VT_Pressure_psia <= 0.18 & is.na(VT_Flow_cms),3,0))),
-          VT_Flag_Pressure_psia = ifelse(DateTime < '2019-04-22 12:00:00', NA,0),
-          VT_Flag_Temp_C = ifelse(DateTime < '2019-04-22 12:00:00',NA,0))
+  mutate(WVWA_Flag_Pressure_psia = ifelse(DateTime > '2019-09-20 14:30:00', NA,0), # AKA: no data after 9-20-19 for WVWA
+         WVWA_Flag_Pressure_psi = ifelse(DateTime > '2019-09-20 14:30:00', NA, # AKA: no data after 9-20-19 for WVWA
+                                         ifelse(DateTime <= "2017-11-13 10:45:00" & DateTime >= "2017-10-15 06:00:00",5, # Flag for leaking weir
+                                                ifelse(DateTime >= "2016-04-18 15:15:00 EST",1,0))),  # Flag for down correction after 18Apr16                      
+         WVWA_Flag_Baro_pressure_psi = ifelse(DateTime > '2019-09-20 14:30:00', NA, # No data after 9-20-19 for WVWA
+                                              ifelse(DateTime <= "2014-04-28 05:45:00" & DateTime >= "2014-03-20 09:00:00",2,0)), # Sensor malfunction              
+         WVWA_Flag_Temp = ifelse(DateTime > '2019-09-20 14:30:00', NA, # No data after 9-20-19 for WVWA
+                                 ifelse(DateTime <= "2017-11-13 10:45:00" & DateTime >= "2017-10-15 06:00:00",5,0)), # Leaking weir (no NA's; just flag)
+         WVWA_Flag_Flow = ifelse(DateTime <= "2014-04-28 05:45:00" & DateTime >= "2014-03-20 09:00:00",2, # sensor malfunction
+                            ifelse(DateTime <= "2017-11-13 10:45:00" & DateTime >= "2017-10-15 06:00:00",5, # leaking weir; NA's
+                                   ifelse(DateTime >= "2019-06-03 00:00:00" & DateTime <= "2019-06-07 00:00:00",14, # down correction and demonic intrusion (weir plug removed)
+                                          ifelse(DateTime > "2019-06-07 00:00:00" & (0.149*WVWA_Pressure_psia/0.293) >= 0.3, 16, # down correction and flow over weir
+                                          ifelse(DateTime >= "2016-04-18 15:15:00 EST" & WVWA_Pressure_psia <= 0.18 & is.na(WVWA_Flow_cms),13, # down correction and low flows
+                                                 ifelse(DateTime >= "2016-04-18 15:15:00 EST",1, # down correction
+                                                      ifelse(WVWA_Pressure_psia <= 0.18 & is.na(WVWA_Flow_cms),3,0))))))), # flow too low; no down correction
+         VT_Flag_Flow = ifelse(DateTime >= "2019-06-03 00:00:00" & DateTime <= "2019-06-07 00:00:00",4, # weir un-plugged
+                                ifelse((0.149*VT_Pressure_psia/0.293) >= 0.3, 6, # flow too high
+                                  ifelse(VT_Pressure_psia <= 0.18 & is.na(VT_Flow_cms),3,0))), # flow too low
+          VT_Flag_Pressure_psia = ifelse(DateTime < '2019-04-22 12:00:00', NA,0), # no data before 4-22-19
+          VT_Flag_Temp_C = ifelse(DateTime < '2019-04-22 12:00:00',NA,0)) # no data before 4-22-19
 
-
+# Replace WVWA and VT flow values with NA when weir was un-plugged: 2019-06-03 00:00:00 to 2019-06-07 00:00:00
+Inflow_Final$WVWA_Flow_cms[213440:213851] <- NA
+Inflow_Final$VT_Flow_cms[213440:213851] <- NA
 
 
 Inflow_Final <- Inflow_Final[,c(2,3,1,4,5,6,7,8,9,10,11,13,14,12,16,15,18,17,19)]
@@ -367,64 +367,4 @@ Inflow_Final <- Inflow_Final[-1,]
 
 
 # Write to CSV
-write.csv(Inflow_Final, './Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLInflow/inflow_for_EDI_2013_2019.csv', row.names=F) 
-
-
-
-##BONUS!! :)
-#calculating water residence time
-wrt <- read_csv('./Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLInflow/inflow_working.csv') %>%
-  mutate(date = date(DateTime))%>%
-  filter(date >= "2019-06-30" & date <= "2019-07-11") %>% #SELECT YOUR DATE RANGE HERE
-  mutate(wtr_res_time = 3.1E5/(Flow_cms*60*60*24))
-
-plot_wrt <- ggplot(data = wrt, aes(x = DateTime, y = wtr_res_time))+
-  geom_line(size = 1)+
-  theme_bw()
-plot_wrt
-
-hist_wrt <- ggplot(data = wrt, aes(x = wtr_res_time))+
-  geom_histogram(aes(y=..density..))+
-  geom_density(alpha = 0.2, fill = "blue")+
-  theme_bw()
-hist_wrt
-
-mean(wrt$wtr_res_time, na.rm = TRUE)
-sd(wrt$wtr_res_time)
-
-##plot BVR wtr level
-lvl <- read_csv("./Data/DataNotYetUploadedToEDI/Raw_inflow/BVR_wtr_lvl.csv") %>%
-  mutate(DateTime = parse_date_time(DateTime, 'ymd HMS',tz = "EST"))
-
-plot_lvl <- ggplot(data = lvl, aes(x = DateTime, y = BVR_wtr_lvl_ft))+
-  geom_line(size = 1, col = "blue")+
-  geom_hline(yintercept = 0, col = "red", size = 1)+
-  xlab("")+
-  ylab("Beaverdam Water Level (ft)")+
-  theme_bw()+
-  mytheme
-plot_lvl
-ggsave(filename = "./Data/DataNotYetUploadedToEDI/Raw_inflow/BVR_lvl.png", plot_lvl, device = "png")
-
-lvl$Year <- as.factor(year(lvl$DateTime))
-
-lvl_boxplot = ggplot(data = lvl, aes(x = DateTime, y = BVR_wtr_lvl_ft, group = Year, fill = Year))+
-  geom_boxplot()+
-  #geom_jitter(alpha = 0.1)+
-  ylab("Beaverdam Water Level (ft)")+
-  theme_bw()+
-  xlab("")+
-  mytheme
-lvl_boxplot
-ggsave(filename = "./Data/DataNotYetUploadedToEDI/Raw_inflow/BVR_lvl_boxplot.png", lvl_boxplot, device = "png")
-
-##plots for Whitney
-inf <- read_csv('./Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLInflow/inflow.csv') %>%
-  filter(year(DateTime) == 2018 & month(DateTime) == 10)
-
-Sept <- ggplot(data = inf, aes(x = DateTime, y = Flow_cms))+
-  geom_line(size = 1)+
-  xlab("")+
-  ylab("Flow (cms)")+
-  theme_bw()
-Sept
+write.csv(Inflow_Final, './Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLInflow/2019/inflow_for_EDI_2013_2019.csv', row.names=F) 
