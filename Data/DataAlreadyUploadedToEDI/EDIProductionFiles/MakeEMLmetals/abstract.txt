@@ -1,1 +1,14 @@
-Depth profiles of total and soluble iron and manganese were sampled from 2014 to 2018 in two drinking water reservoirs in southwestern Virginia, USA. These reservoirs are: Beaverdam Reservoir (Vinton, Virginia) and Falling Creek Reservoir (Vinton, Virginia). Beaverdam and Falling Creek Reservoirs are owned and operated by the Western Virginia Water Authority as secondary drinking water sources for Roanoke, Virginia. The dataset consists of depth profiles of metal samples measured at the deepest site of each reservoir adjacent to the dam. Additional metal samples were collected at a gauged weir on Falling Creek Reservoir’s primary inflow tributary. The samples were collected approximately fortnightly from March-April, weekly from May-October, and monthly from November-February. 
+﻿Depth profiles of total and soluble iron and manganese were sampled from 2014-2019 in two drinking-water reservoirs, Falling Creek Reservoir (FCR) and Beaverdam Reservoir (BVR), located in Vinton, Virginia, USA. Both reservoirs are owned and operated by the Western Virginia Water Authority and are managed as secondary drinking-water sources for the city of Roanoke, VA. The dataset includes metals samples that were collected along a depth profile taken at the deepest site of the reservoir near the dam. Additional samples were collected at a gaged weir located on the primary inflow tributary to Falling Creek Reservoir. Sampling frequency was approximately weekly during the summer and fall (May - October), approximately fortnightly during the spring (March - April), and approximately monthly during the winter (November - March). 
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,13 +1,11 @@
-    
 keyword	keyword Thesaurus
 Carey Lab	carey lab controlled vocabulary
-Virginia Tech	controlled vocabulary
-Western Virginia Water Authoritycontrolled vocabulary
-Falling Creek Reservoircontrolled vocabulary
+Virginia Tech	carey lab controlled vocabulary
+Western Virginia Water Authority	carey lab controlled vocabulary
+Falling Creek Reservoir	carey lab controlled vocabulary
 Reservoir	cuahsi controlled vocabulary
 Lake	cuahsi controlled vocabulary
 Lakes	lter controlled vocabulary
-total iron lter	controlled vocabulary
-soluble iron	lter controlled vocabulary
-total manganese lter controlled vocabulary
-soluble manganese	lter controlled vocabulary
+Beaverdam Reservoir	carey lab controlled vocabulary
+iron	cuahsi controlled vocabulary
+manganese	cuahsi controlled vocabulary
