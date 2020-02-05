@@ -42,6 +42,8 @@ Met_now$PAR_Tot_Tot=as.numeric(Met_now$PAR_Tot_Tot) #matching str to past data
 Met_agg<-rbind(Met_past,Met_now) #binds past and current data from Met station
 Met_agg = Met_agg[!duplicated(Met_agg$TIMESTAMP),] #takes out duplicated values by timestamp
 
+#Set end date
+Met_agg=Met_agg[year(Met_agg$TIMESTAMP)<2020,]
 
 ####3) Aggregate data set for QA/QC ####
 Met= Met_agg #reset data so you don't have to load from scratch 
@@ -83,7 +85,6 @@ RemoveMet=read.table("https://raw.githubusercontent.com/CareyLabVT/SCCData/carin
 RemoveMet$TIMESTAMP_start=with_tz(ymd_hms(RemoveMet$TIMESTAMP_start, tz="Etc/GMT+4"),"Etc/GMT+5")#setting time zone
 RemoveMet$TIMESTAMP_end=with_tz(ymd_hms(RemoveMet$TIMESTAMP_end, tz="Etc/GMT+4"),"Etc/GMT+5") #setting time zone
 RemoveMet$notes=as.character(RemoveMet$notes)
-
 
 ####5) Create data flags for publishing ####
 #get rid of NaNs
@@ -219,6 +220,7 @@ for(i in 5:17) { #for loop to create new columns in data frame
 for(j in 1:nrow(RemoveMet)){
  print(j) # #if statement to only write in flag 4 if there are no other flags
   if(RemoveMet$flag[j]==4){
+    
     Met[c(which(Met[,1]>=RemoveMet[j,2] & Met[,1]<=RemoveMet[j,3] & (Met[,paste0("Flag_",colnames(Met[RemoveMet$colnumber[j]]))]==0))), paste0("Note_",colnames(Met[RemoveMet$colnumber[j]]))]=RemoveMet$notes[j]#same as above, but for notes
     Met[c(which(Met[,1]>=RemoveMet[j,2] & Met[,1]<=RemoveMet[j,3] & (Met[,paste0("Flag_",colnames(Met[RemoveMet$colnumber[j]]))]==0))), paste0("Flag_",colnames(Met[RemoveMet$colnumber[j]]))]=RemoveMet$flag[j]#when met timestamp is between remove timestamp
     #print(j)#and met column derived from remove column
@@ -233,7 +235,7 @@ for(j in 1:nrow(RemoveMet)){
     #matching time frame, inserting flag
     Met[Met[,1]>=RemoveMet[j,2] & Met[,1]<=RemoveMet[j,3], paste0("Note_",colnames(Met[RemoveMet$colnumber[j]]))]=RemoveMet$notes[j]#same as above, but for notes
     
-    Met[Met[,1]>=RemoveMet[j,2] & Met[,1]<=RemoveMet[j,3], colnames(Met[RemoveMet$colnumber[j]])] = NA
+    Met[Met[,1]>=RemoveMet[j,2] & Met[,1]<=RemoveMet[j,3], RemoveMet$colnumber[j]] = NA
   } #replaces value of var with NA
 }
 
