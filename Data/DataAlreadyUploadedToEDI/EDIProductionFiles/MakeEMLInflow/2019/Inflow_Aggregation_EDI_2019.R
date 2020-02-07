@@ -4,6 +4,7 @@
 # Updated: 17Dec19 by R. Corrigan and A. Hounshell
 #   Added script to incorporate Diana (VT) data for publication
 #   Updated flags for v-notch weir
+# Updated: 07Feb20 by A. Hounshell to included WVWA data through 31 Jan 2020
 
 #install.packages('pacman') #installs pacman package, making it easier to load in packages
 pacman::p_load(tidyverse, lubridate, magrittr, ggplot2) #installs and loads in necessary packages for script
@@ -336,13 +337,13 @@ Inflow_Final <- merge(Inflow_Final, VTinflow, by=c('DateTime', 'Reservoir', 'Sit
 
 #add flags
 Inflow_Final <- Inflow_Final %>%
-  mutate(WVWA_Flag_Pressure_psia = ifelse(DateTime > '2019-09-20 14:30:00', NA,0), # AKA: no data after 9-20-19 for WVWA
-         WVWA_Flag_Pressure_psi = ifelse(DateTime > '2019-09-20 14:30:00', NA, # AKA: no data after 9-20-19 for WVWA
+  mutate(WVWA_Flag_Pressure_psia = ifelse(DateTime > '2020-01-31 13:00:00', NA,0), # (ALWAYS UPDATE!) AKA: no data after 01-31-20 for WVWA
+         WVWA_Flag_Pressure_psi = ifelse(DateTime > '2020-01-31 13:00:00', NA, # (ALWAYS UPDATE!) AKA: no data after 01-31-20 for WVWA
                                          ifelse(DateTime <= "2017-11-13 10:45:00" & DateTime >= "2017-10-15 06:00:00",5, # Flag for leaking weir
                                                 ifelse(DateTime >= "2016-04-18 15:15:00 EST",1,0))),  # Flag for down correction after 18Apr16                      
-         WVWA_Flag_Baro_pressure_psi = ifelse(DateTime > '2019-09-20 14:30:00', NA, # No data after 9-20-19 for WVWA
+         WVWA_Flag_Baro_pressure_psi = ifelse(DateTime > '2020-01-31 13:00:00', NA, # (ALWAYS UPDATE!) No data after 01-31-20 for WVWA
                                               ifelse(DateTime <= "2014-04-28 05:45:00" & DateTime >= "2014-03-20 09:00:00",2,0)), # Sensor malfunction              
-         WVWA_Flag_Temp = ifelse(DateTime > '2019-09-20 14:30:00', NA, # No data after 9-20-19 for WVWA
+         WVWA_Flag_Temp = ifelse(DateTime > '2020-01-31 13:00:00', NA, # (ALWAYS UPDATE!) No data after 01-31-20 for WVWA
                                  ifelse(DateTime <= "2017-11-13 10:45:00" & DateTime >= "2017-10-15 06:00:00",5,0)), # Leaking weir (no NA's; just flag)
          WVWA_Flag_Flow = ifelse(DateTime <= "2014-04-28 05:45:00" & DateTime >= "2014-03-20 09:00:00",2, # sensor malfunction
                             ifelse(DateTime <= "2017-11-13 10:45:00" & DateTime >= "2017-10-15 06:00:00",5, # leaking weir; NA's
@@ -350,10 +351,10 @@ Inflow_Final <- Inflow_Final %>%
                                           ifelse(DateTime > "2019-06-07 00:00:00" & (0.149*WVWA_Pressure_psia/0.293) >= 0.3, 16, # down correction and flow over weir
                                           ifelse(DateTime >= "2016-04-18 15:15:00 EST" & WVWA_Pressure_psia <= 0.18 & is.na(WVWA_Flow_cms),13, # down correction and low flows
                                                  ifelse(DateTime >= "2016-04-18 15:15:00 EST",1, # down correction
-                                                      ifelse(WVWA_Pressure_psia <= 0.18 & is.na(WVWA_Flow_cms),3,0))))))), # flow too low; no down correction
+                                                      ifelse(WVWA_Pressure_psia <= 0.180 & is.na(WVWA_Flow_cms),3,0))))))), # flow too low; no down correction
          VT_Flag_Flow = ifelse(DateTime >= "2019-06-03 00:00:00" & DateTime <= "2019-06-07 00:00:00",4, # weir un-plugged
                                 ifelse((0.149*VT_Pressure_psia/0.293) >= 0.3, 6, # flow too high
-                                  ifelse(VT_Pressure_psia <= 0.18 & is.na(VT_Flow_cms),3,0))), # flow too low
+                                  ifelse(VT_Pressure_psia <= 0.180 & is.na(VT_Flow_cms),3,0))), # flow too low
           VT_Flag_Pressure_psia = ifelse(DateTime < '2019-04-22 12:00:00', NA,0), # no data before 4-22-19
           VT_Flag_Temp_C = ifelse(DateTime < '2019-04-22 12:00:00',NA,0)) # no data before 4-22-19
 
@@ -367,4 +368,4 @@ Inflow_Final <- Inflow_Final[-1,]
 
 
 # Write to CSV
-write.csv(Inflow_Final, './Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLInflow/2019/inflow_for_EDI_2013_2019.csv', row.names=F) 
+write.csv(Inflow_Final, './Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLInflow/FEB2020/inflow_for_EDI_2013_FEB2020.csv', row.names=F) 
