@@ -118,9 +118,9 @@ Met_prefilter$AirTemp_Average_C=ifelse((Met_prefilter$AirTemp_Average_C - (1.627
 Met<-rbind(Met_prefilter,Met_postfilter)
 
 #Air temp maximum set
-Met$Flag_AirTemp_Average_C=ifelse(Met$AirTemp_Average_C<40.6,4,Met$Flag_AirTemp_Average_C)
-Met$Note_AirTemp_Average_C=ifelse(Met$AirTemp_Average_C<40.6,"Outlier_set_to_NA",Met$Note_AirTemp_Average_C)
-Met$AirTemp_Average_C=ifelse(Met$AirTemp_Average_C<40.6,NA,Met$AirTemp_Average_C)
+Met$Flag_AirTemp_Average_C=ifelse(Met$AirTemp_Average_C>40.6,4,Met$Flag_AirTemp_Average_C)
+Met$Note_AirTemp_Average_C=ifelse(Met$AirTemp_Average_C>40.6,"Outlier_set_to_NA",Met$Note_AirTemp_Average_C)
+Met$AirTemp_Average_C=ifelse(Met$AirTemp_Average_C>40.6,NA,Met$AirTemp_Average_C)
 
 #Infared radiation cleaning
 #fix infrared radiation voltage reading after airtemp correction
@@ -305,6 +305,6 @@ RemoveMet=RemoveMet[,c(8:9,1:7)]
 ###7) Write file with final cleaned dataset! ###
 Met_final=Met[,c(18:19,1:17, 20:45)] #final column order
 setwd('./Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEML_MetData')
-write.csv(Met_final, "Met_final_2015_2018.csv", row.names=F, quote=F)
-write.csv(RemoveMet, "Met_Maintenance_2015_2018.csv", row.names=F, quote = F)
+write.csv(Met_final, "Met_final_2015_2019.csv", row.names=F, quote=F)
+write.csv(RemoveMet, "Met_Maintenance_2015_2019.csv", row.names=F, quote = F)
 
