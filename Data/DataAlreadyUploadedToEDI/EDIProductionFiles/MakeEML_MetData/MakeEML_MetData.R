@@ -25,10 +25,10 @@ library(EMLassemblyline)
 
 #Step 5: Import the core metadata templates
 #Prepare metadata file templates using the 
-#template_table_attributes(
-#  path = "/Users/cayelan/Dropbox/ComputerFiles/Virginia_Tech/Falling Creek/Github/Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEML_MetData",
-#  data.path = "/Users/cayelan/Dropbox/ComputerFiles/Virginia_Tech/Falling Creek/Github/Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEML_MetData",
-#  data.table = 'Met_final_2015_2018.csv')
+template_table_attributes(
+ path = "/Users/cayelan/Dropbox/ComputerFiles/Virginia_Tech/Falling Creek/Github/Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEML_MetData",
+ data.path = "/Users/cayelan/Dropbox/ComputerFiles/Virginia_Tech/Falling Creek/Github/Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEML_MetData",
+ data.table = 'Met_final_2015_2018.csv')
   
 # command. **Note:** 'import_templates' command currently (Dec. 2018) only works 
 # for data products that include table-based data files (e.g., .csv). To 
@@ -128,13 +128,13 @@ library(EMLassemblyline)
 # temporal.coverage: Update the dates
 # package.id: enter the ID you obtained in Step 6
 make_eml(path = "/Users/cayelan/Dropbox/ComputerFiles/Virginia_Tech/Falling Creek/Github/Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEML_MetData",
-         dataset.title = "Time series of high-frequency meteorological data at Falling Creek Reservoir, Virginia, USA 2015-2018",
-         data.table = c('Met_final_2015_2018.csv', 'Met_Maintenance_2015_2018.csv'),
+         dataset.title = "Time series of high-frequency meteorological data at Falling Creek Reservoir, Virginia, USA 2015-2019",
+         data.table = c('Met_final_2015_2018.csv', 'Met_Maintenance_2015_2019.csv'),
          data.table.description = c('All meteorological parameters measured at Falling Creek Reservoir during 2015-2018',
                                     'The log of all maintenance applied to the meteorological station'),
          other.entity = 'Met_QAQC.R',
          other.entity.description = 'Data aggregation and QA/QC R script',
-         temporal.coverage = c("2015-07-07", "2018-12-31"),
+         temporal.coverage = c("2015-07-07", "2019-12-31"),
          geographic.description = c("Falling Creek Reservoir, Vinton, Virginia, USA"),
          geographic.coordinates = c('37.309589', '-79.836009', '37.302660', '-79.839249'), #N, E, S, W
          maintenance.description = "ongoing", 
