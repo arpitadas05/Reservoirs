@@ -1,6 +1,7 @@
 ##MakeEML_MetData
 ##Author: Cayelan Carey
 ##Date: 21 July 2019
+## Updated: 07 Feb 2020, A. Hounshell
 
 setwd("./Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEML_MetData")
 # # Install devtools
@@ -26,9 +27,9 @@ library(EMLassemblyline)
 #Step 5: Import the core metadata templates
 #Prepare metadata file templates using the 
 template_table_attributes(
- path = "/Users/cayelan/Dropbox/ComputerFiles/Virginia_Tech/Falling Creek/Github/Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEML_MetData",
- data.path = "/Users/cayelan/Dropbox/ComputerFiles/Virginia_Tech/Falling Creek/Github/Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEML_MetData",
- data.table = 'Met_final_2015_2018.csv')
+ path = "C:/Users/ahoun/OneDrive/Desktop/MakeEML_MetData",
+ data.path = "C:/Users/ahoun/OneDrive/Desktop/MakeEML_MetData",
+ data.table = 'Met_final_2015_2019.csv')
   
 # command. **Note:** 'import_templates' command currently (Dec. 2018) only works 
 # for data products that include table-based data files (e.g., .csv). To 
@@ -127,12 +128,12 @@ template_table_attributes(
 # zip.dir: Change the name of the module files zip folder
 # temporal.coverage: Update the dates
 # package.id: enter the ID you obtained in Step 6
-make_eml(path = "/Users/cayelan/Dropbox/ComputerFiles/Virginia_Tech/Falling Creek/Github/Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEML_MetData",
+make_eml(path = "C:/Users/ahoun/OneDrive/Desktop/MakeEML_MetData",
          dataset.title = "Time series of high-frequency meteorological data at Falling Creek Reservoir, Virginia, USA 2015-2019",
-         data.table = c('Met_final_2015_2018.csv', 'Met_Maintenance_2015_2019.csv'),
-         data.table.description = c('All meteorological parameters measured at Falling Creek Reservoir during 2015-2018',
+         data.table = c('Met_final_2015_2019.csv', 'Met_Maintenance_2015_2019.csv'),
+         data.table.description = c('All meteorological parameters measured at Falling Creek Reservoir during 2015-2019',
                                     'The log of all maintenance applied to the meteorological station'),
-         other.entity = 'Met_QAQC.R',
+         other.entity = 'MET_QAQC_2019.R',
          other.entity.description = 'Data aggregation and QA/QC R script',
          temporal.coverage = c("2015-07-07", "2019-12-31"),
          geographic.description = c("Falling Creek Reservoir, Vinton, Virginia, USA"),
@@ -140,7 +141,8 @@ make_eml(path = "/Users/cayelan/Dropbox/ComputerFiles/Virginia_Tech/Falling Cree
          maintenance.description = "ongoing", 
          user.id = "ccarey",
          user.domain = 'EDI',
-         package.id = "edi.389.2") # Put your package.id here, followed by .1 (for 1st version)
+         package.id = "edi.336.1") # Put your package.id here, followed by .1 (for 1st version)
+
 
 #PROBLEMS WITH MAKING METATDATA! SO, COLIN SUGGESTED THAT THE FALLING CREEK SPACE IN THE PATH NAME WAS
 #  PROBLEMATIC, SO I COPIED AND PASTED THE ENTIRE DIRECTORY TO MY DESKTOP AND RAN THE MAKE_EML PATH THERE. THAT SEEMED TO WORK

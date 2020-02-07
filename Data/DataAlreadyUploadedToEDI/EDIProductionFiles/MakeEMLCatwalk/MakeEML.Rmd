@@ -34,20 +34,23 @@ template_table_attributes(path = ".",
                           write.file = TRUE)
 
 
-define_catvars(getwd())
+template_categorical_variables(getwd())
+
+## NOTE: recieved following warning - worked but may need to update in the future
+#Argument "data.files" is deprecated; please use "data.table" instead.Argument "data.files.description" is #deprecated; please use "data.table.description" instead.cols = 1 != length(data) = 2Creating nodes ...
 
 make_eml(path = '.',
-         dataset.title = "Time series of high-frequency sensor data measuring water temperature, dissolved oxygen, conductivity, specific conductivity, total dissolved solids, chlorophyll a, phycocyanin, and fluorescent dissolved organic matter at discrete depths in Falling Creek Reservoir, Virginia, USA in 2018",
+         dataset.title = "Time series of high-frequency sensor data measuring water temperature, dissolved oxygen, conductivity, specific conductivity, total dissolved solids, chlorophyll a, phycocyanin, and fluorescent dissolved organic matter at discrete depths in Falling Creek Reservoir, Virginia, USA in 2018-2019",
          data.files = "catdata_edited_withDO.csv",
          other.entity = c('temp_oxy_chla_qaqc.R', 'catwalk_do_fix.Rmd','CAT_MaintenanceLog.txt' ),
          other.entity.description = c('QAQC script', 'Final script to run QAQC and fix DO fouling issues', 'Maintenance log for catwalk sensors'),
          data.files.description = "Catwalk Sensor String",
-         temporal.coverage = c("2018-07-05", "2019-12-16"),
+         temporal.coverage = c("2018-07-05", "2019-12-31"),
          geographic.description = "Southwestern Virginia, USA, North America",
          geographic.coordinates = c("37.309589","-79.836009","37.30266","-79.839249"),
          maintenance.description = "ongoing",
          user.id =  "ccarey",
-         package.id = "edi.271.3", #### this is the one that I need to change!!!
+         package.id = "edi.271.4", #### this is the one that I need to change!!!
          user.domain = 'EDI')
 ```
 
