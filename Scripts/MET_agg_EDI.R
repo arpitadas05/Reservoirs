@@ -117,6 +117,11 @@ Met_prefilter$AirTemp_Average_C=ifelse((Met_prefilter$AirTemp_Average_C - (1.627
 #merge back air temp correction data
 Met<-rbind(Met_prefilter,Met_postfilter)
 
+#Air temp maximum set
+Met$Flag_AirTemp_Average_C=ifelse(Met$AirTemp_Average_C<40.6,4,Met$Flag_AirTemp_Average_C)
+Met$Note_AirTemp_Average_C=ifelse(Met$AirTemp_Average_C<40.6,"Outlier_set_to_NA",Met$Note_AirTemp_Average_C)
+Met$AirTemp_Average_C=ifelse(Met$AirTemp_Average_C<40.6,NA,Met$AirTemp_Average_C)
+
 #Infared radiation cleaning
 #fix infrared radiation voltage reading after airtemp correction
 Met$Flag_InfaredRadiationUp_Average_W_m2=ifelse(Met$InfaredRadiationUp_Average_W_m2<100,4,Met$Flag_InfaredRadiationUp_Average_W_m2)
