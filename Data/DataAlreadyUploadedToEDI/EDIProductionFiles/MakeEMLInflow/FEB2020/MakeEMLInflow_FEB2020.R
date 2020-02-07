@@ -2,6 +2,7 @@
 ### Updated script to publish 2019 Inflow data
 ### Following: MakeEMLInflow.R and MakeEMLChemistry.R
 ### 17Dec19 R. Corrigan and A. Hounshell
+### Updated: 07 Feb 2020, A. Hounshell
 
 # (install and) Load EMLassemblyline #####
 # install.packages('devtools')
