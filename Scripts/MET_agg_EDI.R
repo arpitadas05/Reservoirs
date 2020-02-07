@@ -82,8 +82,8 @@ Met_raw=Met #Met=Met_raw; reset your data, compare QAQC
 # the maintenance file tracks when sensors were repaired or offline due to maintenance
 RemoveMet=read.table("https://raw.githubusercontent.com/CareyLabVT/SCCData/carina-data/MET_MaintenanceLog.txt", sep = ",", header = T)
 #str(RemoveMet)
-RemoveMet$TIMESTAMP_start=with_tz(ymd_hms(RemoveMet$TIMESTAMP_start, tz="Etc/GMT+4"),"Etc/GMT+5")#setting time zone
-RemoveMet$TIMESTAMP_end=with_tz(ymd_hms(RemoveMet$TIMESTAMP_end, tz="Etc/GMT+4"),"Etc/GMT+5") #setting time zone
+RemoveMet$TIMESTAMP_start=ymd_hms(RemoveMet$TIMESTAMP_start, tz="Etc/GMT+5")#setting time zone
+RemoveMet$TIMESTAMP_end=ymd_hms(RemoveMet$TIMESTAMP_end, tz="Etc/GMT+5") #setting time zone
 RemoveMet$notes=as.character(RemoveMet$notes)
 
 ####5) Create data flags for publishing ####
