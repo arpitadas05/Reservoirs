@@ -116,6 +116,7 @@ catdata_final <- catdata_published%>%
   select(Reservoir, Site, DateTime, ThermistorTemp_C_surface, ThermistorTemp_C_1, ThermistorTemp_C_2, ThermistorTemp_C_3, ThermistorTemp_C_4, ThermistorTemp_C_5, ThermistorTemp_C_6, ThermistorTemp_C_7, ThermistorTemp_C_8, ThermistorTemp_C_9, RDO_mgL_5, RDOsat_percent_5, RDOTemp_C_5, RDO_mgL_9, RDOsat_percent_9, RDOTemp_C_9, EXOTemp_C_1, EXOCond_uScm_1, EXOSpCond_uScm_1, EXOTDS_mgL_1, EXODOsat_percent_1, EXODO_mgL_1, EXOChla_RFU_1, EXOChla_ugL_1, EXOBGAPC_RFU_1, EXOBGAPC_ugL_1, EXOfDOM_RFU_1, EXOfDOM_QSU_1, EXO_pressure, EXO_depth, EXO_battery, EXO_cablepower, EXO_wiper, RECORD, CR6_Batt_V, CR6Panel_Temp_C, RDO_mgL_5_adjusted, RDOsat_percent_5_adjusted, RDO_mgL_9_adjusted, RDOsat_percent_9_adjusted, Flag_All, Flag_DO_1, Flag_DO_5, Flag_DO_9, Flag_Chla, Flag_Phyco, Flag_TDS)
 
 catdata_final <- catdata_final[!is.na(catdata_final$Reservoir),]
+catdata_final <- catdata_final[year(catdata_final$DateTime)<2020,]
 
 write_csv(catdata_final,"catdata_edited_withDO.csv")
 ```
