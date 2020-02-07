@@ -18,3 +18,5 @@ Notes	cleaned_air_temp_shield	Air temperature shield was cleaned
 Notes	cleaned_radiation_sensor_lenses	Radiation sensor lenses were cleaned
 Notes	potentially_high_values_due_to_fouled_sensor_filter	Values are potentially erroneous (too high) due to sensor fouling but left in dataset
 Notes	sensor_reading_low_values_due_to_fouling	Values are potentially erroneous (too low) due to sensor fouling but left in dataset
+Notes	potential_ice_interference	Ice may have interfered with sensor measurements
+Notes	replaced_sensor_filter	Air temperature and relative humidity sensor filter replaced
