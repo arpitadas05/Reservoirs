@@ -38,6 +38,7 @@ daily_flow <- group_by(plot_inflow, Date) %>% summarize(daily_pressure_avg = mea
 rawplot = ggplot(data = daily_flow, aes(x = Date, y = daily_pressure_avg))+
   geom_point()+
   ylab("Daily avg. inflow pressure (psi)")+
+  geom_vline(xintercept = as.Date('2016-04-18'))+ # Date when downcorrection started
   theme_bw()
 rawplot
 ggsave(filename = "./Data/DataNotYetUploadedToEDI/Raw_inflow/raw_inflow_pressure.png", rawplot, device = "png")
@@ -313,6 +314,9 @@ Inflow_Final <- Inflow_Final[order(Inflow_Final$DateTime),] #orders file by date
 Inflow_Final <- Inflow_Final %>%
   mutate(Flow_cms = ifelse(Flow_cms <= 0, NA, Flow_cms))
 
+# If Pressure_psia < 0.18, then Flow_cms = NA (aka: pressure is too low to correctly calculate flow)
+Inflow_Final <- Inflow_Final %>% mutate(Flow_cms = ifelse(Pressure_psia <= 0.18, NA, Flow_cms))
+
 colnames(Inflow_Final) <- c('Reservoir', 'Site', 'DateTime', 'WVWA_Pressure_psi', 'WVWA_Baro_pressure_psi',  'WVWA_Pressure_psia', 'WVWA_Flow_cms', 'WVWA_Temp_C')
 
 #add VT sensor data to the WVWA transducer data ('Inflow_Final')
@@ -335,6 +339,9 @@ VTinflow$Reservoir <- 'FCR'
 VTinflow$Site <- 100
 Inflow_Final <- merge(Inflow_Final, VTinflow, by=c('DateTime', 'Reservoir', 'Site'), all=TRUE)
 
+# If VT_Pressure_psia < 0.18, then VT_Flow_cms = NA (aka: pressure is too low to correctly calculate flow)
+Inflow_Final <- Inflow_Final %>% mutate(VT_Flow_cms = ifelse(VT_Pressure_psia <= 0.18, NA, VT_Flow_cms))
+
 #add flags
 Inflow_Final <- Inflow_Final %>%
   mutate(WVWA_Flag_Pressure_psia = ifelse(DateTime > '2020-01-31 13:00:00', NA,0), # (ALWAYS UPDATE!) AKA: no data after 01-31-20 for WVWA
@@ -355,8 +362,8 @@ Inflow_Final <- Inflow_Final %>%
          VT_Flag_Flow = ifelse(DateTime >= "2019-06-03 00:00:00" & DateTime <= "2019-06-07 00:00:00",4, # weir un-plugged
                                 ifelse((0.149*VT_Pressure_psia/0.293) >= 0.3, 6, # flow too high
                                   ifelse(VT_Pressure_psia <= 0.180 & is.na(VT_Flow_cms),3,0))), # flow too low
-          VT_Flag_Pressure_psia = ifelse(DateTime < '2019-04-22 12:00:00', NA,0), # no data before 4-22-19
-          VT_Flag_Temp_C = ifelse(DateTime < '2019-04-22 12:00:00',NA,0)) # no data before 4-22-19
+         VT_Flag_Pressure_psia = ifelse(DateTime < '2019-04-22 12:00:00', NA,0), # no data before 4-22-19
+         VT_Flag_Temp_C = ifelse(DateTime < '2019-04-22 12:00:00',NA,0)) # no data before 4-22-19
 
 # Replace WVWA and VT flow values with NA when weir was un-plugged: 2019-06-03 00:00:00 to 2019-06-07 00:00:00
 Inflow_Final$WVWA_Flow_cms[213440:213851] <- NA
