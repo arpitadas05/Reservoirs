@@ -5,8 +5,8 @@
 #   Added script to incorporate Diana (VT) data for publication
 #   Updated flags for v-notch weir
 # Updated: 07Feb20 by A. Hounshell to included WVWA data through 31 Jan 2020
-# Updated: 20Feb20 by A. Hounshell - updated depth of pressure sensor from weir (9.6 cm), starting in Jun 2019 w/ the 
-# v-notch weir
+# Updated: 20Feb20 by A. Hounshell - not correctly flagging low-flow data for the v-notch weir; as of 07 Jun 2019, 
+# pressure sensors should be at the same location as the bottom of the weir
 
 #install.packages('pacman') #installs pacman package, making it easier to load in packages
 pacman::p_load(tidyverse, lubridate, magrittr, ggplot2) #installs and loads in necessary packages for script
@@ -230,6 +230,10 @@ diff_pre <- diff_pre %>% mutate(flow1 = (Pressure_psia )*0.70324961490205 - 0.16
 # Technically already completed above, but double check here
 diff_pre$Flow_cms = ifelse(diff_pre$Pressure_psia < 0.184, NA, diff_pre$Flow_cms)
 
+# Will also need to flag flows when water tops the weir: for the rectangular weir, head = 0.3 m + 0.1298575 m = 0.4298575 m
+# This corresponds to Pressure_psia <= 0.611244557965199
+diff_pre$Flow_cms = ifelse(diff_pre$Pressure_psia > 0.611, NA, diff_pre$Flow_cms)
+
 # q = 2.391 * H^2.5
 # where H = head in meters above the notch
 # the head was 14.8 cm on June 24 at ~13:30
@@ -240,8 +244,12 @@ diff_post <- diff_post %>%  mutate(head = (0.149*Pressure_psia)/0.293) %>%
   mutate(Flow_cms = 2.391* (head^2.5)) %>% 
   select(DateTime, Temp_C, Baro_pressure_psi, Pressure_psi, Pressure_psia, Flow_cms)
 
-# If Pressure_psia < 0.18, then Flow_cms = NA (aka: pressure is too low to correctly calculate flow)
-Inflow_Final <- Inflow_Final %>% mutate(Flow_cms = ifelse(Pressure_psia <= 0.18, NA, Flow_cms))
+# Because pressure transducer is now at the same level as bottom of the weir, only psi < 0 needs to be flagged/removed
+diff_post$Flow_cms = ifelse(diff_post$Pressure_psia < 0, NA, diff_post$Flow_cms)
+
+# Will need to flag flows when water tops the weir: used WW scaling relationship above to determine 0.3 m above the weir = 
+# 0.5899 psi; thererfore, psi > 0.590 should be flagged
+diff_post$Flow_cms = ifelse(diff_post$Pressure_psia > 0.590, NA, diff_post$Flow_cms)
 
 # and put pre and post back together
 diff <- rbind(diff_pre, diff_post)
@@ -340,38 +348,56 @@ VT_pre <- VT_pre %>% mutate(head = (VT_Pressure_psia)*0.70324961490205 - 0.16033
   mutate(VT_Flow_cms = flow_cfs*0.028316847   )%>% 
   select(DateTime, VT_Pressure_psia, VT_Flow_cms, VT_Temp_C) 
 
+# Make flow as NA when psi <= 0.184 (distance between pressure sensor and bottom of weir = 0.1298575 m = 0.18337 psi)
+# Technically already completed above, but double check here
+VT_pre$VT_Flow_cms = ifelse(VT_pre$VT_Pressure_psia < 0.184, NA, VT_pre$VT_Flow_cms)
+
+# Will also need to flag flows when water tops the weir: for the rectangular weir, head = 0.3 m + 0.1298575 m = 0.4298575 m
+# This corresponds to Pressure_psia <= 0.611244557965199
+VT_pre$VT_Flow_cms = ifelse(VT_pre$VT_Pressure_psia > 0.611, NA, VT_pre$VT_Flow_cms)
+
 VT_post <- VTdat[VTdat$DateTime > as.POSIXct('2019-06-07 00:00:00'),]  
 VT_post <- VT_post %>%  mutate(head = (0.149*VT_Pressure_psia)/0.293) %>% 
   mutate(VT_Flow_cms = 2.391* (head^2.5)) %>% 
   select(DateTime, VT_Pressure_psia, VT_Flow_cms, VT_Temp_C)
+
+# Because pressure transducer is now at the same level as bottom of the weir, only psi < 0 needs to be flagged/removed
+VT_post$VT_Flow_cms = ifelse(VT_post$VT_Pressure_psia < 0, NA, VT_post$VT_Flow_cms)
+
+# Will need to flag flows when water tops the weir: used WW scaling relationship above to determine 0.3 m above the weir = 
+# 0.5899 psi; thererfore, psi > 0.590 should be flagged
+VT_post$VT_Flow_cms = ifelse(VT_post$VT_Pressure_psia > 0.590, NA, VT_post$VT_Flow_cms)
+
 VTinflow <- rbind(VT_pre, VT_post)
 VTinflow$Reservoir <- 'FCR'
 VTinflow$Site <- 100
 Inflow_Final <- merge(Inflow_Final, VTinflow, by=c('DateTime', 'Reservoir', 'Site'), all=TRUE)
 
-# If VT_Pressure_psia < 0.18, then VT_Flow_cms = NA (aka: pressure is too low to correctly calculate flow)
-Inflow_Final <- Inflow_Final %>% mutate(VT_Flow_cms = ifelse(VT_Pressure_psia <= 0.18, NA, VT_Flow_cms))
-
 #add flags
 Inflow_Final <- Inflow_Final %>%
-  mutate(WVWA_Flag_Pressure_psia = ifelse(DateTime > '2020-01-31 13:00:00', NA,0), # (ALWAYS UPDATE!) AKA: no data after 01-31-20 for WVWA
-         WVWA_Flag_Pressure_psi = ifelse(DateTime > '2020-01-31 13:00:00', NA, # (ALWAYS UPDATE!) AKA: no data after 01-31-20 for WVWA
+  mutate(WVWA_Flag_Pressure_psia = ifelse(DateTime > '2020-02-20 02:00:00', NA, 0), # (ALWAYS UPDATE!) AKA: no data after 01-31-20 for WVWA
+         WVWA_Flag_Pressure_psi = ifelse(DateTime > '2020-02-20 02:00:00', NA, # (ALWAYS UPDATE!) AKA: no data after 01-31-20 for WVWA
                                          ifelse(DateTime <= "2017-11-13 10:45:00" & DateTime >= "2017-10-15 06:00:00",5, # Flag for leaking weir
                                                 ifelse(DateTime >= "2016-04-18 15:15:00 EST",1,0))),  # Flag for down correction after 18Apr16                      
-         WVWA_Flag_Baro_pressure_psi = ifelse(DateTime > '2020-01-31 13:00:00', NA, # (ALWAYS UPDATE!) No data after 01-31-20 for WVWA
+         WVWA_Flag_Baro_pressure_psi = ifelse(DateTime > '2020-02-20 02:00:00', NA, # (ALWAYS UPDATE!) No data after 01-31-20 for WVWA
                                               ifelse(DateTime <= "2014-04-28 05:45:00" & DateTime >= "2014-03-20 09:00:00",2,0)), # Sensor malfunction              
-         WVWA_Flag_Temp = ifelse(DateTime > '2020-01-31 13:00:00', NA, # (ALWAYS UPDATE!) No data after 01-31-20 for WVWA
+         WVWA_Flag_Temp = ifelse(DateTime > '2020-02-20 02:00:00', NA, # (ALWAYS UPDATE!) No data after 01-31-20 for WVWA
                                  ifelse(DateTime <= "2017-11-13 10:45:00" & DateTime >= "2017-10-15 06:00:00",5,0)), # Leaking weir (no NA's; just flag)
          WVWA_Flag_Flow = ifelse(DateTime <= "2014-04-28 05:45:00" & DateTime >= "2014-03-20 09:00:00",2, # sensor malfunction
-                            ifelse(DateTime <= "2017-11-13 10:45:00" & DateTime >= "2017-10-15 06:00:00",5, # leaking weir; NA's
-                                   ifelse(DateTime >= "2019-06-03 00:00:00" & DateTime <= "2019-06-07 00:00:00",14, # down correction and demonic intrusion (weir plug removed)
-                                          ifelse(DateTime > "2019-06-07 00:00:00" & (0.149*WVWA_Pressure_psia/0.293) >= 0.3, 16, # down correction and flow over weir
-                                          ifelse(DateTime >= "2016-04-18 15:15:00 EST" & WVWA_Pressure_psia <= 0.18 & is.na(WVWA_Flow_cms),13, # down correction and low flows
-                                                 ifelse(DateTime >= "2016-04-18 15:15:00 EST",1, # down correction
-                                                      ifelse(WVWA_Pressure_psia <= 0.180 & is.na(WVWA_Flow_cms),3,0))))))), # flow too low; no down correction
+                                 ifelse(DateTime <= "2017-11-13 10:45:00" & DateTime >= "2017-10-15 06:00:00",5, # leaking weir; NA's
+                                        ifelse(DateTime >= "2019-06-03 00:00:00" & DateTime <= "2019-06-07 00:00:00",14, # down correction and demonic intrusion (weir plug removed)
+                                               ifelse(DateTime <= "2016-04-18 15:15:00" & WVWA_Pressure_psia > 0.611 & is.na(WVWA_Flow_cms),6, # no down correction, flow over rectangular weir
+                                                      ifelse(DateTime >= "2016-04-18 15:15:00" & DateTime <= "2019-06-03 00:00:00" & WVWA_Pressure_psia > 0.611 & is.na(WVWA_Flow_cms),16, # Down correction, flow over rectangular weir
+                                                             ifelse(DateTime > "2019-06-07 00:00:00" & (0.149*WVWA_Pressure_psia/0.293) >= 0.3, 16, # down correction and flow over v-notch weir
+                                                                    ifelse(DateTime >= "2016-04-18 15:15:00" & WVWA_Pressure_psia < 0.185 & is.na(WVWA_Flow_cms), 3, # no down correction, low flows on rectangular weir
+                                                                          ifelse(DateTime >= "2016-04-18 15:15:00 EST" & DateTime <= "2019-06-03 00:00:00" & WVWA_Pressure_psia < 0.185 & is.na(WVWA_Flow_cms),13, # down correction and low flows on rectangular weir
+                                                                                 ifelse(DateTime >= "2019-06-07 00:00:00" & WVWA_Pressure_psia < 0 & is.na(WVWA_Flow_cms), 13, # down correction and low flows on v-notch weir
+                                                                                        ifelse(DateTime >= "2016-04-18 15:15:00 EST",1,0)))))))))), # Down correction
          VT_Flag_Flow = ifelse(DateTime >= "2019-06-03 00:00:00" & DateTime <= "2019-06-07 00:00:00",4, # weir un-plugged
-                                ifelse((0.149*VT_Pressure_psia/0.293) >= 0.3, 6, # flow too high
-                                  ifelse(VT_Pressure_psia <= 0.180 & is.na(VT_Flow_cms),3,0))), # flow too low
+                               ifelse(DateTime <= "2019-06-03 00:00:00" & VT_Pressure_psia > 0.611 & is.na(VT_Flow_cms),6, # Flow too high for rectangular weir
+                                      ifelse(DateTime >= "2019-06-07 00:00:00" & (0.149*VT_Pressure_psia/0.293) >= 0.3 & is.na(VT_Flow_cms), 6, # flow too high for v-notch weir
+                                             ifelse(DateTime<= "2019-06-03 00:00:00" & VT_Pressure_psia <= 0.185 & is.na(VT_Flow_cms),3, # flow too low for rectangular weir
+                                                    ifelse(DateTime >= "2019-06-07 00:00:00" & VT_Pressure_psia < 0 & is.na (VT_Flow_cms),3,0))))), #flow too low for v-notch weir 
          VT_Flag_Pressure_psia = ifelse(DateTime < '2019-04-22 12:00:00', NA,0), # no data before 4-22-19
          VT_Flag_Temp_C = ifelse(DateTime < '2019-04-22 12:00:00',NA,0)) # no data before 4-22-19
 
@@ -385,4 +411,4 @@ Inflow_Final <- Inflow_Final[-1,]
 
 
 # Write to CSV
-write.csv(Inflow_Final, './Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLInflow/FEB2020/inflow_for_EDI_2013_FEB2020.csv', row.names=F) 
+write.csv(Inflow_Final, './Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLInflow/FEB2020/inflow_for_EDI_2013_Mar2020.csv', row.names=F) 
