@@ -232,7 +232,8 @@ diff_pre$Flow_cms = ifelse(diff_pre$Pressure_psia < 0.184, NA, diff_pre$Flow_cms
 
 # Will also need to flag flows when water tops the weir: for the rectangular weir, head = 0.3 m + 0.1298575 m = 0.4298575 m
 # This corresponds to Pressure_psia <= 0.611244557965199
-diff_pre$Flow_cms = ifelse(diff_pre$Pressure_psia > 0.611, NA, diff_pre$Flow_cms)
+# diff_pre$Flow_cms = ifelse(diff_pre$Pressure_psia > 0.611, NA, diff_pre$Flow_cms)
+# Decided to keep data from above the weir, but flag!
 
 # q = 2.391 * H^2.5
 # where H = head in meters above the notch
@@ -249,7 +250,8 @@ diff_post$Flow_cms = ifelse(diff_post$Pressure_psia < 0, NA, diff_post$Flow_cms)
 
 # Will need to flag flows when water tops the weir: used WW scaling relationship above to determine 0.3 m above the weir = 
 # 0.5899 psi; thererfore, psi > 0.590 should be flagged
-diff_post$Flow_cms = ifelse(diff_post$Pressure_psia > 0.590, NA, diff_post$Flow_cms)
+# diff_post$Flow_cms = ifelse(diff_post$Pressure_psia > 0.590, NA, diff_post$Flow_cms)
+# Decided to keep data from above the weir, but flag!
 
 # and put pre and post back together
 diff <- rbind(diff_pre, diff_post)
@@ -354,7 +356,8 @@ VT_pre$VT_Flow_cms = ifelse(VT_pre$VT_Pressure_psia < 0.184, NA, VT_pre$VT_Flow_
 
 # Will also need to flag flows when water tops the weir: for the rectangular weir, head = 0.3 m + 0.1298575 m = 0.4298575 m
 # This corresponds to Pressure_psia <= 0.611244557965199
-VT_pre$VT_Flow_cms = ifelse(VT_pre$VT_Pressure_psia > 0.611, NA, VT_pre$VT_Flow_cms)
+# VT_pre$VT_Flow_cms = ifelse(VT_pre$VT_Pressure_psia > 0.611, NA, VT_pre$VT_Flow_cms)
+# Decided to keep data from above the weir, but flag!
 
 VT_post <- VTdat[VTdat$DateTime > as.POSIXct('2019-06-07 00:00:00'),]  
 VT_post <- VT_post %>%  mutate(head = (0.149*VT_Pressure_psia)/0.293) %>% 
@@ -366,7 +369,8 @@ VT_post$VT_Flow_cms = ifelse(VT_post$VT_Pressure_psia < 0, NA, VT_post$VT_Flow_c
 
 # Will need to flag flows when water tops the weir: used WW scaling relationship above to determine 0.3 m above the weir = 
 # 0.5899 psi; thererfore, psi > 0.590 should be flagged
-VT_post$VT_Flow_cms = ifelse(VT_post$VT_Pressure_psia > 0.590, NA, VT_post$VT_Flow_cms)
+# VT_post$VT_Flow_cms = ifelse(VT_post$VT_Pressure_psia > 0.590, NA, VT_post$VT_Flow_cms)
+# Decided to keep data from above the weir, but flag!
 
 VTinflow <- rbind(VT_pre, VT_post)
 VTinflow$Reservoir <- 'FCR'
@@ -386,8 +390,8 @@ Inflow_Final <- Inflow_Final %>%
          WVWA_Flag_Flow = ifelse(DateTime <= "2014-04-28 05:45:00" & DateTime >= "2014-03-20 09:00:00",2, # sensor malfunction
                                  ifelse(DateTime <= "2017-11-13 10:45:00" & DateTime >= "2017-10-15 06:00:00",5, # leaking weir; NA's
                                         ifelse(DateTime >= "2019-06-03 00:00:00" & DateTime <= "2019-06-07 00:00:00",14, # down correction and demonic intrusion (weir plug removed)
-                                               ifelse(DateTime <= "2016-04-18 15:15:00" & WVWA_Pressure_psia > 0.611 & is.na(WVWA_Flow_cms),6, # no down correction, flow over rectangular weir
-                                                      ifelse(DateTime >= "2016-04-18 15:15:00" & DateTime <= "2019-06-03 00:00:00" & WVWA_Pressure_psia > 0.611 & is.na(WVWA_Flow_cms),16, # Down correction, flow over rectangular weir
+                                               ifelse(DateTime <= "2016-04-18 15:15:00" & WVWA_Pressure_psia > 0.611,6, # no down correction, flow over rectangular weir
+                                                      ifelse(DateTime >= "2016-04-18 15:15:00" & DateTime <= "2019-06-03 00:00:00" & WVWA_Pressure_psia > 0.611,16, # Down correction, flow over rectangular weir
                                                              ifelse(DateTime > "2019-06-07 00:00:00" & (0.149*WVWA_Pressure_psia/0.293) >= 0.3, 16, # down correction and flow over v-notch weir
                                                                     ifelse(DateTime >= "2016-04-18 15:15:00" & WVWA_Pressure_psia < 0.185 & is.na(WVWA_Flow_cms), 3, # no down correction, low flows on rectangular weir
                                                                           ifelse(DateTime >= "2016-04-18 15:15:00 EST" & DateTime <= "2019-06-03 00:00:00" & WVWA_Pressure_psia < 0.185 & is.na(WVWA_Flow_cms),13, # down correction and low flows on rectangular weir
