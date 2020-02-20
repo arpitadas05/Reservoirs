@@ -5,6 +5,8 @@
 #   Added script to incorporate Diana (VT) data for publication
 #   Updated flags for v-notch weir
 # Updated: 07Feb20 by A. Hounshell to included WVWA data through 31 Jan 2020
+# Updated: 20Feb20 by A. Hounshell - updated depth of pressure sensor from weir (9.6 cm), starting in Jun 2019 w/ the 
+# v-notch weir
 
 #install.packages('pacman') #installs pacman package, making it easier to load in packages
 pacman::p_load(tidyverse, lubridate, magrittr, ggplot2) #installs and loads in necessary packages for script
@@ -117,7 +119,7 @@ pressure_boxplot
 ggsave(filename = "./Data/DataNotYetUploadedToEDI/Raw_inflow/raw_catwalk_pressure_boxplot.png", pressure_boxplot, device = "png")
 
 ##correction to inflow pressure to down-correct data after 18APR16
-## NOTE: Need to think about whether we want to stop this down-correction at some point!!!!
+## Continue down-correction to present!
 #for some reasons the DateTimes are one hour off? I am confused about this but whatever
 #just setting the downcorrect cutoff to be an hour off to compensate
 inflow_pressure1 <- inflow_pressure %>%
@@ -203,7 +205,7 @@ diff <- diff %>%
 #flow2 <- diff$Pressure_psia 
 ### CALCULATE THE FLOW RATES AT INFLOW ### #(MEL 2018-07-06)
 #################################################################################################
-#flow3 <- flow2*0.70324961490205 - 0.1603375 + 0.03048  # Response: Height above the weir (m)
+#flow3 <- flow2*0.70324961490205 - 0.1603375 + 0.03048  # Response: Height above the weir (m); Distance between pressure sensor and weir lip: 0.1298575 m = 0.18337 psi
 #pressure*conversion factor for head in m - distance from tip of transducer to lip of weir + distance from tip of transducer to pressure sensor (eq converted to meters)
 #flow4 <- (0.62 * (2/3) * (1.1) * 4.43 * (flow3 ^ 1.5) * 35.3147) # Flow CFS - MEL: I have not changed this; should be rating curve with area of weir
 #flow_final <- flow4*0.028316847                                  # Flow CMS - just a conversion factor from cfs to cms
@@ -214,21 +216,32 @@ diff <- diff %>%
 diff_pre <- diff[diff$DateTime< as.POSIXct('2019-06-06 09:30:00'),]
 diff_post <- diff[diff$DateTime > as.POSIXct('2019-06-07 00:00:00'),]
 
+######################
+
 # the old weir equations are taken directly from MEL's Inlow Aggregation script
+# Use for pressure data prior to 2019-06-06: see notes above for description of equations
+# NOTE: Pressure_psia < 0.185 calculates -flows (and are automatically set to NA's)
 diff_pre <- diff_pre %>% mutate(flow1 = (Pressure_psia )*0.70324961490205 - 0.1603375 + 0.03048) %>% 
   mutate(flow_cfs = (0.62 * (2/3) * (1.1) * 4.43 * (flow1 ^ 1.5) * 35.3147)) %>% 
-  mutate(Flow_cms = flow_cfs*0.028316847   )%>% 
+  mutate(Flow_cms = flow_cfs*0.028316847) %>% 
   select(DateTime, Temp_C, Baro_pressure_psi, Pressure_psi, Pressure_psia, Flow_cms)
+
+# Make flow as NA when psi <= 0.184 (distance between pressure sensor and bottom of weir = 0.1298575 m = 0.18337 psi)
+# Technically already completed above, but double check here
+diff_pre$Flow_cms = ifelse(diff_pre$Pressure_psia < 0.184, NA, diff_pre$Flow_cms)
 
 # q = 2.391 * H^2.5
 # where H = head in meters above the notch
 # the head was 14.8 cm on June 24 at ~13:30
 #14.8 cm is 0.148 m 
 #14.9cm on Jun 27 at 3:49PM
+# WW: Used scaling relationship to determine head:pressure relationship
 diff_post <- diff_post %>%  mutate(head = (0.149*Pressure_psia)/0.293) %>% 
   mutate(Flow_cms = 2.391* (head^2.5)) %>% 
   select(DateTime, Temp_C, Baro_pressure_psi, Pressure_psi, Pressure_psia, Flow_cms)
 
+# If Pressure_psia < 0.18, then Flow_cms = NA (aka: pressure is too low to correctly calculate flow)
+Inflow_Final <- Inflow_Final %>% mutate(Flow_cms = ifelse(Pressure_psia <= 0.18, NA, Flow_cms))
 
 # and put pre and post back together
 diff <- rbind(diff_pre, diff_post)
@@ -313,9 +326,6 @@ Inflow_Final <- Inflow_Final[order(Inflow_Final$DateTime),] #orders file by date
 
 Inflow_Final <- Inflow_Final %>%
   mutate(Flow_cms = ifelse(Flow_cms <= 0, NA, Flow_cms))
-
-# If Pressure_psia < 0.18, then Flow_cms = NA (aka: pressure is too low to correctly calculate flow)
-Inflow_Final <- Inflow_Final %>% mutate(Flow_cms = ifelse(Pressure_psia <= 0.18, NA, Flow_cms))
 
 colnames(Inflow_Final) <- c('Reservoir', 'Site', 'DateTime', 'WVWA_Pressure_psi', 'WVWA_Baro_pressure_psi',  'WVWA_Pressure_psia', 'WVWA_Flow_cms', 'WVWA_Temp_C')
 
