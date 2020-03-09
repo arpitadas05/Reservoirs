@@ -400,13 +400,13 @@ Inflow_Final <- merge(Inflow_Final, VTinflow, by=c('DateTime', 'Reservoir', 'Sit
 
 #add flags
 Inflow_Final <- Inflow_Final %>%
-  mutate(WVWA_Flag_Pressure_psia = ifelse(DateTime > '2020-03-06 02:00:00', NA, 0), # (ALWAYS UPDATE!) AKA: no data after 01-31-20 for WVWA
-         WVWA_Flag_Pressure_psi = ifelse(DateTime > '2020-03-06 02:00:00', NA, # (ALWAYS UPDATE!) AKA: no data after 01-31-20 for WVWA
+  mutate(WVWA_Flag_Pressure_psia = ifelse(DateTime > '2020-03-09 00:00:00', NA, 0), # (ALWAYS UPDATE!) AKA: no data after 01-31-20 for WVWA
+         WVWA_Flag_Pressure_psi = ifelse(DateTime > '2020-03-09 00:00:00', NA, # (ALWAYS UPDATE!) AKA: no data after 01-31-20 for WVWA
                                          ifelse(DateTime <= "2017-11-13 10:45:00" & DateTime >= "2017-10-15 06:00:00",5, # Flag for leaking weir
                                                 ifelse(DateTime >= "2016-04-18 15:15:00 EST",1,0))),  # Flag for down correction after 18Apr16                      
-         WVWA_Flag_Baro_pressure_psi = ifelse(DateTime > '2020-03-06 02:00:00', NA, # (ALWAYS UPDATE!) No data after 01-31-20 for WVWA
+         WVWA_Flag_Baro_pressure_psi = ifelse(DateTime > '2020-03-09 00:00:00', NA, # (ALWAYS UPDATE!) No data after 01-31-20 for WVWA
                                               ifelse(DateTime <= "2014-04-28 05:45:00" & DateTime >= "2014-03-20 09:00:00",2,0)), # Sensor malfunction              
-         WVWA_Flag_Temp = ifelse(DateTime > '2020-03-06 02:00:00', NA, # (ALWAYS UPDATE!) No data after 01-31-20 for WVWA
+         WVWA_Flag_Temp = ifelse(DateTime > '2020-03-09 00:00:00', NA, # (ALWAYS UPDATE!) No data after 01-31-20 for WVWA
                                  ifelse(DateTime <= "2017-11-13 10:45:00" & DateTime >= "2017-10-15 06:00:00",5,0)), # Leaking weir (no NA's; just flag)
          WVWA_Flag_Flow = ifelse(DateTime <= "2014-04-28 05:45:00" & DateTime >= "2014-03-20 09:00:00",2, # sensor malfunction
                                  ifelse(DateTime <= "2017-11-13 10:45:00" & DateTime >= "2017-10-15 06:00:00",5, # leaking weir; NA's
