@@ -1,0 +1,10 @@
+attributeName	attributeDefinition	class	unit	dateTimeFormatString	missingValueCode	missingValueCodeExplanation
+Pic_file_name	Name of picture file used to determine gage height.	categorical			NA	value is missing
+Date	Date of picture._	Date	dimensionless	YYYY-MM-DD	NA	value is missing
+Time	"Time of picture. All data were collected in the eastern time zone of the U.S.A., with daylight savings time observed"	Date	dimensionless	hh:mm	NA	value is missing
+Gage_height_cm	Gage height as determined using pictures taken at the primary inflow.	numeric	centimeter		NA	value is missing
+Catwalk_pressure_psi	Atmospheric pressure measured by WVWA INW sensor at the dam of Falling Creek Reservoir	numeric	poundsPerSquareInch		NA	value is missing
+WVWA_pressure_psi	Uncorrected pressure measured by the WVWA INW sensor at the weir	numeric	poundsPerSquareInch		NA	value is missing
+Corrected_pressure_psi	Corrected pressure (with atmospheric pressure subtracted) measured by WVWA INW sensor at the weir	numeric	poundsPerSquareInch		NA	value is missing
+VT_pressure_psi	Corrected pressure (with atmospheric pressure subtracted) by VT sensor	numeric	poundsPerSquareInch		NA	value is missing
+Notes	Any notes associated with picture of gage.	categorical			NA	value is missing
