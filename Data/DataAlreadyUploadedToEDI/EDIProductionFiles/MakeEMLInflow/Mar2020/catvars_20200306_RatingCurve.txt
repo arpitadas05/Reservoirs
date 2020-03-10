@@ -1,14 +1,3 @@
 attributeName	code	definition
-Pic_file_name	10_Jun_19	Picture file name
-Pic_file_name	24_Jun_19	Picture file name
-Pic_file_name	R_Script	Picture file name
-Pic_file_name	8_Jul_19	Picture file name
-Pic_file_name	22_Jul_19	Picture file name
-Pic_file_name	12_Aug_19	Picture file name
-Pic_file_name	28_Aug_19	Picture file name
-Pic_file_name	27_Sep_19	Picture file name
-Pic_file_name	30_Oct_19	Picture file name
-Pic_file_name	6_Dec_19	Picture file name
-Pic_file_name	29_Feb_20	Picture file name
-Notes	Weir_obstructed_by_leaves_and_branches	Weir obstructed by leaves and branches as observed in picture.
-Notes	No_data_as_of_02_Mar_2020	Pressure data had not been downloaded.
+Notes	Weir_obstructed_by_leaves_and_branches	Weir obstructed by leaves as identified by picture.
+Notes	No_data_as_of_02_Mar_2020	Data has not been downloaded.

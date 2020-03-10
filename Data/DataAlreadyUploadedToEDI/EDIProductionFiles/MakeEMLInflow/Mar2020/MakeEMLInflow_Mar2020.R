@@ -128,23 +128,7 @@ template_categorical_variables(path = "C:/Users/ahoun/OneDrive/Desktop/Reservoir
 # ** double-check that all files are closed before running this command! **
 
 ## Make EML for staging environment
-make_eml(
-  path = "C:/Users/ahoun/OneDrive/Desktop/Reservoir/Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLInflow/Mar2020",
-  data.path = "C:/Users/ahoun/OneDrive/Desktop/Reservoir/Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLInflow/Mar2020",
-  eml.path = "C:/Users/ahoun/OneDrive/Desktop/Reservoir/Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLInflow/Mar2020",
-  dataset.title = "Discharge time series for the primary inflow tributary entering Falling Creek Reservoir, Vinton, Virginia, USA 2013-2020",
-  temporal.coverage = c("2013-05-15", "2020-03-09"),
-  maintenance.description = 'ongoing',
-  data.table = "inflow_for_EDI_2013_06Mar2020.csv",
-  data.table.description = "FCR inflow dataset",
-  other.entity= 'Inflow_Aggregation_EDI_Mar2020.R',
-  other.entity.description = "QA/QC Code for Discharge aggregation",
-  user.id = 'ccarey',
-  user.domain = 'EDI',
-  package.id = 'edi.336')
-
-## Step 17: Obtain a package.id. ####
-# INFLOW IS A REVISION: already have an identifier: 202.X (x = revision number)
+## NOTE: Will need to check geographic coordinates!!!
 make_eml(
   path = "C:/Users/ahoun/OneDrive/Desktop/Reservoir/Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLInflow/Mar2020",
   data.path = "C:/Users/ahoun/OneDrive/Desktop/Reservoir/Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLInflow/Mar2020",
@@ -153,12 +137,47 @@ make_eml(
   temporal.coverage = c("2013-05-15", "2020-03-09"),
   maintenance.description = 'ongoing',
   data.table = c("inflow_for_EDI_2013_06Mar2020.csv","20200306_RatingCurve.csv"),
-  data.table.description = c("FCR inflow dataset","Rating curve for v-notch weir"),
+  data.table.description = c("FCR inflow dataset","Rating curve"),
   other.entity= 'Inflow_Aggregation_EDI_Mar2020.R',
   other.entity.description = "QA/QC Code for Discharge aggregation",
   user.id = 'ccarey',
   user.domain = 'EDI',
-  package.id = 'edi.202.5')
+  package.id = 'edi.336.1')
+
+## Step 8: Check your data product! ####
+# Return to the EDI staging environment (https://portal-s.edirepository.org/nis/home.jsp),
+# then login using one of the Carey Lab usernames and passwords. 
+
+# Select Tools --> Evaluate/Upload Data Packages, then under "EML Metadata File", 
+# choose your metadata (.xml) file (e.g., edi.270.1.xml), check "I want to 
+# manually upload the data by selecting files on my local system", then click Upload.
+
+# Now, Choose File for each file within the data package (e.g., each zip folder), 
+# then click Upload. Files will upload and your EML metadata will be checked 
+# for errors. If there are no errors, your data product is now published! 
+# If there were errors, click the link to see what they were, then fix errors 
+# in the xml file. 
+# Note that each revision results in the xml file increasing one value 
+# (e.g., edi.270.1, edi.270.2, etc). Re-upload your fixed files to complete the 
+# evaluation check again, until you receive a message with no errors.
+
+## Step 17: Obtain a package.id. ####
+# INFLOW IS A REVISION: already have an identifier: 202.X (x = revision number)
+## NOTE: Will need to check geographic coordinates!!!
+make_eml(
+  path = "C:/Users/ahoun/OneDrive/Desktop/Reservoir/Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLInflow/Mar2020",
+  data.path = "C:/Users/ahoun/OneDrive/Desktop/Reservoir/Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLInflow/Mar2020",
+  eml.path = "C:/Users/ahoun/OneDrive/Desktop/Reservoir/Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLInflow/Mar2020",
+  dataset.title = "Discharge time series for the primary inflow tributary entering Falling Creek Reservoir, Vinton, Virginia, USA 2013-2020",
+  temporal.coverage = c("2013-05-15", "2020-03-09"),
+  maintenance.description = 'ongoing',
+  data.table = c("inflow_for_EDI_2013_06Mar2020.csv","20200306_RatingCurve.csv"),
+  data.table.description = c("FCR inflow dataset","Rating curve"),
+  other.entity= 'Inflow_Aggregation_EDI_Mar2020.R',
+  other.entity.description = "QA/QC Code for Discharge aggregation",
+  user.id = 'ccarey',
+  user.domain = 'EDI',
+  package.id = 'edi.202.6')
 
 ## Step 18: Upload revision to EDI
 # Go to EDI website: https://portal.edirepository.org/nis/home.jsp and login with Carey Lab ID
