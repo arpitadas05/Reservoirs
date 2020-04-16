@@ -22,3 +22,5 @@ Prairie Pothole	carey lab controlled vocabulary
 Suggs	carey lab controlled vocabulary
 Sunapee	carey lab controlled vocabulary
 Toolik	carey lab controlled vocabulary
+macroscale feedbacks	carey lab controlled vocabulary
+greenhouse gases	carey lab controlled vocabulary
