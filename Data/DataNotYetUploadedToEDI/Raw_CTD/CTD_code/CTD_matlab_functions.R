@@ -8,24 +8,27 @@ fcr_data_wrangling <- function(){
   ### Date updated: 09June19
   
   # This reads all the files into the R environment
-  files = list.files(path = "./CTD_CASTS_CSV")
-  files <- files[files != "090419_fcr50.csv"]
+  files = list.files(path = "../csv_outputs/")
+  #files <- files[files != "090419_fcr50.csv"]
+  files = files[grepl("fcr50",files)]
   #files = list.files(path = "C:/Users/Owner/Dropbox/2019/CTD_2019/MSN_CTD_DATA")
   
   # run this to make sure you have all the files
   #files
   
   #This reads the first file in
-  ctd = read.csv(files[1]) 
+  ctd = read.csv(paste0("../csv_outputs/",files[1])) 
   
   # Loop through and pull all the files in
-  for (i in 2:length(files)){
-    new = read.csv(files[i],stringsAsFactors = F) 
-    ctd = ctd %>%
-      full_join(new)
+  if(length(files)>1){
+    for (i in 2:length(files)){
+      new = read.csv(paste0("../csv_outputs/",files[i]),stringsAsFactors = F) 
+      ctd = ctd %>%
+        full_join(new)
+    }
   }
   
-  write_csv(ctd, "CTD_notmatlab_ready_2019_fcr50.csv")
+  write_csv(ctd, "../CTD_season_csvs/CTD_notmatlab_ready_2019_fcr50.csv")
   
   # Convert dates to MatLab dates
   POSIXt2matlabUTC = function(x) {
@@ -50,7 +53,7 @@ fcr_data_wrangling <- function(){
   ctd_matlab$Date <- POSIXt2matlabUTC(ctd_matlab$Date)
   
   
-  write_csv(ctd_matlab, "CTD_matlab_ready_2019_fcr50.csv", col_names = F)
+  write_csv(ctd_matlab, "../CTD_season_csvs/CTD_matlab_ready_2019_fcr50.csv", col_names = F)
   
   
   # filter out depths in the CTD cast that are closest to the specified values for FLARE - AED 
@@ -73,7 +76,7 @@ fcr_data_wrangling <- function(){
   ctd_new$Depth_m <- round(as.numeric(ctd_new$Depth_m), digits = 0.5)
   ctd_new$Date <- ymd_hms(ctd_new$Date)
   
-  write_csv(ctd_new, "ctd_short_for_GLM_AED_2019.csv")
+  write_csv(ctd_new, "../CTD_season_csvs/ctd_short_for_GLM_AED_2019.csv")
   
   
   # # Pulling just temp, depth and date and going from long to wide. 
@@ -93,14 +96,14 @@ fcr_data_wrangling <- function(){
   # 
   # #rename the datetime name back to Date
   # names(FCR_thermo_18)[1] <- "Date"
-  print("Success! Matlab files and glm aed files have been created. Double check they look fine in dropbox")
+  print("Success! Matlab files and glm aed files have been created. Double check they look ok!")
   return(ctd_new)
 }
 
 
 
 
-ctd_vs_catwalk <- function(ctd_new, on,off,startDate = "2019-06-01 12:00:00"){
+ctd_vs_catwalk <- function(ctd_new, on,off,startDate = "2020-06-01 12:00:00"){
   # Compare the CTD and catwalk data. 
   # RPM 18June2019
   
@@ -121,7 +124,7 @@ ctd_vs_catwalk <- function(ctd_new, on,off,startDate = "2019-06-01 12:00:00"){
   
   ctd_9.0 <- ctd_new %>% filter(Depth_m == 9.0)
   
-  pdf("SEASONAL_CATWALK_CTD_COMPARE_DO_2019.pdf", width=14, height=8)
+  pdf("../CTD_catwalk_figures/SEASONAL_CATWALK_CTD_COMPARE_DO_2019.pdf", width=14, height=8)
   plot(as.POSIXct(cat_sum_19$TIMESTAMP), cat_sum_19$doobs_1, type = "l", ylim = c(0,14), xlab = "", ylab = "DO (mg/L)")
   lines(as.POSIXct(cat_sum_19$TIMESTAMP), cat_sum_19$doobs_5, type = "l", ylim = c(0,14), col = "blue")
   lines(as.POSIXct(cat_sum_19$TIMESTAMP), cat_sum_19$doobs_9, type = "l", ylim = c(0,14), col = "magenta")
@@ -134,7 +137,7 @@ ctd_vs_catwalk <- function(ctd_new, on,off,startDate = "2019-06-01 12:00:00"){
   dev.off()
   
   ### THERE IS NO dotemp_1 ???
-  cat_sum_19_temp <- cat %>% filter(TIMESTAMP >= "2019-06-01 12:00:00") %>%
+  cat_sum_19_temp <- cat %>% filter(TIMESTAMP >= startDate) %>%
     select(TIMESTAMP, wtr_1, dotemp_5, dotemp_9) %>%
     filter(wtr_1 != "NAN") %>%
     filter(dotemp_5 != "NAN") %>%
@@ -143,7 +146,7 @@ ctd_vs_catwalk <- function(ctd_new, on,off,startDate = "2019-06-01 12:00:00"){
     filter(TIMESTAMP != "YYYY_MM_DD_HH_MM_SS")
   
   
-  pdf("SEASONAL_CATWALK_CTD_COMPARE_TEMP_2019.pdf", width=14, height=8)
+  pdf("../CTD_catwalk_figures/SEASONAL_CATWALK_CTD_COMPARE_TEMP_2019.pdf", width=14, height=8)
   plot(as.POSIXct(cat_sum_19_temp$TIMESTAMP), cat_sum_19_temp$wtr_1, type = "l", ylim = c(4,33), xlab = "", ylab = "Temp (C)")
   lines(as.POSIXct(cat_sum_19_temp$TIMESTAMP), cat_sum_19_temp$dotemp_5, type = "l", ylim = c(4,33), col = "blue")
   lines(as.POSIXct(cat_sum_19_temp$TIMESTAMP), cat_sum_19_temp$dotemp_9, type = "l", ylim = c(4,33), col = "magenta")
@@ -155,16 +158,16 @@ ctd_vs_catwalk <- function(ctd_new, on,off,startDate = "2019-06-01 12:00:00"){
   legend("topright", legend=c("SSS on", "SSS off"), lty = c(1,2), bg = "white")
   dev.off()
   
-  cat_sum_19_chla <- cat %>% filter(TIMESTAMP >= "2019-06-01 12:00:00") %>%
+  cat_sum_19_chla <- cat %>% filter(TIMESTAMP >= startDate) %>%
     select(TIMESTAMP, Chla_1 ) %>%
     filter(Chla_1 != "NAN") %>%
     filter(TIMESTAMP != "NAN") %>%
     filter(TIMESTAMP != "YYYY_MM_DD_HH_MM_SS")
   
-  pdf("SEASONAL_CATWALK_CTD_COMPARE_CHLA_2019.pdf", width=14, height=8)
+  pdf("../CTD_catwalk_figures/SEASONAL_CATWALK_CTD_COMPARE_CHLA_2019.pdf", width=14, height=8)
   plot(as.POSIXct(cat_sum_19_chla$TIMESTAMP), cat_sum_19_chla$Chla_1, type = "l", ylim = c(0,50), xlab = "", ylab = "chla (ug/L)")
   points(ctd_1.0$Date, ctd_1.0$Chla_ugL, type = "p", pch = 21, col = "black", bg = "green", cex = 2, lwd = 2)
   dev.off()
   
-  print("Success! Catwalk comparison figures have been created. Double check they look good on dropbox")
+  print("Success! Catwalk comparison figures have been created. Double check they look ok!")
 }

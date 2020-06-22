@@ -181,7 +181,7 @@ epic_ctd_function <- function(ctdTrimmed, DATE_TEXT, SITE, SAMPLER,
   name_txt <- paste("../metadata_files/",NAME, "_metadata.txt", sep = "")
   write.table(metadata, file = name_txt, sep = "\t")
   
-  print(paste("Success! Data have been processed for ",NAME, ". ", "Double check the files in dropbox to make sure everything looks right.", sep = ""))
+  print(paste("Success! Data have been processed for ",NAME, ". ", "Double check the files on github to make sure everything looks right.", sep = ""))
 }
 
 
