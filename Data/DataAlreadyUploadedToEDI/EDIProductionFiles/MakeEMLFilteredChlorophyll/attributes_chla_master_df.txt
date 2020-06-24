@@ -1,0 +1,9 @@
+attributeName	attributeDefinition	class	unit	dateTimeFormatString	missingValueCode	missingValueCodeExplanation
+Reservoir		character				
+Site		numeric	!Add units here!			
+Date		Date		!Add datetime specifier here!		
+Depth_m		numeric	!Add units here!			
+Chla_ugL		numeric	!Add units here!			
+Pheo_ugL		numeric	!Add units here!			
+Flag_Chla		numeric	!Add units here!			
+Flag_Pheo		numeric	!Add units here!			
