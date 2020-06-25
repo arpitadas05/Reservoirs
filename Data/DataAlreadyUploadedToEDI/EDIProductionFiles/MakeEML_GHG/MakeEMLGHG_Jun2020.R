@@ -4,7 +4,7 @@
 ### 24Jun2020, A. Hounshell
 
 # (install and) Load EMLassemblyline #####
-# install.packages('devtools')
+install.packages('devtools')
 
 devtools::install_github("EDIorg/EMLassemblyline")
 #note that EMLassemblyline has an absurd number of dependencies and you
@@ -127,9 +127,9 @@ template_categorical_variables(path = "C:/Users/ahoun/OneDrive/Desktop/Reservoir
 ## Make EML for staging environment
 ## NOTE: Will need to check geographic coordinates!!!
 make_eml(
-  path = "C:/Users/ahoun/OneDrive/Desktop/Reservoir/Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEML_GHG",
-  data.path = "C:/Users/ahoun/OneDrive/Desktop/Reservoir/Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEML_GHG",
-  eml.path = "C:/Users/ahoun/OneDrive/Desktop/Reservoir/Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEML_GHG",
+  path = "C:/Users/Adam/Documents/Alex/Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEML_GHG",
+  data.path = "C:/Users/Adam/Documents/Alex/Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEML_GHG",
+  eml.path = "C:/Users/Adam/Documents/Alex/Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEML_GHG",
   dataset.title = "Time series of dissolved methane and carbon dioxide concentrations for Falling Creek Reservoir and Beaverdam Reservoir in southwestern Virginia, USA during 2016-2018",
   temporal.coverage = c("2016-03-23", "2018-10-29"),
   maintenance.description = 'ongoing',
@@ -137,7 +137,7 @@ make_eml(
   data.table.description = "GHG Dataset",
   user.id = 'ccarey',
   user.domain = 'EDI',
-  package.id = 'edi.50.1')
+  package.id = 'edi.50.2')
 
 ## Step 8: Check your data product! ####
 # Return to the EDI staging environment (https://portal-s.edirepository.org/nis/home.jsp),
@@ -157,22 +157,20 @@ make_eml(
 # evaluation check again, until you receive a message with no errors.
 
 ## Step 17: Obtain a package.id. ####
-# INFLOW IS A REVISION: already have an identifier: 202.X (x = revision number)
-## NOTE: Will need to check geographic coordinates!!!
+# Need to obtain a package identifier: reserved #551
+
 make_eml(
-  path = "C:/Users/ahoun/OneDrive/Desktop/Reservoir/Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLInflow/Mar2020",
-  data.path = "C:/Users/ahoun/OneDrive/Desktop/Reservoir/Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLInflow/Mar2020",
-  eml.path = "C:/Users/ahoun/OneDrive/Desktop/Reservoir/Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLInflow/Mar2020",
-  dataset.title = "Discharge time series for the primary inflow tributary entering Falling Creek Reservoir, Vinton, Virginia, USA 2013-2020",
-  temporal.coverage = c("2013-05-15", "2020-03-09"),
+  path = "C:/Users/Adam/Documents/Alex/Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEML_GHG",
+  data.path = "C:/Users/Adam/Documents/Alex/Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEML_GHG",
+  eml.path = "C:/Users/Adam/Documents/Alex/Reservoirs/Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEML_GHG",
+  dataset.title = "Time series of dissolved methane and carbon dioxide concentrations for Falling Creek Reservoir and Beaverdam Reservoir in southwestern Virginia, USA during 2016-2018",
+  temporal.coverage = c("2016-03-23", "2018-10-29"),
   maintenance.description = 'ongoing',
-  data.table = c("inflow_for_EDI_2013_06Mar2020.csv","20200306_RatingCurve.csv"),
-  data.table.description = c("FCR inflow dataset","Rating curve"),
-  other.entity= 'Inflow_Aggregation_EDI_Mar2020.R',
-  other.entity.description = "QA/QC Code for Discharge aggregation",
+  data.table = 'DATASET_for_EDI_LOL_MS_10May20.csv',
+  data.table.description = "GHG Dataset",
   user.id = 'ccarey',
   user.domain = 'EDI',
-  package.id = 'edi.202.6')
+  package.id = 'edi.551.1')
 
 ## Step 18: Upload revision to EDI
 # Go to EDI website: https://portal.edirepository.org/nis/home.jsp and login with Carey Lab ID
