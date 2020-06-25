@@ -11,7 +11,7 @@
 chl <- read.csv('./Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLFilteredChlorophyll/chla_master_df.csv')
 
 # (install and) Load EMLassemblyline #####
-# install.packages('devtools')
+install.packages('devtools')
 
 devtools::install_github("EDIorg/EMLassemblyline")
 #note that EMLassemblyline has an absurd number of dependencies and you
