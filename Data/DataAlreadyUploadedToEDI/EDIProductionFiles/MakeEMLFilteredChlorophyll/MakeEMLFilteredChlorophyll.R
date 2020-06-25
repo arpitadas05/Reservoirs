@@ -7,13 +7,15 @@
 #https://ediorg.github.io/EMLassemblyline/articles/overview.html
 #and links therein
 
+setwd('~/Reservoirs')
+
 # read in chl data
-chl <- read.csv('./Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLFilteredChlorophyll/chla_master_df.csv')
+chl <- read.csv('./Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLFilteredChlorophyll/chla_master_df_dt.csv')
 
 # (install and) Load EMLassemblyline #####
-install.packages('devtools')
+#install.packages('devtools')
 
-devtools::install_github("EDIorg/EMLassemblyline")
+#devtools::install_github("EDIorg/EMLassemblyline")
 #note that EMLassemblyline has an absurd number of dependencies and you
 #may exceed your API rate limit; if this happens, you will have to wait an
 #hour and try again or get a personal authentification token (?? I think)
@@ -52,7 +54,7 @@ template_core_metadata(path = "./Data/DataAlreadyUploadedToEDI/EDIProductionFile
 
 template_table_attributes(path = "./Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLFilteredChlorophyll",
                        data.path = "./Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLFilteredChlorophyll",
-                       data.table = "chla_master_df.csv",
+                       data.table = "chla_master_df_dt.csv",
                        write.file = TRUE)
 
 
@@ -60,7 +62,7 @@ template_table_attributes(path = "./Data/DataAlreadyUploadedToEDI/EDIProductionF
 #as columns within our dataset but would like to provide them
 template_geographic_coverage(path = "./Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLFilteredChlorophyll",
                           data.path = "./Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLFilteredChlorophyll",
-                          data.table = "chla_master_df.csv",
+                          data.table = "chla_master_df_dt.csv",
                           empty = TRUE,
                           write.file = TRUE)
 
