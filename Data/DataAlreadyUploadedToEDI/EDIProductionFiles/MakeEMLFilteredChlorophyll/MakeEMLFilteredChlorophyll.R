@@ -139,11 +139,11 @@ make_eml(
   path = "./Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLFilteredChlorophyll",
   data.path = "./Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLFilteredChlorophyll",
   eml.path = "./Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLFilteredChlorophyll",
-  dataset.title = "Water chemistry time series for Beaverdam Reservoir, Carvins Cove Reservoir, Falling Creek Reservoir, Gatewood Reservoir, and Spring Hollow Reservoir in southwestern Virginia, USA 2013-2019",
-  temporal.coverage = c("2013-04-04", "2019-11-20"),
+  dataset.title = "Filtered chlorophyll a time series for Beaverdam Reservoir, Carvins Cove Reservoir, Claytor Lake, Falling Creek Reservoir, Gatewood Reservoir, Smith Mountain Lake, and Spring Hollow Reservoir in southwestern Virginia, USA during 2014-2019",
+  temporal.coverage = c("2014-04-18", "2019-10-04"),
   maintenance.description = 'ongoing',
-  data.table = "chemistry.csv",
-  data.table.description = "Reservoir water chemistry dataset",
+  data.table = "chla_master_df_dt.csv",
+  data.table.description = "Reservoir chlorophyll a dataset",
   user.id = 'ccarey',
   user.domain = 'EDI',
   package.id = 'edi.51.1')
@@ -185,14 +185,14 @@ make_eml(
 # in step 7
 
 make_eml(
-  path = "./Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLChemistry/2019",
-  data.path = "./Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLChemistry/2019",
-  eml.path = "./Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLChemistry/2019",
-  dataset.title = "Water chemistry time series for Beaverdam Reservoir, Carvins Cove Reservoir, Falling Creek Reservoir, Gatewood Reservoir, and Spring Hollow Reservoir in southwestern Virginia, USA 2013-2019",
-  temporal.coverage = c("2013-04-04", "2019-11-20"),
+  path = "./Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLFilteredChlorophyll",
+  data.path = "./Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLFilteredChlorophyll",
+  eml.path = "./Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLFilteredChlorophyll",
+  dataset.title = "Filtered chlorophyll a time series for Beaverdam Reservoir, Carvins Cove Reservoir, Claytor Lake, Falling Creek Reservoir, Gatewood Reservoir, Smith Mountain Lake, and Spring Hollow Reservoir in southwestern Virginia, USA during 2014-2019",
+  temporal.coverage = c("2014-04-18", "2019-10-04"),
   maintenance.description = 'ongoing',
-  data.table = "chemistry.csv",
-  data.table.description = "Reservoir water chemistry dataset",
+  data.table = "chla_master_df_dt.csv",
+  data.table.description = "Reservoir chlorophyll a dataset",
   user.id = 'ccarey',
   user.domain = 'EDI',
   package.id = 'edi.199.6') #DO NOT REQUEST A NEW PACKAGE ID, SIMPLY INCREASE THE LAST DIGIT HERE BY 1 TO UPDATE THE CURRENT PUBLICATION
