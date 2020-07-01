@@ -146,7 +146,7 @@ make_eml(
   data.table.description = "Reservoir chlorophyll a dataset",
   user.id = 'ccarey',
   user.domain = 'EDI',
-  package.id = 'edi.51.1')
+  package.id = 'edi.52.2')
 
 ## Step 8: Check your data product! ####
 # Return to the EDI staging environment (https://portal-s.edirepository.org/nis/home.jsp),
