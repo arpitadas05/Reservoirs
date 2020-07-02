@@ -10,7 +10,7 @@ Chlorophyll a
 samples were extracted using a 96% ethanol solution at room temperature for 3-24 hours (Wasmund et al. 2006) and then analyzed by spectrophotometric analysis. To quantify the concentration of pheophytin within the sample, the analysis adopts the acidification recommendation of Parker et al. (2016), in which 240 microliters of 0.1 N HCL was added to the sample. The sample was homogenized and left to sit for 90 seconds for samples analyzed through 2018, or 120 seconds for samples analyzed after 2019. The quantitation of the sample used was the monochromatic spectrophotometric method for chlorophyll a after correction for the presence of pheopigments, to provide a metric of "live" phytoplankton at the time of collection (Lorenzen 1967). The pheophytin concentration (a metric of "dead" but still fluorescing phytoplankton) is also reported. In 2014, total chlorophyll a was corrected for pheophytin but pheophytin values were not recorded. Both extraction and analysis were performed in the absence of direct light to prevent the degradation of chlorophyll a. Samples collected were not always analyzed, leading to occasional incomplete water column profiles for certain dates within the dataset. 
 
 
-References
+REFERENCES
 Lorenzen, C.J. 1967.  Determinations of chlorophyll and pheo-pigments:  spectrophotometric equations.  Limnol. Oceanogr. 12:343-346.
 Parker, S. P., W. B. Bowden, and M. B. Flinn.  2016.  The effect of acid strength and postacidification reaction time on the determination of chlorophyll a in ethanol extracts of aquatic periphyton.  Limnology and Oceanography: Methods 14:839-852.
 Wasmund, N., I. Topp, and D. Schories.  2006.  Optimising the storage and extraction of chlorophyll samples.  Oceanologica 48(1):125-144.
