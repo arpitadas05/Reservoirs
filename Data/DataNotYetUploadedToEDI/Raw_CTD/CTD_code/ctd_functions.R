@@ -93,10 +93,10 @@ epic_ctd_function <- function(ctdTrimmed, DATE_TEXT, SITE, SAMPLER,
   
   ### REMOVE the top negative values and only include the downcast from the water
   data_wtr <- data %>% filter(Depth_m > 0) %>% 
-    filter(Depth_m <= MAX_DEPTH) %>% 
-    filter(`Descent Rate (m/s)` >= 0)
-  data_wtr$DO_mgL[data_wtr$DO_mgL <= 0] <- 0.01
-  data_wtr$DO_pSat[data_wtr$DO_pSat <= 0] <- 0.01
+    filter(Depth_m <= MAX_DEPTH) #%>% 
+    #filter(`Descent Rate (m/s)` >= 0) #NOTE: I got rid of this 21 Jun 20 but it still is only the downcast
+  #data_wtr$DO_mgL[data_wtr$DO_mgL < 0] <- 0 Stopped doing this at the start of 2020
+  #data_wtr$DO_pSat[data_wtr$DO_pSat < 0] <- 0
   
   
   
@@ -107,7 +107,7 @@ epic_ctd_function <- function(ctdTrimmed, DATE_TEXT, SITE, SAMPLER,
   
   par(mfrow=c(4,4))
   cl <- rainbow(16)
-  for(i in seq(1,length(data_wtr),1)) plot(data_wtr[,i],-data_wtr$Depth_m, xlab=names(data_wtr[i]),type="l", col = cl[i], ylab= "Depth_m")
+  for(i in seq(1,length(data_wtr),1)) plot(data_wtr[,i],-data_wtr$Depth_m, xlab=names(data_wtr[i]),type="l", col = cl[i], ylab= "Depth (m)")
   
   dev.off()
   

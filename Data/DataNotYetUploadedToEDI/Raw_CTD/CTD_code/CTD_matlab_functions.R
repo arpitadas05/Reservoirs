@@ -103,28 +103,43 @@ fcr_data_wrangling <- function(){
 
 
 
-ctd_vs_catwalk <- function(ctd_new, on,off,startDate = "2020-06-01 12:00:00"){
+ctd_vs_catwalk <- function(on,off,startDate = "2020-06-01 12:00:00"){
   # Compare the CTD and catwalk data. 
   # RPM 18June2019
+  #Substantial edits by ASL 23 Jun 20. Selecting the depths closest to the actual catwalk depth
   
   pacman::p_load(tidyverse, rLakeAnalyzer)
   cat <- read_csv(file = getURL("https://raw.githubusercontent.com/CareyLabVT/SCCData/mia-data/Catwalk.csv"),skip = 1)
+  ctd_new = read_csv("../CTD_season_csvs/CTD_notmatlab_ready_2019_fcr50.csv")
   
   cat_sum_19 <- cat %>% filter(TIMESTAMP >= startDate) %>%
-    select(TIMESTAMP, doobs_1, doobs_5, doobs_9) %>%
+    select(TIMESTAMP, doobs_1, doobs_5, doobs_9,EXO_depth) %>%
     filter(doobs_1 != "NAN") %>%
     filter(doobs_5 != "NAN") %>%
     filter(doobs_9 != "NAN") %>%
     filter(TIMESTAMP != "NAN") %>%
     filter(TIMESTAMP != "YYYY_MM_DD_HH_MM_SS")
   
-  ctd_1.0 <- ctd_new %>% filter(Depth_m == 1.6)
+  dates = unique(ctd_new$Date)
+  ctd_new$EXO_depth=NA
+  for(date in dates){
+    ctd_new$EXO_depth[ctd_new$Date==date] = cat_sum_19$EXO_depth[which.min(abs(as.numeric(as.POSIXct(cat_sum_19$TIMESTAMP))-date))]
+  }
+  class(ctd_new$EXO_depth)="numeric"
   
-  ctd_5.0 <- ctd_new %>% filter(Depth_m == 5.0)
+  ctd_1.0 <- ctd_new %>% 
+    group_by(Date)%>%
+    filter(abs(Depth_m-EXO_depth)==min(abs(Depth_m-EXO_depth)))
   
-  ctd_9.0 <- ctd_new %>% filter(Depth_m == 9.0)
+  ctd_5.0 <- ctd_new %>% 
+    group_by(Date)%>%
+    filter(abs(Depth_m-(EXO_depth +5 -1.6))==min(abs(Depth_m-(EXO_depth +5 -1.6))))
   
-  pdf("../CTD_catwalk_figures/SEASONAL_CATWALK_CTD_COMPARE_DO_2019.pdf", width=14, height=8)
+  ctd_9.0 <- ctd_new %>% 
+    group_by(Date)%>%
+    filter(abs(Depth_m-(EXO_depth +9 -1.6))==min(abs(Depth_m-(EXO_depth +9 -1.6))))
+  
+  jpeg("../CTD_catwalk_figures/SEASONAL_CATWALK_CTD_COMPARE_DO_2019.jpg", width=14, height=8, units = "in",res = 300)
   plot(as.POSIXct(cat_sum_19$TIMESTAMP), cat_sum_19$doobs_1, type = "l", ylim = c(0,14), xlab = "", ylab = "DO (mg/L)")
   lines(as.POSIXct(cat_sum_19$TIMESTAMP), cat_sum_19$doobs_5, type = "l", ylim = c(0,14), col = "blue")
   lines(as.POSIXct(cat_sum_19$TIMESTAMP), cat_sum_19$doobs_9, type = "l", ylim = c(0,14), col = "magenta")
@@ -146,7 +161,7 @@ ctd_vs_catwalk <- function(ctd_new, on,off,startDate = "2020-06-01 12:00:00"){
     filter(TIMESTAMP != "YYYY_MM_DD_HH_MM_SS")
   
   
-  pdf("../CTD_catwalk_figures/SEASONAL_CATWALK_CTD_COMPARE_TEMP_2019.pdf", width=14, height=8)
+  jpeg("../CTD_catwalk_figures/SEASONAL_CATWALK_CTD_COMPARE_TEMP_2019.jpg", width=14, height=8, units = "in",res = 300)
   plot(as.POSIXct(cat_sum_19_temp$TIMESTAMP), cat_sum_19_temp$wtr_1, type = "l", ylim = c(4,33), xlab = "", ylab = "Temp (C)")
   lines(as.POSIXct(cat_sum_19_temp$TIMESTAMP), cat_sum_19_temp$dotemp_5, type = "l", ylim = c(4,33), col = "blue")
   lines(as.POSIXct(cat_sum_19_temp$TIMESTAMP), cat_sum_19_temp$dotemp_9, type = "l", ylim = c(4,33), col = "magenta")
@@ -164,7 +179,7 @@ ctd_vs_catwalk <- function(ctd_new, on,off,startDate = "2020-06-01 12:00:00"){
     filter(TIMESTAMP != "NAN") %>%
     filter(TIMESTAMP != "YYYY_MM_DD_HH_MM_SS")
   
-  pdf("../CTD_catwalk_figures/SEASONAL_CATWALK_CTD_COMPARE_CHLA_2019.pdf", width=14, height=8)
+  jpeg("../CTD_catwalk_figures/SEASONAL_CATWALK_CTD_COMPARE_CHLA_2019.jpg", width=14, height=8, units = "in",res = 300)
   plot(as.POSIXct(cat_sum_19_chla$TIMESTAMP), cat_sum_19_chla$Chla_1, type = "l", ylim = c(0,50), xlab = "", ylab = "chla (ug/L)")
   points(ctd_1.0$Date, ctd_1.0$Chla_ugL, type = "p", pch = 21, col = "black", bg = "green", cex = 2, lwd = 2)
   dev.off()
