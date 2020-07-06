@@ -146,7 +146,7 @@ make_eml(
   data.table.description = "Reservoir chlorophyll a dataset",
   user.id = 'ccarey',
   user.domain = 'EDI',
-  package.id = 'edi.52.3')
+  package.id = 'edi.555.1')
 
 ## Step 8: Check your data product! ####
 # Return to the EDI staging environment (https://portal-s.edirepository.org/nis/home.jsp),
@@ -195,7 +195,7 @@ make_eml(
   data.table.description = "Reservoir chlorophyll a dataset",
   user.id = 'ccarey',
   user.domain = 'EDI',
-  package.id = 'edi.199.6') #DO NOT REQUEST A NEW PACKAGE ID, SIMPLY INCREASE THE LAST DIGIT HERE BY 1 TO UPDATE THE CURRENT PUBLICATION
+  package.id = 'edi.555.1') #DO NOT REQUEST A NEW PACKAGE ID, SIMPLY INCREASE THE LAST DIGIT HERE BY 1 TO UPDATE THE CURRENT PUBLICATION
 
 # Once your xml file with your PUBLISHED package.id is Done, return to the 
 # EDI Production environment (https://portal.edirepository.org/nis/home.jsp)
