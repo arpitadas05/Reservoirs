@@ -1,0 +1,8 @@
+attributeName	attributeDefinition	class	unit	dateTimeFormatString	missingValueCode	missingValueCodeExplanation
+Reservoir		character				
+Site		numeric	!Add units here!			
+DateTime		Date		!Add datetime specifier here!		
+Depth_m		numeric	!Add units here!			
+DRSI_mgL		numeric	!Add units here!			
+Flag_DRSI		numeric	!Add units here!			
+Date		Date		!Add datetime specifier here!		

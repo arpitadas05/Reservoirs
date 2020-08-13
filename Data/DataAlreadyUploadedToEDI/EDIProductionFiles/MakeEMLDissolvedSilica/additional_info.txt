@@ -1,0 +1,5 @@
+In 2014, multiple whole-ecosystem manipulations were conducted at Falling Creek Reservoir. These manipulations include intermittent operation of hypolimnetic oxygenation. For a detailed description of the hypolimnetic oxygenation engineered system, see Gerling et al. (2014). These systems were operated in 2014 following Table 1 in Gerling et al. (2016).
+
+
+Gerling, A.B., Browne, R.G., Gantzer, P.A., Mobley, M.H., Little, J.C., and C.C. Carey. 2014. First report of the successful operation of a side stream supersaturation hypolimnetic oxygenation system in a eutrophic, shallow reservoir.  Water Research. 67: 129-143. doi: 10.1016/j.watres.2014.09.002
+Gerling, A.B., Z.W. Munger, J.P. Doubek, K.D. Hamre, P.A. Gantzer, J.C. Little, and C.C. Carey. 2016. Whole-catchment manipulations of internal and external loading reveal the sensitivity of a century-old reservoir to hypoxia. Ecosystems. 19:555-571. DOI: 10.1007/s10021-015-9951-0

@@ -1,0 +1,18 @@
+SAMPLING TIMES
+Sampling occurred between the hours of 9:00 and 15:00 EST and are denoted in the DateTime column as 12:00. 
+
+SAMPLE COLLECTION AND EQUIPMENT
+
+Water samples were collected at the following depths for each reservoir: 0.1, 4, 8, and 12 meters within Beaverdam Reservoir, which has a Zmax of 13 meters at full pond; 0.1, 5, 6, 14, 18, 19, and 20 meters within Carvins Cove Reservoir, which has a Zmax of 23 meters at full pond; 0.1, 5, 6, 7, 30, and 34 meters within Claytor Lake, which has a Zmax of 47.5 meters at full pond; 0.1, 5, and 9 meters within Falling Creek Reservoir, which has a Zmax of 9.3 meters at full pond; 0.1, 4,  5, 10, and 12 meters within Gatewood Reservoir, which has a Zmax of 14 meters; 0.1, 5, 7, 8, 14, 25, and 28 meters within Spring Hollow Reservoir, which has a Zmax of 63m; and 0.1, 6, 7, 8, 25, 28, and 30 meters within Smith Mountain Lake, which has a Zmax of 76 meters. A 4-L Van Dorn water sampler was used to collect samples (Wildco, Yulee, Florida, USA) which were immediately filtered through a 0.7 micrometer membrane glass fiber filter then stored in acid-washed 125 mL polypropylene bottles. Samples were analyzed as soon as possible or frozen within 12 hours and then fully thawed for analysis (McDonald et al. 1982). 
+
+
+CHEMICAL ANALYSES AND EQUIPMENT
+
+5 mL was measured from each water sample and combined with 2.5 mL of 0.25 N HCl, 2.5 mL of 5% ammonium molybdate, and 2.5 mL of 1% sodium EDTA. After 5-minutes, 5.0 mL of 17% sodium sulfite was added. Once reagents were added, the sample was set to rest for at least 30 minutes and up to several hours. The concentration of dissolved silica within the sample was analyzed colorimetrically, with the absorbance value read at the wavelength of 700 nm by spectrophotometer. In order to quantify concentration, the absorbance of the sample was compared to a standard curve (Wetzel and Likens 2000). 
+
+
+REFERENCES
+
+Wetzel RG and GE Likens. 2000.  Limnological Analyses. 3rd ed.  Exercise 7. Inorganic Nutrients:  Nitrogen, Phosphorus, and Other Nutrients, pp 97-99. Springer, New York.  429 p.
+
+McDonald, RW, FA McLaughlin, CS Wong.  1986. The storage of reactive silicate samples by freezing.  Limnol. Oceanogr. 31(5):1139-1142.
