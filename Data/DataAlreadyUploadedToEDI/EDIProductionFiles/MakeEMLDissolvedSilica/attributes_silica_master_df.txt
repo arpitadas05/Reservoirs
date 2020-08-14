@@ -1,8 +1,7 @@
 attributeName	attributeDefinition	class	unit	dateTimeFormatString	missingValueCode	missingValueCodeExplanation
-Reservoir		character				
-Site		numeric	!Add units here!			
-DateTime		Date		!Add datetime specifier here!		
-Depth_m		numeric	!Add units here!			
-DRSI_mgL		numeric	!Add units here!			
-Flag_DRSI		numeric	!Add units here!			
-Date		Date		!Add datetime specifier here!		
+Reservoir	"Three-letter code corresponding to sampled reservoir; BVR=Beaverdam Reservoir, CCR= Carvins Cove, CLY = Claytor Lake, Reservoir, FCR=Falling Creek Reservoir, GWR=Gatewood Reservoir, SHR=Spring Hollow Reservoir, SML = Smith Mountain Lake"	character			NA	value is missing
+Site	"50 = Deep hole or site nearest to dam in each reservoir, 100 = Inflow stream to Falling Creek Reservoir "	numeric	dimensionless		NA	value is missing
+DateTime	"Date of sampling. All data were collected in the eastern time zone of the U.S.A., with Eastern Standard Time Observed"	Date		YYYY-MM-DD hh:mm:ss	NA	value is missing
+Depth_m	Water depth where the sample was collected or sensor reading was measured 	numeric	meter		NA	value is missing
+DRSI_mgL	Dissolved silica concentration	numeric	milligramsPerLiter		NA	value is missing
+Flag_DRSI	Data flag for dissolved silica	numeric	dimensionless		NA	value is missing
