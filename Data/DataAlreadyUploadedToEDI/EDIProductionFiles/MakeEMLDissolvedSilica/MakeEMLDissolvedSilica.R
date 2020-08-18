@@ -146,7 +146,7 @@ make_eml(
   data.table.description = "Reservoir dissolved silica dataset",
   user.id = 'ccarey',
   user.domain = 'EDI',
-  package.id = 'edi.71.3')
+  package.id = 'edi.71.4')
 
 ## Step 8: Check your data product! ####
 # Return to the EDI staging environment (https://portal-s.edirepository.org/nis/home.jsp),

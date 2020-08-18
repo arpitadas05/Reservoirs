@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eml:eml xmlns:eml="https://eml.ecoinformatics.org/eml-2.2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:stmml="http://www.xml-cml.org/schema/stmml-1.2" packageId="edi.71.4" xsi:schemaLocation="https://eml.ecoinformatics.org/eml-2.2.0  https://nis.lternet.edu/schemas/EML/eml-2.2.0/xsd/eml.xsd" system="edi">
+  <access authSystem="https://pasta.edirepository.org/authentication" order="allowFirst" scope="document">
+    <allow>
+      <principal>uid=ccarey,o=EDI,dc=edirepository,dc=org</principal>
+      <permission>all</permission>
+    </allow>
+    <allow>
+      <principal>public</principal>
+      <permission>read</permission>
+    </allow>
+  </access>
+  <dataset>
+    <title>Dissolved silica time series for Beaverdam Reservoir, Carvins Cove Reservoir, Claytor Lake, Falling Creek Reservoir, Gatewood Reservoir, Smith Mountain Lake, and Spring Hollow Reservoir in southwestern Virginia, USA during 2014</title>
+    <creator>
+      <individualName>
+        <givenName>Cayelan</givenName>
+        <givenName>C.</givenName>
+        <surName>Carey</surName>
+      </individualName>
+      <organizationName>Virginia Tech</organizationName>
+      <electronicMailAddress>cayelan@vt.edu</electronicMailAddress>
+      <userId directory="https://orcid.org">https://orcid.org/0000-0001-8835-4476</userId>
+    </creator>
+    <creator>
+      <individualName>
+        <givenName>Jonathan</givenName>
+        <givenName>P.</givenName>
+        <surName>Doubek</surName>
+      </individualName>
+      <organizationName>Virginia Tech</organizationName>
+      <electronicMailAddress>jdoubek@lssu.edu</electronicMailAddress>
+      <userId directory="https://orcid.org">https://orcid.org/0000-0003-2651-4715</userId>
+    </creator>
+    <creator>
+      <individualName>
+        <givenName>Jacob</givenName>
+        <givenName>H.</givenName>
+        <surName>Wynne</surName>
+      </individualName>
+      <organizationName>Virginia Tech</organizationName>
+      <electronicMailAddress>jacobwynne@vt.edu</electronicMailAddress>
+      <userId directory="https://orcid.org">https://orcid.org/0000-0003-4221-1247</userId>
+    </creator>
+    <creator>
+      <individualName>
+        <givenName>Barbara</givenName>
+        <givenName>R.</givenName>
+        <surName>Niederlehner</surName>
+      </individualName>
+      <organizationName>Virginia Tech</organizationName>
+      <electronicMailAddress>bniederl@vt.edu&lt;ca&gt;&lt;ca&gt;&lt;ca&gt;</electronicMailAddress>
+    </creator>
+    <pubDate>2020-08-17</pubDate>
+    <abstract>
+      <para>Water column dissolved silica (SiO2) was analyzed during 2014 in seven freshwater reservoirs in southwestern Virginia (VA), USA. These reservoirs are: Beaverdam Reservoir (Vinton, VA), Carvins Cove Reservoir (Roanoke, VA), Claytor Lake (Pulaski, VA), Falling Creek Reservoir (Vinton, VA), Gatewood Reservoir (Pulaski, VA), Smith Mountain Lake (Bedford, VA), and Spring Hollow Reservoir (Salem, VA). Beaverdam, Carvins Cove, Falling Creek, and Spring Hollow Reservoirs are owned and operated by the Western Virginia Water Authority as primary or secondary drinking water sources for Roanoke, Virginia; Gatewood Reservoir is a drinking water source for the Town of Pulaski, Virginia; and Smith Mountain Lake is jointly treated by Bedford Regional Water Authority and Western Virginia Water Authority as a drinking water source for Franklin County, Virginia. Claytor Lake is utilized for hydroelectric power generation by Appalachian Power Company. The dataset consists of depth profiles of dissolved silica samples generally measured at the deepest site of each reservoir adjacent to the dam and an inflow stream into Falling Creek Reservoir. The water column samples were collected approximately fortnightly from April-June, weekly from June-July and sporadically from July-October at Beaverdam Reservoir; weekly from April-July and fortnightly from July-November at Carvins Cove Reservoir; sporadically from April-August at Claytor Lake; weekly from April-November at Falling Creek Reservoir; fortnightly from April-October at Gatewood Reservoir; fortnightly from May-November at Spring Hollow Reservoir; and fortnightly from May-October at Smith Mountain Lake. </para>
+    </abstract>
+    <keywordSet>
+      <keyword>Virginia Tech</keyword>
+      <keyword>Stream Team</keyword>
+      <keyword>Carey Lab</keyword>
+      <keyword>Western Virginia Water Authority</keyword>
+      <keyword>Falling Creek Reservoir</keyword>
+      <keywordThesaurus>carey lab controlled vocabulary</keywordThesaurus>
+    </keywordSet>
+    <keywordSet>
+      <keyword>Lake</keyword>
+      <keyword>Reservoir</keyword>
+      <keywordThesaurus>cuahsi controlled vocabulary</keywordThesaurus>
+    </keywordSet>
+    <keywordSet>
+      <keyword>plankton</keyword>
+      <keyword>phytoplankton</keyword>
+      <keyword>algae</keyword>
+      <keyword>diatoms</keyword>
+      <keyword>silica</keyword>
+      <keywordThesaurus>lter controlled vocabulary</keywordThesaurus>
+    </keywordSet>
+    <keywordSet>
+      <keyword>dissolved silica</keyword>
+      <keyword>filtered silica</keyword>
+      <keyword>reactive silica</keyword>
+    </keywordSet>
+    <additionalInfo>
+      <para>In 2014, multiple whole-ecosystem manipulations were conducted at Falling Creek Reservoir. These manipulations include intermittent operation of hypolimnetic oxygenation. For a detailed description of the hypolimnetic oxygenation engineered system, see Gerling et al. (2014). These systems were operated in 2014 following Table 1 in Gerling et al. (2016).</para>
+      <para>
+Gerling, A.B., Browne, R.G., Gantzer, P.A., Mobley, M.H., Little, J.C., and C.C. Carey. 2014. First report of the successful operation of a side stream supersaturation hypolimnetic oxygenation system in a eutrophic, shallow reservoir.  Water Research. 67: 129-143. doi: 10.1016/j.watres.2014.09.002
+Gerling, A.B., Z.W. Munger, J.P. Doubek, K.D. Hamre, P.A. Gantzer, J.C. Little, and C.C. Carey. 2016. Whole-catchment manipulations of internal and external loading reveal the sensitivity of a century-old reservoir to hypoxia. Ecosystems. 19:555-571. DOI: 10.1007/s10021-015-9951-0
+</para>
+    </additionalInfo>
+    <intellectualRights>
+      <para>This information is released under the Creative Commons license - Attribution - CC BY (https://creativecommons.org/licenses/by/4.0/). The consumer of these data (\"Data User\" herein) is required to cite it appropriately in any publication that results from its use. The Data User should realize that these data may be actively used by others for ongoing research and that coordination may be necessary to prevent duplicate publication. The Data User is urged to contact the authors of these data if any questions about methodology or results occur. Where appropriate, the Data User is encouraged to consider collaboration or co-authorship with the authors. The Data User should realize that misinterpretation of data may occur if used out of context of the original study. While substantial efforts are made to ensure the accuracy of data and associated documentation, complete accuracy of data sets cannot be guaranteed. All data are made available \"as is.\" The Data User should be aware, however, that data are updated periodically and it is the responsibility of the Data User to check for new versions of the data. The data authors and the repository where these data were obtained shall not be liable for damages resulting from any use or misinterpretation of the data. Thank you.
+</para>
+    </intellectualRights>
+    <coverage>
+      <geographicCoverage>
+        <geographicDescription>Beaverdam Reservoir is located in Vinton, Virginia, USA</geographicDescription>
+        <boundingCoordinates>
+          <westBoundingCoordinate>-79.824834</westBoundingCoordinate>
+          <eastBoundingCoordinate>-79.813848</eastBoundingCoordinate>
+          <northBoundingCoordinate>37.322865</northBoundingCoordinate>
+          <southBoundingCoordinate>37.311961</southBoundingCoordinate>
+        </boundingCoordinates>
+      </geographicCoverage>
+      <geographicCoverage>
+        <geographicDescription>Carvins Cove Reservoir is located in Roanoke, Virginia, USA</geographicDescription>
+        <boundingCoordinates>
+          <westBoundingCoordinate>-79.978642</westBoundingCoordinate>
+          <eastBoundingCoordinate>-79.944052</eastBoundingCoordinate>
+          <northBoundingCoordinate>37.409127</northBoundingCoordinate>
+          <southBoundingCoordinate>37.365345</southBoundingCoordinate>
+        </boundingCoordinates>
+      </geographicCoverage>
+      <geographicCoverage>
+        <geographicDescription>Claytor Lake is located in Pulaski, Virginia, USA </geographicDescription>
+        <boundingCoordinates>
+          <westBoundingCoordinate>-80.74543</westBoundingCoordinate>
+          <eastBoundingCoordinate>-80.576912</eastBoundingCoordinate>
+          <northBoundingCoordinate>37.086718</northBoundingCoordinate>
+          <southBoundingCoordinate>36.967031</southBoundingCoordinate>
+        </boundingCoordinates>
+      </geographicCoverage>
+      <geographicCoverage>
+        <geographicDescription>Falling Creek Reservoir is located in Vinton, Virginia, USA</geographicDescription>
+        <boundingCoordinates>
+          <westBoundingCoordinate>-79.839249</westBoundingCoordinate>
+          <eastBoundingCoordinate>-79.836009</eastBoundingCoordinate>
+          <northBoundingCoordinate>37.309589</northBoundingCoordinate>
+          <southBoundingCoordinate>37.30266</southBoundingCoordinate>
+        </boundingCoordinates>
+      </geographicCoverage>
+      <geographicCoverage>
+        <geographicDescription>Gatewood Reservoir is located in Pulaski, Virginia, USA</geographicDescription>
+        <boundingCoordinates>
+          <westBoundingCoordinate>-80.89188</westBoundingCoordinate>
+          <eastBoundingCoordinate>-80.858492</eastBoundingCoordinate>
+          <northBoundingCoordinate>37.054358</northBoundingCoordinate>
+          <southBoundingCoordinate>37.03819</southBoundingCoordinate>
+        </boundingCoordinates>
+      </geographicCoverage>
+      <geographicCoverage>
+        <geographicDescription>Smith Mountain Lake is located in Bedford, Franklin and Pittsylvania, Virginia, USA</geographicDescription>
+        <boundingCoordinates>
+          <westBoundingCoordinate>-79.726699</westBoundingCoordinate>
+          <eastBoundingCoordinate>-79.522078</eastBoundingCoordinate>
+          <northBoundingCoordinate>37.158577</northBoundingCoordinate>
+          <southBoundingCoordinate>37.002455</southBoundingCoordinate>
+        </boundingCoordinates>
+      </geographicCoverage>
+      <geographicCoverage>
+        <geographicDescription>Spring Hollow Reservoir is located in Salem, Virginia, USA</geographicDescription>
+        <boundingCoordinates>
+          <westBoundingCoordinate>-80.179076</westBoundingCoordinate>
+          <eastBoundingCoordinate>-80.170407</eastBoundingCoordinate>
+          <northBoundingCoordinate>37.231092</northBoundingCoordinate>
+          <southBoundingCoordinate>37.217594</southBoundingCoordinate>
+        </boundingCoordinates>
+      </geographicCoverage>
+      <temporalCoverage>
+        <rangeOfDates>
+          <beginDate>
+            <calendarDate>2014-04-16</calendarDate>
+          </beginDate>
+          <endDate>
+            <calendarDate>2014-11-10</calendarDate>
+          </endDate>
+        </rangeOfDates>
+      </temporalCoverage>
+    </coverage>
+    <maintenance>
+      <description>completed</description>
+    </maintenance>
+    <contact>
+      <individualName>
+        <givenName>Cayelan</givenName>
+        <givenName>C.</givenName>
+        <surName>Carey</surName>
+      </individualName>
+      <organizationName>Virginia Tech</organizationName>
+      <electronicMailAddress>cayelan@vt.edu</electronicMailAddress>
+      <userId directory="https://orcid.org">https://orcid.org/0000-0001-8835-4476</userId>
+    </contact>
+    <methods>
+      <methodStep>
+        <description>
+          <para>SAMPLING TIMES
+Sampling occurred between the hours of 9:00 and 15:00 EST and are denoted in the DateTime column as 12:00. </para>
+          <para>SAMPLE COLLECTION AND EQUIPMENT</para>
+          <para>Water samples were collected at the following depths for each reservoir: 0.1, 4, 8, and 12 meters within Beaverdam Reservoir, which has a Zmax of 13 meters at full pond; 0.1, 5, 6, 14, 18, 19, and 20 meters within Carvins Cove Reservoir, which has a Zmax of 23 meters at full pond; 0.1, 5, 6, 7, 30, and 34 meters within Claytor Lake, which has a Zmax of 47.5 meters at full pond; 0.1, 5, and 9 meters within Falling Creek Reservoir, which has a Zmax of 9.3 meters at full pond; 0.1, 4,  5, 10, and 12 meters within Gatewood Reservoir, which has a Zmax of 14 meters; 0.1, 5, 7, 8, 14, 25, and 28 meters within Spring Hollow Reservoir, which has a Zmax of 63m; and 0.1, 6, 7, 8, 25, 28, and 30 meters within Smith Mountain Lake, which has a Zmax of 76 meters. A 4-L Van Dorn water sampler was used to collect samples (Wildco, Yulee, Florida, USA) which were immediately filtered through a 0.7 micrometer membrane glass fiber filter then stored in acid-washed 125 mL polypropylene bottles. Samples were analyzed as soon as possible or frozen within 12 hours and then fully thawed for analysis (McDonald et al. 1982). </para>
+          <para>
+CHEMICAL ANALYSES AND EQUIPMENT</para>
+          <para>5 mL was measured from each water sample and combined with 2.5 mL of 0.25 N HCl, 2.5 mL of 5% ammonium molybdate, and 2.5 mL of 1% sodium EDTA. After 5-minutes, 5.0 mL of 17% sodium sulfite was added. Once reagents were added, the sample was set to rest for at least 30 minutes and up to several hours. The concentration of dissolved silica within the sample was analyzed colorimetrically, with the absorbance value read at the wavelength of 700 nm by spectrophotometer. In order to quantify concentration, the absorbance of the sample was compared to a standard curve (Wetzel and Likens 2000). </para>
+          <para>
+REFERENCES</para>
+          <para>Wetzel RG and GE Likens. 2000.  Limnological Analyses. 3rd ed.  Exercise 7. Inorganic Nutrients:  Nitrogen, Phosphorus, and Other Nutrients, pp 97-99. Springer, New York.  429 p.</para>
+          <para>McDonald, RW, FA McLaughlin, CS Wong.  1986. The storage of reactive silicate samples by freezing.  Limnol. Oceanogr. 31(5):1139-1142.
+</para>
+        </description>
+      </methodStep>
+    </methods>
+    <project>
+      <title>No project title to report</title>
+      <personnel>
+        <individualName>
+          <givenName>Cayelan</givenName>
+          <givenName>C.</givenName>
+          <surName>Carey</surName>
+        </individualName>
+        <organizationName>Virginia Tech</organizationName>
+        <electronicMailAddress>cayelan@vt.edu</electronicMailAddress>
+        <userId directory="https://orcid.org">https://orcid.org/0000-0001-8835-4476</userId>
+        <role>Principal Investigator</role>
+      </personnel>
+      <funding>Western Virginia Water Authority</funding>
+      <relatedProject>
+        <title>No project title to report</title>
+        <personnel>
+          <individualName>
+            <givenName>Cayelan</givenName>
+            <givenName>C.</givenName>
+            <surName>Carey</surName>
+          </individualName>
+          <organizationName>Virginia Tech</organizationName>
+          <electronicMailAddress>cayelan@vt.edu</electronicMailAddress>
+          <userId directory="https://orcid.org">https://orcid.org/0000-0001-8835-4477</userId>
+          <role>Principal Investigator</role>
+        </personnel>
+        <funding>Fralin Life Sciences Institute</funding>
+      </relatedProject>
+      <relatedProject>
+        <title>SCC-IRG Track 2: Resilient Water Systems: Integrating Environmental Sensor Networks and Real-Time Forecasting to Adaptively Manage Drinking Water Quality and Build Social Trust</title>
+        <personnel>
+          <individualName>
+            <givenName>Cayelan</givenName>
+            <givenName>C.</givenName>
+            <surName>Carey</surName>
+          </individualName>
+          <organizationName>Virginia Tech</organizationName>
+          <electronicMailAddress>cayelan@vt.edu</electronicMailAddress>
+          <userId directory="https://orcid.org">https://orcid.org/0000-0001-8835-4478</userId>
+          <role>Principal Investigator</role>
+        </personnel>
+        <funding>National Science Foundation 1737424</funding>
+      </relatedProject>
+      <relatedProject>
+        <title>Collaborative Research: Consequences of changing oxygen availability for carbon cycling in freshwater ecosystems</title>
+        <personnel>
+          <individualName>
+            <givenName>Cayelan</givenName>
+            <givenName>C.</givenName>
+            <surName>Carey</surName>
+          </individualName>
+          <organizationName>Virginia Tech</organizationName>
+          <electronicMailAddress>cayelan@vt.edu</electronicMailAddress>
+          <userId directory="https://orcid.org">https://orcid.org/0000-0001-8835-4479</userId>
+          <role>Principal Investigator</role>
+        </personnel>
+        <funding>National Science Foundation 1753639</funding>
+      </relatedProject>
+      <relatedProject>
+        <title>Collaborative Research: CIBR: Cyberinfrastructure Enabling End-to-End Workflows for Aquatic Ecosystem Forecasting&lt;ca&gt;</title>
+        <personnel>
+          <individualName>
+            <givenName>Cayelan</givenName>
+            <givenName>C.</givenName>
+            <surName>Carey</surName>
+          </individualName>
+          <organizationName>Virginia Tech</organizationName>
+          <electronicMailAddress>cayelan@vt.edu</electronicMailAddress>
+          <userId directory="https://orcid.org">https://orcid.org/0000-0001-8835-4480</userId>
+          <role>Principal Investigator</role>
+        </personnel>
+        <funding>National Science Foundation 1933016</funding>
+      </relatedProject>
+    </project>
+    <dataTable>
+      <entityName>silica_master_df.csv</entityName>
+      <entityDescription>Reservoir dissolved silica dataset</entityDescription>
+      <physical>
+        <objectName>silica_master_df.csv</objectName>
+        <size unit="bytes">13269</size>
+        <authentication method="MD5">96ed7df985edf9f29a4861e0dea1489d</authentication>
+        <dataFormat>
+          <textFormat>
+            <numHeaderLines>1</numHeaderLines>
+            <recordDelimiter>\r\n</recordDelimiter>
+            <attributeOrientation>column</attributeOrientation>
+            <simpleDelimited>
+              <fieldDelimiter>,</fieldDelimiter>
+            </simpleDelimited>
+          </textFormat>
+        </dataFormat>
+      </physical>
+      <attributeList>
+        <attribute>
+          <attributeName>Reservoir</attributeName>
+          <attributeDefinition>Three-letter code corresponding to sampled reservoir; BVR=Beaverdam Reservoir, CCR= Carvins Cove, CLY = Claytor Lake, Reservoir, FCR=Falling Creek Reservoir, GWR=Gatewood Reservoir, SHR=Spring Hollow Reservoir, SML = Smith Mountain Lake</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>Three-letter code corresponding to sampled reservoir; BVR=Beaverdam Reservoir, CCR= Carvins Cove, CLY = Claytor Lake, Reservoir, FCR=Falling Creek Reservoir, GWR=Gatewood Reservoir, SHR=Spring Hollow Reservoir, SML = Smith Mountain Lake</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>Site</attributeName>
+          <attributeDefinition>50 = Deep hole or site nearest to dam in each reservoir, 100 = Inflow stream to Falling Creek Reservoir</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>dimensionless</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>natural</numberType>
+                <bounds>
+                  <minimum exclusive="false">50</minimum>
+                  <maximum exclusive="false">100</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>DateTime</attributeName>
+          <attributeDefinition>Date of sampling. All data were collected in the eastern time zone of the U.S.A., with Eastern Standard Time Observed</attributeDefinition>
+          <storageType>date</storageType>
+          <measurementScale>
+            <dateTime>
+              <formatString>YYYY-MM-DD hh:mm:ss</formatString>
+              <dateTimeDomain/>
+            </dateTime>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>Depth_m</attributeName>
+          <attributeDefinition>Water depth where the sample was collected or sensor reading was measured</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>meter</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">0.1</minimum>
+                  <maximum exclusive="false">34</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>DRSI_mgL</attributeName>
+          <attributeDefinition>Dissolved silica concentration</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>milligramsPerLiter</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">0</minimum>
+                  <maximum exclusive="false">13.875482</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>Flag_DRSI</attributeName>
+          <attributeDefinition>Data flag for dissolved silica</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>dimensionless</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>whole</numberType>
+                <bounds>
+                  <minimum exclusive="false">0</minimum>
+                  <maximum exclusive="false">4</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+      </attributeList>
+      <numberOfRecords>316</numberOfRecords>
+    </dataTable>
+  </dataset>
+</eml:eml>
