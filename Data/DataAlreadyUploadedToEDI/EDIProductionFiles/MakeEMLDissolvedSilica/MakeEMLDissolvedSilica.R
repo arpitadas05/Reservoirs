@@ -146,7 +146,7 @@ make_eml(
   data.table.description = "Reservoir dissolved silica dataset",
   user.id = 'ccarey',
   user.domain = 'EDI',
-  package.id = 'edi.71.4')
+  package.id = 'edi.71.5')
 
 ## Step 8: Check your data product! ####
 # Return to the EDI staging environment (https://portal-s.edirepository.org/nis/home.jsp),
@@ -185,17 +185,17 @@ make_eml(
 # in step 7
 
 make_eml(
-  path = "./Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLFilteredChlorophyll",
-  data.path = "./Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLFilteredChlorophyll",
-  eml.path = "./Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLFilteredChlorophyll",
-  dataset.title = "Filtered chlorophyll a time series for Beaverdam Reservoir, Carvins Cove Reservoir, Claytor Lake, Falling Creek Reservoir, Gatewood Reservoir, Smith Mountain Lake, and Spring Hollow Reservoir in southwestern Virginia, USA during 2014-2019",
-  temporal.coverage = c("2014-04-18", "2019-10-04"),
-  maintenance.description = 'ongoing',
-  data.table = "chla_master_df_dt.csv",
-  data.table.description = "Reservoir chlorophyll a dataset",
+  path = "./Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLDissolvedSilica",
+  data.path = "./Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLDissolvedSilica",
+  eml.path = "./Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLDissolvedSilica",
+  dataset.title = "Dissolved silica time series for Beaverdam Reservoir, Carvins Cove Reservoir, Claytor Lake, Falling Creek Reservoir, Gatewood Reservoir, Smith Mountain Lake, and Spring Hollow Reservoir in southwestern Virginia, USA during 2014",
+  temporal.coverage = c("2014-04-16", "2014-11-10"),
+  maintenance.description = 'completed',
+  data.table = "silica_master_df.csv",
+  data.table.description = "Reservoir dissolved silica dataset",
   user.id = 'ccarey',
   user.domain = 'EDI',
-  package.id = 'edi.555.1') #DO NOT REQUEST A NEW PACKAGE ID, SIMPLY INCREASE THE LAST DIGIT HERE BY 1 TO UPDATE THE CURRENT PUBLICATION
+  package.id = 'edi.542.1') #DO NOT REQUEST A NEW PACKAGE ID, SIMPLY INCREASE THE LAST DIGIT HERE BY 1 TO UPDATE THE CURRENT PUBLICATION
 
 # Once your xml file with your PUBLISHED package.id is Done, return to the 
 # EDI Production environment (https://portal.edirepository.org/nis/home.jsp)

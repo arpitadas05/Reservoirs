@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<eml:eml xmlns:eml="https://eml.ecoinformatics.org/eml-2.2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:stmml="http://www.xml-cml.org/schema/stmml-1.2" packageId="edi.555.1" xsi:schemaLocation="https://eml.ecoinformatics.org/eml-2.2.0  https://nis.lternet.edu/schemas/EML/eml-2.2.0/xsd/eml.xsd" system="edi">
+<eml:eml xmlns:eml="https://eml.ecoinformatics.org/eml-2.2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:stmml="http://www.xml-cml.org/schema/stmml-1.2" packageId="edi.542.1" xsi:schemaLocation="https://eml.ecoinformatics.org/eml-2.2.0  https://nis.lternet.edu/schemas/EML/eml-2.2.0/xsd/eml.xsd" system="edi">
   <access authSystem="https://pasta.edirepository.org/authentication" order="allowFirst" scope="document">
     <allow>
       <principal>uid=ccarey,o=EDI,dc=edirepository,dc=org</principal>
@@ -11,7 +11,7 @@
     </allow>
   </access>
   <dataset>
-    <title>Filtered chlorophyll a time series for Beaverdam Reservoir, Carvins Cove Reservoir, Claytor Lake, Falling Creek Reservoir, Gatewood Reservoir, Smith Mountain Lake, and Spring Hollow Reservoir in southwestern Virginia, USA during 2014-2019</title>
+    <title>Dissolved silica time series for Beaverdam Reservoir, Carvins Cove Reservoir, Claytor Lake, Falling Creek Reservoir, Gatewood Reservoir, Smith Mountain Lake, and Spring Hollow Reservoir in southwestern Virginia, USA during 2014</title>
     <creator>
       <individualName>
         <givenName>Cayelan</givenName>
@@ -21,36 +21,6 @@
       <organizationName>Virginia Tech</organizationName>
       <electronicMailAddress>cayelan@vt.edu</electronicMailAddress>
       <userId directory="https://orcid.org">https://orcid.org/0000-0001-8835-4476</userId>
-    </creator>
-    <creator>
-      <individualName>
-        <givenName>Mary</givenName>
-        <givenName>E.</givenName>
-        <surName>Lofton</surName>
-      </individualName>
-      <organizationName>Virginia Tech</organizationName>
-      <electronicMailAddress>melofton@vt.edu</electronicMailAddress>
-      <userId directory="https://orcid.org">https://orcid.org/0000-0003-3270-1330</userId>
-    </creator>
-    <creator>
-      <individualName>
-        <givenName>Whitney</givenName>
-        <givenName>M.</givenName>
-        <surName>Woelmer</surName>
-      </individualName>
-      <organizationName>Virginia Tech</organizationName>
-      <electronicMailAddress>wwoelmer@vt.edu</electronicMailAddress>
-      <userId directory="https://orcid.org">https://orcid.org/0000-0001-5147-3877</userId>
-    </creator>
-    <creator>
-      <individualName>
-        <givenName>Jacob</givenName>
-        <givenName>H.</givenName>
-        <surName>Wynne</surName>
-      </individualName>
-      <organizationName>Virginia Tech</organizationName>
-      <electronicMailAddress>jacobwynne@vt.edu</electronicMailAddress>
-      <userId directory="https://orcid.org">https://orcid.org/0000-0003-4221-1247</userId>
     </creator>
     <creator>
       <individualName>
@@ -64,12 +34,13 @@
     </creator>
     <creator>
       <individualName>
-        <givenName>Kathleen</givenName>
-        <givenName>D.</givenName>
-        <surName>Hamre</surName>
+        <givenName>Jacob</givenName>
+        <givenName>H.</givenName>
+        <surName>Wynne</surName>
       </individualName>
       <organizationName>Virginia Tech</organizationName>
-      <electronicMailAddress>kdhamre@vt.edu</electronicMailAddress>
+      <electronicMailAddress>jacobwynne@vt.edu</electronicMailAddress>
+      <userId directory="https://orcid.org">https://orcid.org/0000-0003-4221-1247</userId>
     </creator>
     <creator>
       <individualName>
@@ -78,11 +49,11 @@
         <surName>Niederlehner</surName>
       </individualName>
       <organizationName>Virginia Tech</organizationName>
-      <electronicMailAddress>bniederl@vt.edu</electronicMailAddress>
+      <electronicMailAddress>bniederl@vt.edu&lt;ca&gt;&lt;ca&gt;&lt;ca&gt;</electronicMailAddress>
     </creator>
     <pubDate>2020-08-18</pubDate>
     <abstract>
-      <para>Water column chlorophyll a was analyzed from 2014 to 2019 in seven freshwater reservoirs in southwestern Virginia (VA), USA. These reservoirs are: Beaverdam Reservoir (Vinton, VA), Carvins Cove Reservoir (Roanoke, VA), Claytor Lake (Pulaski, VA), Falling Creek Reservoir (Vinton, VA), Gatewood Reservoir (Pulaski, VA), Smith Mountain Lake (Bedford, VA), and Spring Hollow Reservoir (Salem, VA). Beaverdam, Carvins Cove, Falling Creek, and Spring Hollow Reservoirs are owned and operated by the Western Virginia Water Authority as primary or secondary drinking water sources for Roanoke, Virginia; Gatewood Reservoir is a drinking water source for the Town of Pulaski, Virginia; and Smith Mountain Lake is jointly treated by Bedford Regional Water Authority and Western Virginia Water Authority as a drinking water source for Franklin County, Virginia. Claytor Lake is utilized for hydroelectric power generation by the Appalachian Power Company. The dataset consists of depth profiles of chlorophyll a samples generally measured at the deepest site of each reservoir adjacent to the dam. The water column samples were collected approximately fortnightly from March-April, and weekly from May-October at Falling Creek Reservoir and Beaverdam Reservoir, approximately fortnightly from May-August in most years at Carvins Cove Reservoir, approximately fortnightly from May-August in Gatewood and Spring Hollow Reservoirs from 2014-2016, approximately fortnightly from May-August of 2014 in Smith Mountain Lake, and sporadically from May-August of 2014 in Claytor Lake. Additional chlorophyll a samples were collected at multiple upstream and inflow sites along tributaries to Beaverdam and Falling Creek Reservoirs in summer 2019. The water samples collected were analyzed for both pheophytin and chlorophyll a to quantify and correct for degraded phytoplankton within the sample. </para>
+      <para>Water column dissolved silica (SiO2) was analyzed during 2014 in seven freshwater reservoirs in southwestern Virginia (VA), USA. These reservoirs are: Beaverdam Reservoir (Vinton, VA), Carvins Cove Reservoir (Roanoke, VA), Claytor Lake (Pulaski, VA), Falling Creek Reservoir (Vinton, VA), Gatewood Reservoir (Pulaski, VA), Smith Mountain Lake (Bedford, VA), and Spring Hollow Reservoir (Salem, VA). Beaverdam, Carvins Cove, Falling Creek, and Spring Hollow Reservoirs are owned and operated by the Western Virginia Water Authority as primary or secondary drinking water sources for Roanoke, Virginia; Gatewood Reservoir is a drinking water source for the Town of Pulaski, Virginia; and Smith Mountain Lake is jointly treated by Bedford Regional Water Authority and Western Virginia Water Authority as a drinking water source for Franklin County, Virginia. Claytor Lake is utilized for hydroelectric power generation by Appalachian Power Company. The dataset consists of depth profiles of dissolved silica samples generally measured at the deepest site of each reservoir adjacent to the dam and an inflow stream into Falling Creek Reservoir. The water column samples were collected approximately fortnightly from April-June, weekly from June-July and sporadically from July-October at Beaverdam Reservoir; weekly from April-July and fortnightly from July-November at Carvins Cove Reservoir; sporadically from April-August at Claytor Lake; weekly from April-November at Falling Creek Reservoir; fortnightly from April-October at Gatewood Reservoir; fortnightly from May-November at Spring Hollow Reservoir; and fortnightly from May-October at Smith Mountain Lake. </para>
     </abstract>
     <keywordSet>
       <keyword>Virginia Tech</keyword>
@@ -98,97 +69,23 @@
       <keywordThesaurus>cuahsi controlled vocabulary</keywordThesaurus>
     </keywordSet>
     <keywordSet>
-      <keyword>chlorophyll</keyword>
-      <keyword>chlorophyll a</keyword>
       <keyword>plankton</keyword>
       <keyword>phytoplankton</keyword>
       <keyword>algae</keyword>
+      <keyword>diatoms</keyword>
+      <keyword>silica</keyword>
       <keywordThesaurus>lter controlled vocabulary</keywordThesaurus>
     </keywordSet>
     <keywordSet>
-      <keyword>filtered chlorophyll</keyword>
-      <keyword>manual chlorophyll</keyword>
+      <keyword>dissolved silica</keyword>
+      <keyword>filtered silica</keyword>
+      <keyword>reactive silica</keyword>
     </keywordSet>
     <additionalInfo>
-      <para>Reservoir Sites </para>
-      <para>Falling Creek Reservoir
--	Site 50
--	Verbal Description: Deep hole nearest to the dam of Falling Creek Reservoir
-o	Latitude: 37.30325
-o	Longitude: -79.83726</para>
-      <para>-	Site 45
--	Verbal Description: Upstream pelagic site nearest to the deep hole of Falling Creek Reservoir
-o	Latitude: 37.30418
-o	Longitude: -79.83833</para>
-      <para>-	Site 30
--	Verbal Description: Upstream pelagic site in transitional zone of Falling Creek Reservoir
-o	Latitude: 37.30534
-o	Longitude: -79.83825</para>
-      <para>-	Site 20
--	Verbal Description: Different upstream pelagic site in transitional zone of Falling Creek Reservoir
-o	Latitude: 37.30769
-o	Longitude: -79.8371</para>
-      <para>-	Site 99
--	Verbal Description: Farthest downstream site on inflow stream to Falling Creek Reservoir.
-o	Latitude: 37.307613
-o	Longitude: -79.8360878</para>
-      <para>-	Site 100
--	Verbal Description: Inflow stream to Falling Creek Reservoir.
-o	Latitude: 37.30858 
-o	Longitude: -79.83494</para>
-      <para>-	Site 101 
--	Verbal Description: Upstream site along inflow to Falling Creek Reservoir.
-o	Latitude: 37.309653 
-o	Longitude: -79.830467</para>
-      <para>-	Site 102
--	Verbal Description: Furthest upstream site on inflow stream to Falling Creek Reservoir.
-o	Latitude: 37.311678 
-o	Longitude: -79.827357</para>
-      <para>-	Site 200
--	Verbal Description: Secondary inflow (wetland) stream to Falling Creek Reservoir.
-o	Latitude: 37.30943	
-o	Longitude: -79.8361</para>
-      <para>-	Site 01
--	Verbal Description: Outflow site at spillway of Falling Creek Reservoir.
-o	Latitude: 37.30247 
-o	Longitude: -79.83692</para>
-      <para>Beaverdam Reservoir
--	Site 50
--	Verbal Description: Deep hole nearest to the dam of Beaverdam Reservoir. 
-o	Latitude: 37.31288	
-o	Longitude: -79.81593</para>
-      <para>-	Site 45
--	Verbal Description: Upstream pelagic site nearest to the deep hole of Beaverdam Reservoir
-o	Latitude: 37.314465	
-o	Longitude: -79.818717</para>
-      <para>-	Site 30
--	Verbal Description: Upstream pelagic site in transitional zone of Beaverdam Reservoir.
-o	Latitude: 37.31921	
-o	Longitude: -79.818226</para>
-      <para>-	Site 20
--	Verbal Description: Different upstream pelagic site in transitional zone of Beaverdam Reservoir. 
-o	Latitude: 37.30769	
-o	Longitude: -79.8371</para>
-      <para>-	Site 100
--	Verbal Description: Inflow stream to Beaverdam Reservoir. 
-o	Latitude: 37.31957	
-o	Longitude: -79.82437</para>
-      <para>-	Site 200
--	Verbal Description: Right arm inflow to Beaverdam Reservoir.
-o	Latitude: 37.322851   
-o	Longitude: -79.81721</para>
-      <para>-	Site 01
--	Verbal Description: Outflow pipe in transitional zone of Beaverdam Reservoir. 
-o	Latitude: 37.314783
-o	Longitude: -79.820864</para>
+      <para>In 2014, multiple whole-ecosystem manipulations were conducted at Falling Creek Reservoir. These manipulations include intermittent operation of hypolimnetic oxygenation. For a detailed description of the hypolimnetic oxygenation engineered system, see Gerling et al. (2014). These systems were operated in 2014 following Table 1 in Gerling et al. (2016).</para>
       <para>
-From 2014 to 2019, multiple whole-ecosystem manipulations were conducted at Falling Creek Reservoir. These manipulations include intermittent operation of hypolimnetic oxygenation and pulsed epilimnetic mixing engineering systems. For a detailed description of the hypolimnetic oxygenation engineered system, see Gerling et al. (2014) and for a detailed description of the epilimnetic mixing engineered system, see Chen et al. (2017). These systems were operated over time from 2014-2018 following Table 1 in Gerling et al. (2016), Table 1 in Munger et al. (2016), and Table 2 in McClure et al. (2018). In 2019, hypolimnetic oxygenation was conducted from June 3-June 17, July 8-July 22, August 5-August 19 and September 2-November 20. </para>
-      <para>Chen, S., C. Lei, C.C. Carey, P.A. Gantzer, and J.C. Little. 2017. Predicting hypolimnetic oxygenation and epilimnetic mixing in a shallow eutrophic reservoir using a coupled three-dimensional hydrodynamic model. Water Resources Research. 53: 470-484. DOI: 10.1002/2016WR019279 
 Gerling, A.B., Browne, R.G., Gantzer, P.A., Mobley, M.H., Little, J.C., and C.C. Carey. 2014. First report of the successful operation of a side stream supersaturation hypolimnetic oxygenation system in a eutrophic, shallow reservoir.  Water Research. 67: 129-143. doi: 10.1016/j.watres.2014.09.002
 Gerling, A.B., Z.W. Munger, J.P. Doubek, K.D. Hamre, P.A. Gantzer, J.C. Little, and C.C. Carey. 2016. Whole-catchment manipulations of internal and external loading reveal the sensitivity of a century-old reservoir to hypoxia. Ecosystems. 19:555-571. DOI: 10.1007/s10021-015-9951-0
-McClure, R.P., K.D. Hamre, B.R. Niederlehner, Z.W. Munger, S. Chen, M.E. Lofton, M.E. Schreiber, and C.C. Carey. 2018 Metalimnetic oxygen minima alter the vertical profiles of carbon dioxide and methane in a managed freshwater reservoir. Science of the Total Environment 636: 610-620. DOI: 10.1016/j.scitotenv.2018.04.255
-Munger, Z.W., C.C. Carey, A.B. Gerling, K.D. Hamre, J.P. Doubek, S.D. Klepatzki, R.P. McClure, and M.E. Schreiber. 2016. Effectiveness of hypolimnetic oxygenation for preventing accumulation of Fe and Mn in a drinking water reservoir. Water Research. 106: 1-14. DOI: 10.1016/j.watres.2016.09.038.
-Lofton, M.E., McClure, R.P., Chen, S., Little, J.C., and C.C. Carey. 2019. Whole-ecosystem experiments reveal varying responses of phytoplankton functional groups to epilimnetic mixing in a eutrophic reservoir. Water. 11, 222; DOI:10.3390/w11020222.
 </para>
     </additionalInfo>
     <intellectualRights>
@@ -262,16 +159,16 @@ Lofton, M.E., McClure, R.P., Chen, S., Little, J.C., and C.C. Carey. 2019. Whole
       <temporalCoverage>
         <rangeOfDates>
           <beginDate>
-            <calendarDate>2014-04-18</calendarDate>
+            <calendarDate>2014-04-16</calendarDate>
           </beginDate>
           <endDate>
-            <calendarDate>2019-10-04</calendarDate>
+            <calendarDate>2014-11-10</calendarDate>
           </endDate>
         </rangeOfDates>
       </temporalCoverage>
     </coverage>
     <maintenance>
-      <description>ongoing</description>
+      <description>completed</description>
     </maintenance>
     <contact>
       <individualName>
@@ -288,17 +185,15 @@ Lofton, M.E., McClure, R.P., Chen, S., Little, J.C., and C.C. Carey. 2019. Whole
         <description>
           <para>SAMPLING TIMES
 Sampling occurred between the hours of 9:00 and 15:00 EST and are denoted in the DateTime column as 12:00. </para>
-          <para>SAMPLE COLLECTION AND EQUIPMENT
-Chlorophyll a 
-unfiltered water samples were collected at the following depths for each reservoir: 0.1, 5, 6, 12, 14, 18, 19, 20, and 21 meters within Carvins Cove Reservoir, which has a Zmax of 21.3 meters at full pond; 0.1, 5, 6, 7, 30, and 34 meters within Claytor Lake; 0.1, 4, 5, 6, 8, 9, 10, 12, 13, 13.5 and 14 meters within Gatewood Reservoir, which has a Zmax of 14 meters; 0.1, 5, 7, 8, 14, 25, 28 and 31 meters within Spring Hollow Reservoir, which has a Zmax of &gt;60 m; 0.1, 6, 7, 8, 25, 28 and 30 meters within Smith Mountain Lake; 0.1, 1.5, 3, 3.5, 4, 5, 6, 6.5, 6.8, 7, 7.5, 9, and 12 meters within Beaverdam Reservoir, which has a Zmax of 13 meters at full pond; and 0.1, 1, 1.6, 2, 2.8, 3.8, 4, 4.1, 4.5, 5, 6, 6.2, 7, and 9 meters within Falling Creek Reservoir, which has a Zmax of 9.3 meters at full pond. A 4-L Van Dorn water sampler was used to collect samples (Wildco, Yulee, Florida, USA) which were stored in opaque 2-L high-density polyethylene bottles. Samples were refrigerated and filtered within 48 hours of collection with GF/C filters and filters were immediately frozen after filtration. Samples were generally analyzed within 4 months of collection date. </para>
-          <para>CHEMICAL ANALYSES AND EQUIPMENT
-Chlorophyll a 
-samples were extracted using a 96% ethanol solution at room temperature for 3-24 hours (Wasmund et al. 2006) and then analyzed by spectrophotometric analysis. To quantify the concentration of pheophytin within the sample, the analysis adopts the acidification recommendation of Parker et al. (2016), in which 240 microliters of 0.1 N HCL was added to the sample. The sample was homogenized and left to sit for 90 seconds for samples analyzed through 2018, or 120 seconds for samples analyzed after 2019. The quantitation of the sample used was the monochromatic spectrophotometric method for chlorophyll a after correction for the presence of pheopigments, to provide a metric of "live" phytoplankton at the time of collection (Lorenzen 1967). The pheophytin concentration (a metric of "dead" but still fluorescing phytoplankton) is also reported. In 2014, total chlorophyll a was corrected for pheophytin but pheophytin values were not recorded. Both extraction and analysis were performed in the absence of direct light to prevent the degradation of chlorophyll a. Samples collected were not always analyzed, leading to occasional incomplete water column profiles for certain dates within the dataset. </para>
+          <para>SAMPLE COLLECTION AND EQUIPMENT</para>
+          <para>Water samples were collected at the following depths for each reservoir: 0.1, 4, 8, and 12 meters within Beaverdam Reservoir, which has a Zmax of 13 meters at full pond; 0.1, 5, 6, 14, 18, 19, and 20 meters within Carvins Cove Reservoir, which has a Zmax of 23 meters at full pond; 0.1, 5, 6, 7, 30, and 34 meters within Claytor Lake, which has a Zmax of 47.5 meters at full pond; 0.1, 5, and 9 meters within Falling Creek Reservoir, which has a Zmax of 9.3 meters at full pond; 0.1, 4,  5, 10, and 12 meters within Gatewood Reservoir, which has a Zmax of 14 meters; 0.1, 5, 7, 8, 14, 25, and 28 meters within Spring Hollow Reservoir, which has a Zmax of 63m; and 0.1, 6, 7, 8, 25, 28, and 30 meters within Smith Mountain Lake, which has a Zmax of 76 meters. A 4-L Van Dorn water sampler was used to collect samples (Wildco, Yulee, Florida, USA) which were immediately filtered through a 0.7 micrometer membrane glass fiber filter then stored in acid-washed 125 mL polypropylene bottles. Samples were analyzed as soon as possible or frozen within 12 hours and then fully thawed for analysis (McDonald et al. 1982). </para>
           <para>
-REFERENCES
-Lorenzen, C.J. 1967.  Determinations of chlorophyll and pheo-pigments:  spectrophotometric equations.  Limnol. Oceanogr. 12:343-346.
-Parker, S. P., W. B. Bowden, and M. B. Flinn.  2016.  The effect of acid strength and postacidification reaction time on the determination of chlorophyll a in ethanol extracts of aquatic periphyton.  Limnology and Oceanography: Methods 14:839-852.
-Wasmund, N., I. Topp, and D. Schories.  2006.  Optimising the storage and extraction of chlorophyll samples.  Oceanologica 48(1):125-144.
+CHEMICAL ANALYSES AND EQUIPMENT</para>
+          <para>5 mL was measured from each water sample and combined with 2.5 mL of 0.25 N HCl, 2.5 mL of 5% ammonium molybdate, and 2.5 mL of 1% sodium EDTA. After 5-minutes, 5.0 mL of 17% sodium sulfite was added. Once reagents were added, the sample was set to rest for at least 30 minutes and up to several hours. The concentration of dissolved silica within the sample was analyzed colorimetrically, with the absorbance value read at the wavelength of 700 nm by spectrophotometer. In order to quantify concentration, the absorbance of the sample was compared to a standard curve (Wetzel and Likens 2000). </para>
+          <para>
+REFERENCES</para>
+          <para>Wetzel RG and GE Likens. 2000.  Limnological Analyses. 3rd ed.  Exercise 7. Inorganic Nutrients:  Nitrogen, Phosphorus, and Other Nutrients, pp 97-99. Springer, New York.  429 p.</para>
+          <para>McDonald, RW, FA McLaughlin, CS Wong.  1986. The storage of reactive silicate samples by freezing.  Limnol. Oceanogr. 31(5):1139-1142.
 </para>
         </description>
       </methodStep>
@@ -327,22 +222,7 @@ Wasmund, N., I. Topp, and D. Schories.  2006.  Optimising the storage and extrac
           </individualName>
           <organizationName>Virginia Tech</organizationName>
           <electronicMailAddress>cayelan@vt.edu</electronicMailAddress>
-          <userId directory="https://orcid.org">https://orcid.org/0000-0001-8835-4476</userId>
-          <role>Principal Investigator</role>
-        </personnel>
-        <funding>Virginia Tech Global Change Center</funding>
-      </relatedProject>
-      <relatedProject>
-        <title>No project title to report</title>
-        <personnel>
-          <individualName>
-            <givenName>Cayelan</givenName>
-            <givenName>C.</givenName>
-            <surName>Carey</surName>
-          </individualName>
-          <organizationName>Virginia Tech</organizationName>
-          <electronicMailAddress>cayelan@vt.edu</electronicMailAddress>
-          <userId directory="https://orcid.org">https://orcid.org/0000-0001-8835-4476</userId>
+          <userId directory="https://orcid.org">https://orcid.org/0000-0001-8835-4477</userId>
           <role>Principal Investigator</role>
         </personnel>
         <funding>Fralin Life Sciences Institute</funding>
@@ -357,7 +237,7 @@ Wasmund, N., I. Topp, and D. Schories.  2006.  Optimising the storage and extrac
           </individualName>
           <organizationName>Virginia Tech</organizationName>
           <electronicMailAddress>cayelan@vt.edu</electronicMailAddress>
-          <userId directory="https://orcid.org">https://orcid.org/0000-0001-8835-4476</userId>
+          <userId directory="https://orcid.org">https://orcid.org/0000-0001-8835-4478</userId>
           <role>Principal Investigator</role>
         </personnel>
         <funding>National Science Foundation 1737424</funding>
@@ -372,7 +252,7 @@ Wasmund, N., I. Topp, and D. Schories.  2006.  Optimising the storage and extrac
           </individualName>
           <organizationName>Virginia Tech</organizationName>
           <electronicMailAddress>cayelan@vt.edu</electronicMailAddress>
-          <userId directory="https://orcid.org">https://orcid.org/0000-0001-8835-4476</userId>
+          <userId directory="https://orcid.org">https://orcid.org/0000-0001-8835-4479</userId>
           <role>Principal Investigator</role>
         </personnel>
         <funding>National Science Foundation 1753639</funding>
@@ -387,19 +267,19 @@ Wasmund, N., I. Topp, and D. Schories.  2006.  Optimising the storage and extrac
           </individualName>
           <organizationName>Virginia Tech</organizationName>
           <electronicMailAddress>cayelan@vt.edu</electronicMailAddress>
-          <userId directory="https://orcid.org">https://orcid.org/0000-0001-8835-4476</userId>
+          <userId directory="https://orcid.org">https://orcid.org/0000-0001-8835-4480</userId>
           <role>Principal Investigator</role>
         </personnel>
         <funding>National Science Foundation 1933016</funding>
       </relatedProject>
     </project>
     <dataTable>
-      <entityName>chla_master_df_dt.csv</entityName>
-      <entityDescription>Reservoir chlorophyll a dataset</entityDescription>
+      <entityName>silica_master_df.csv</entityName>
+      <entityDescription>Reservoir dissolved silica dataset</entityDescription>
       <physical>
-        <objectName>chla_master_df_dt.csv</objectName>
-        <size unit="bytes">32040</size>
-        <authentication method="MD5">7cebd93883e4b0b75333600eeba1a53d</authentication>
+        <objectName>silica_master_df.csv</objectName>
+        <size unit="bytes">13269</size>
+        <authentication method="MD5">96ed7df985edf9f29a4861e0dea1489d</authentication>
         <dataFormat>
           <textFormat>
             <numHeaderLines>1</numHeaderLines>
@@ -432,7 +312,7 @@ Wasmund, N., I. Topp, and D. Schories.  2006.  Optimising the storage and extrac
         </attribute>
         <attribute>
           <attributeName>Site</attributeName>
-          <attributeDefinition>50 = Deep hole or site nearest to dam in each reservoir, 45 = Upstream pelagic site nearest to the deep hole in each reservoir, 30 = Upstream pelagic site in transitional zone of the reservoir, 20 = Different upstream pelagic site in transitional zone of the reservoir, 99 = Farthest downstream site on inflow stream to Falling Creek Reservoir; 100 = Inflow stream to Falling Creek Reservoir or Beaverdam Reservoir; 101 = upstream site along inflow to Falling Creek Reservoir; 102 = Furthest upstream site on inflow stream to Falling Creek Reservoir; 200 = Secondary inflow (wetland) stream to Falling Creek Reservoir or right arm inflow to Beaverdam Reservoir); 01 = Outflow site at spillway of Falling Creek Reservoir or Beaverdam Reservoir</attributeDefinition>
+          <attributeDefinition>50 = Deep hole or site nearest to dam in each reservoir, 100 = Inflow stream to Falling Creek Reservoir</attributeDefinition>
           <storageType>float</storageType>
           <measurementScale>
             <ratio>
@@ -442,8 +322,8 @@ Wasmund, N., I. Topp, and D. Schories.  2006.  Optimising the storage and extrac
               <numericDomain>
                 <numberType>natural</numberType>
                 <bounds>
-                  <minimum exclusive="false">1</minimum>
-                  <maximum exclusive="false">200</maximum>
+                  <minimum exclusive="false">50</minimum>
+                  <maximum exclusive="false">100</maximum>
                 </bounds>
               </numericDomain>
             </ratio>
@@ -492,19 +372,19 @@ Wasmund, N., I. Topp, and D. Schories.  2006.  Optimising the storage and extrac
           </missingValueCode>
         </attribute>
         <attribute>
-          <attributeName>Chla_ugL</attributeName>
-          <attributeDefinition>Chlorophyll a concentration</attributeDefinition>
+          <attributeName>DRSI_mgL</attributeName>
+          <attributeDefinition>Dissolved silica concentration</attributeDefinition>
           <storageType>float</storageType>
           <measurementScale>
             <ratio>
               <unit>
-                <standardUnit>microgramsPerLiter</standardUnit>
+                <standardUnit>milligramsPerLiter</standardUnit>
               </unit>
               <numericDomain>
                 <numberType>real</numberType>
                 <bounds>
                   <minimum exclusive="false">0</minimum>
-                  <maximum exclusive="false">158</maximum>
+                  <maximum exclusive="false">13.875482</maximum>
                 </bounds>
               </numericDomain>
             </ratio>
@@ -515,54 +395,8 @@ Wasmund, N., I. Topp, and D. Schories.  2006.  Optimising the storage and extrac
           </missingValueCode>
         </attribute>
         <attribute>
-          <attributeName>Pheo_ugL</attributeName>
-          <attributeDefinition>Pheophytin concentration</attributeDefinition>
-          <storageType>float</storageType>
-          <measurementScale>
-            <ratio>
-              <unit>
-                <standardUnit>microgramsPerLiter</standardUnit>
-              </unit>
-              <numericDomain>
-                <numberType>real</numberType>
-                <bounds>
-                  <minimum exclusive="false">-18.4</minimum>
-                  <maximum exclusive="false">36.6</maximum>
-                </bounds>
-              </numericDomain>
-            </ratio>
-          </measurementScale>
-          <missingValueCode>
-            <code>NA</code>
-            <codeExplanation>value is missing</codeExplanation>
-          </missingValueCode>
-        </attribute>
-        <attribute>
-          <attributeName>Flag_Chla</attributeName>
-          <attributeDefinition>Data flag for chlorophyll a; 0 = No flag, 1 = Sample below detection, 2 = Sample not taken, 3 = Duplicate check failed, 4 = Pigment in extract below detection (&lt;34 ug/L)</attributeDefinition>
-          <storageType>float</storageType>
-          <measurementScale>
-            <ratio>
-              <unit>
-                <standardUnit>dimensionless</standardUnit>
-              </unit>
-              <numericDomain>
-                <numberType>whole</numberType>
-                <bounds>
-                  <minimum exclusive="false">0</minimum>
-                  <maximum exclusive="false">4</maximum>
-                </bounds>
-              </numericDomain>
-            </ratio>
-          </measurementScale>
-          <missingValueCode>
-            <code>NA</code>
-            <codeExplanation>value is missing</codeExplanation>
-          </missingValueCode>
-        </attribute>
-        <attribute>
-          <attributeName>Flag_Pheo</attributeName>
-          <attributeDefinition>Data flag for pheophytin;  0 = No flag, 1 = Sample below detection, 2 = Sample not taken, 3 = Duplicate check failed, 4 = Pigment in extract below detection (&lt;34 ug/L)</attributeDefinition>
+          <attributeName>Flag_DRSI</attributeName>
+          <attributeDefinition>Data flag for dissolved silica</attributeDefinition>
           <storageType>float</storageType>
           <measurementScale>
             <ratio>
@@ -584,7 +418,7 @@ Wasmund, N., I. Topp, and D. Schories.  2006.  Optimising the storage and extrac
           </missingValueCode>
         </attribute>
       </attributeList>
-      <numberOfRecords>745</numberOfRecords>
+      <numberOfRecords>316</numberOfRecords>
     </dataTable>
   </dataset>
 </eml:eml>
