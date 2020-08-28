@@ -1,7 +1,8 @@
 ##MakeEMLChemistry
 ##Author: Mary Lofton
 ##Modified by Whitney Woelmer
-##Date: 08May2020
+##Slight modification by Jacob Wynne
+##Date: 20Aug20
 
 #good site for step-by-step instructions
 #https://ediorg.github.io/EMLassemblyline/articles/overview.html
@@ -9,6 +10,7 @@
 
 #append this year's chemistry to last year's published data
 library(tidyverse)
+
 
 old <- read.csv("./Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLChemistry/2018/chemistry_EDI.csv")
 new <- read.csv("./Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLChemistry/2019/2019_chemistry_collation_final_nocommas.csv")
@@ -152,7 +154,7 @@ make_eml(
   data.table.description = "Reservoir water chemistry dataset",
   user.id = 'ccarey',
   user.domain = 'EDI',
-  package.id = 'edi.12.1')
+  package.id = 'edi.12.5')
 
 ## Step 8: Check your data product! ####
 # Return to the EDI staging environment (https://portal-s.edirepository.org/nis/home.jsp),
