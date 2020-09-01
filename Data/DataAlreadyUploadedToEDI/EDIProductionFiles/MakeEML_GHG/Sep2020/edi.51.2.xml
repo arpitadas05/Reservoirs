@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eml:eml xmlns:eml="https://eml.ecoinformatics.org/eml-2.2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:stmml="http://www.xml-cml.org/schema/stmml-1.2" packageId="edi.51.2" xsi:schemaLocation="https://eml.ecoinformatics.org/eml-2.2.0  https://nis.lternet.edu/schemas/EML/eml-2.2.0/xsd/eml.xsd" system="edi">
+  <access authSystem="https://pasta.edirepository.org/authentication" order="allowFirst" scope="document">
+    <allow>
+      <principal>uid=ccarey,o=EDI,dc=edirepository,dc=org</principal>
+      <permission>all</permission>
+    </allow>
+    <allow>
+      <principal>public</principal>
+      <permission>read</permission>
+    </allow>
+  </access>
+  <dataset>
+    <title>Time series of dissolved methane and carbon dioxide concentrations for Falling Creek Reservoir and Beaverdam Reservoir in southwestern Virginia, USA during 2015-2019</title>
+    <creator>
+      <individualName>
+        <givenName>Cayelan</givenName>
+        <givenName>C.</givenName>
+        <surName>Carey</surName>
+      </individualName>
+      <organizationName>Virginia Tech</organizationName>
+      <electronicMailAddress>Cayelan@vt.edu</electronicMailAddress>
+      <userId directory="https://orcid.org">https://orcid.org/0000-0001-8835-4476</userId>
+    </creator>
+    <creator>
+      <individualName>
+        <givenName>Ryan</givenName>
+        <givenName>P.</givenName>
+        <surName>McClure</surName>
+      </individualName>
+      <organizationName>Virginia Tech</organizationName>
+      <electronicMailAddress>ryan333@vt.edu</electronicMailAddress>
+      <userId directory="https://orcid.org">https://orcid.org/0000-0001-6370-3852</userId>
+    </creator>
+    <creator>
+      <individualName>
+        <givenName>Barbara</givenName>
+        <givenName>R.</givenName>
+        <surName>Niederlehner</surName>
+      </individualName>
+      <organizationName>Virginia Tech</organizationName>
+      <electronicMailAddress>bniederl@vt.edu</electronicMailAddress>
+    </creator>
+    <creator>
+      <individualName>
+        <givenName>Mary</givenName>
+        <givenName>E.</givenName>
+        <surName>Lofton</surName>
+      </individualName>
+      <organizationName>Virginia Tech</organizationName>
+      <electronicMailAddress>melofton@vt.edu</electronicMailAddress>
+      <userId directory="https://orcid.org">https://orcid.org/0000-0003-3270-1330</userId>
+    </creator>
+    <creator>
+      <individualName>
+        <givenName>Alexandria</givenName>
+        <givenName>G.</givenName>
+        <surName>Hounshell</surName>
+      </individualName>
+      <organizationName>Virginia Tech</organizationName>
+      <electronicMailAddress>alexgh@vt.edu</electronicMailAddress>
+      <userId directory="https://orcid.org">https://orcid.org/0000-0003-1616-9399</userId>
+    </creator>
+    <pubDate>2020-09-01</pubDate>
+    <abstract>
+      <para>Depth profiles of carbon dioxide and methane concentrations were sampled during the ice-free period from 2015 to 2019 in two drinking water reservoirs in southwestern Virginia, USA: Beaverdam Reservoir (Vinton, Virginia) and Falling Creek Reservoir (Vinton, Virginia). Both reservoirs are owned and operated by the Western Virginia Water Authority as primary or secondary drinking water sources for Roanoke, Virginia. The dataset consists of depth profiles of dissolved greenhouse gas (carbon dioxide, methane) samples measured at the deepest site of each reservoir adjacent to the dam. Additional samples were collected at a gauged weir on Falling Creek Reservoir's primary inflow tributary as well as surface samples from a wetland adjacent to Falling Creek Reservoir. At Beaverdam Reservoir, additional samples were collected at the outflow below the dam. The samples were collected approximately fortnightly from March-April, weekly from May-October, and monthly in November at Falling Creek Reservoir and Beaverdam Reservoir.</para>
+    </abstract>
+    <keywordSet>
+      <keyword>greenhouse gas</keyword>
+      <keyword>Virginia Tech</keyword>
+      <keyword>Stream Team</keyword>
+      <keyword>Western Virginia Water Authority</keyword>
+      <keyword>Falling Creek Reservoir</keyword>
+      <keyword>Beaverdam Reservoir</keyword>
+      <keywordThesaurus>carey lab controlled vocabulary</keywordThesaurus>
+    </keywordSet>
+    <keywordSet>
+      <keyword>reservoir</keyword>
+      <keyword>lake</keyword>
+      <keywordThesaurus>cuahsi controlled vocabulary</keywordThesaurus>
+    </keywordSet>
+    <keywordSet>
+      <keyword>depth</keyword>
+      <keyword>methane</keyword>
+      <keyword>carbon dioxide</keyword>
+      <keyword>lakes</keyword>
+      <keywordThesaurus>lter controlled vocabulary</keywordThesaurus>
+    </keywordSet>
+    <intellectualRights>
+      <para>This information is released under the Creative Commons license - Attribution - CC BY (https://creativecommons.org/licenses/by/4.0/). The consumer of these data (\"Data User\" herein) is required to cite it appropriately in any publication that results from its use. The Data User should realize that these data may be actively used by others for ongoing research and that coordination may be necessary to prevent duplicate publication. The Data User is urged to contact the authors of these data if any questions about methodology or results occur. Where appropriate, the Data User is encouraged to consider collaboration or co-authorship with the authors. The Data User should realize that misinterpretation of data may occur if used out of context of the original study. While substantial efforts are made to ensure the accuracy of data and associated documentation, complete accuracy of data sets cannot be guaranteed. All data are made available \"as is.\" The Data User should be aware, however, that data are updated periodically and it is the responsibility of the Data User to check for new versions of the data. The data authors and the repository where these data were obtained shall not be liable for damages resulting from any use or misinterpretation of the data. Thank you.
+</para>
+    </intellectualRights>
+    <coverage>
+      <geographicCoverage>
+        <geographicDescription>Beaverdam Reservoir is located in Vinton, Virginia, USA</geographicDescription>
+        <boundingCoordinates>
+          <westBoundingCoordinate>-79.824834</westBoundingCoordinate>
+          <eastBoundingCoordinate>-79.813848</eastBoundingCoordinate>
+          <northBoundingCoordinate>37.322865</northBoundingCoordinate>
+          <southBoundingCoordinate>37.311961</southBoundingCoordinate>
+        </boundingCoordinates>
+      </geographicCoverage>
+      <geographicCoverage>
+        <geographicDescription>Falling Creek Reservoir is located in Vinton, Virginia, USA</geographicDescription>
+        <boundingCoordinates>
+          <westBoundingCoordinate>-79.839249</westBoundingCoordinate>
+          <eastBoundingCoordinate>-79.836009</eastBoundingCoordinate>
+          <northBoundingCoordinate>37.309589</northBoundingCoordinate>
+          <southBoundingCoordinate>37.30266</southBoundingCoordinate>
+        </boundingCoordinates>
+      </geographicCoverage>
+      <temporalCoverage>
+        <rangeOfDates>
+          <beginDate>
+            <calendarDate>2015-07-09</calendarDate>
+          </beginDate>
+          <endDate>
+            <calendarDate>2019-11-20</calendarDate>
+          </endDate>
+        </rangeOfDates>
+      </temporalCoverage>
+    </coverage>
+    <maintenance>
+      <description>ongoing</description>
+    </maintenance>
+    <contact>
+      <individualName>
+        <givenName>Cayelan</givenName>
+        <givenName>C.</givenName>
+        <surName>Carey</surName>
+      </individualName>
+      <organizationName>Virginia Tech</organizationName>
+      <electronicMailAddress>Cayelan@vt.edu</electronicMailAddress>
+      <userId directory="https://orcid.org">https://orcid.org/0000-0001-8835-4476</userId>
+    </contact>
+    <methods>
+      <methodStep>
+        <description>
+          <para>Samples for greenhouse gas (methane, carbon dioxide) analysis were collected from Falling Creek Reservoir and Beaverdam Reservoir during the ice-free period (March - November) for 2015 - 2019 from the deepest site in each reservoir. Samples were collected from several routine depths including: 0.1, 1.6, 3.8, 5.0, 6.2, 8.0 and 9.0 m in Falling Creek Reservoir and 0.1, 3.0, 6.0, 9.0, and 11.0 m for Beaverdam Reservoir. These sampling depths were chosen to approximately match outtake valves in Falling Creek Reservoir and Beaverdam Reservoir. Samples from Falling Creek Reservoir were also collected from a gauged weir on the primary inflow to Falling Creek Reservoir (Depth_m = 100) and as surface samples from the wetlands adjacent to the reservoir (Depth_m = 200). In Beaverdam Reservoir, additional samples were collected from the outflow below the dam (Depth_m = 300). Samples were collected monthly in March-April and September-November and twice weekly for Falling Creek Reservoir and weekly from Beaverdam Reservoir from May-August. Samples were collected with a 4-L Van Dorn sampler (Wildlife Supply, Yulee, FL, USA) and transferred to into two replicate 20 mL glass vials without exposure to air and crimp sealed. Samples were stored on ice and analyzed within 24 hours of collection following McClure et al. (2018).</para>
+          <para>Methane and carbon dioxide concentrations were measured in each sample on a Gas Chromatograph (GC) with a Flame Ionization Detector (FID) and Thermal Conductivity Detector (TCD) following McClure et al. (2018). Briefly, immediately prior to analysis, a 2-mL headspace was created with Helium (He) by displacing 2-mL of sample water. The headspace was equilibrated by shaking each 20-mL vial at 300 rpm for 15 minutes. The 2-mL headspace was then injected into the GC (SRI, Model 8010). The oven temperature was set to 35 degrees C with a carrier gas (He) flow rate of 15 mL/min. CH4 had a retention time of 1.3 min on the FID and CO2 had a retention time of 2.8 min on the TCD. Dissolved concentrations of CH4 and CO2 in water were calculated using the observed head-space concentrations and Henry's Law (McClure et al. 2018). The median percent difference between replicates was 11.2%.</para>
+          <para>Replicates of each sample were assessed after sample analysis using calculated percent difference between replicate samples. Samples with &lt;30% difference were considered acceptable and both replicates were retained for analysis (flagged as '1', denoting no problems with replicates). If the percent difference between samples was &gt;30% and &lt;50% then the replicates were flagged but were still both used for analysis (flagged as '2', replicates retained but were high). If samples were &gt;50%, then the replicate with the largest difference between the samples collected at depths above and below was removed and only one replicate was used for analysis (flagged as '3', only one replicate retained). Thus, both replicates are reported for flags 1 and 2 but not for flag 3. If no sample was collected or there were issues with the GC analysis, samples were flagged as '4'.</para>
+          <para>McClure R.P., Hamre K.D., Niederlehner B.R., Munger Z.W., Chen S., Lofton M.E., Schreiber M.E., Carey C.C. (2018). Metalimnetic oxygen minima alter the vertical profiles of carbon dioxide and methane in a managed freshwater reservoir. Science of the Total Environment, 636. pp. 610-620. https://doi.org/10.1016/j.scitotenv.2018.04.255 </para>
+        </description>
+      </methodStep>
+    </methods>
+    <project>
+      <title>No project title to report</title>
+      <personnel>
+        <individualName>
+          <givenName>Cayelan</givenName>
+          <givenName>C.</givenName>
+          <surName>Carey</surName>
+        </individualName>
+        <organizationName>Virginia Tech</organizationName>
+        <electronicMailAddress>Cayelan@vt.edu</electronicMailAddress>
+        <userId directory="https://orcid.org">https://orcid.org/0000-0001-8835-4476</userId>
+        <role>Principal Investigator</role>
+      </personnel>
+      <funding>Western Virginia Water Authority</funding>
+      <relatedProject>
+        <title>Dynamics of coupled P-Fe-Mn cycling in drinking water reservoirs and implications for water quality</title>
+        <personnel>
+          <individualName>
+            <givenName>Cayelan</givenName>
+            <givenName>C.</givenName>
+            <surName>Carey</surName>
+          </individualName>
+          <organizationName>Virginia Tech</organizationName>
+          <electronicMailAddress>Cayelan@vt.edu</electronicMailAddress>
+          <userId directory="https://orcid.org">https://orcid.org/0000-0001-8835-4476</userId>
+          <role>Principal Investigator</role>
+        </personnel>
+        <funding>Institute of Critical Technology and Applied Science</funding>
+      </relatedProject>
+      <relatedProject>
+        <title>SCC-IRG Track 2: Resilient Water Systems: Integrating Environmental Sensor Networks and Real-Time Forecasting to Adaptively Manage Drinking Water Quality an Build Social Trust</title>
+        <personnel>
+          <individualName>
+            <givenName>Cayelan</givenName>
+            <givenName>C.</givenName>
+            <surName>Carey</surName>
+          </individualName>
+          <organizationName>Virginia Tech</organizationName>
+          <electronicMailAddress>Cayelan@vt.edu</electronicMailAddress>
+          <userId directory="https://orcid.org">https://orcid.org/0000-0001-8835-4476</userId>
+          <role>Principal Investigator</role>
+        </personnel>
+        <funding>National Science Foundation 1737424</funding>
+      </relatedProject>
+      <relatedProject>
+        <title>Collaborative Research: Consequences of changing oxygen availability for carbon cycling in freshwater ecosystems</title>
+        <personnel>
+          <individualName>
+            <givenName>Cayelan</givenName>
+            <givenName>C.</givenName>
+            <surName>Carey</surName>
+          </individualName>
+          <organizationName>Virginia Tech</organizationName>
+          <electronicMailAddress>Cayelan@vt.edu</electronicMailAddress>
+          <userId directory="https://orcid.org">https://orcid.org/0000-0001-8835-4476</userId>
+          <role>Principal Investigator</role>
+        </personnel>
+        <funding>National Science Foundation 1753639</funding>
+      </relatedProject>
+    </project>
+    <dataTable>
+      <entityName>GHG Dataset</entityName>
+      <entityDescription>GHG Dataset</entityDescription>
+      <physical>
+        <objectName>DATASET_for_EDI_LOL_MS_31Aug20.csv</objectName>
+        <size unit="bytes">177691</size>
+        <authentication method="MD5">34f93c11f138a400a2019a610beae789</authentication>
+        <dataFormat>
+          <textFormat>
+            <numHeaderLines>1</numHeaderLines>
+            <recordDelimiter>\r\n</recordDelimiter>
+            <attributeOrientation>column</attributeOrientation>
+            <simpleDelimited>
+              <fieldDelimiter>,</fieldDelimiter>
+            </simpleDelimited>
+          </textFormat>
+        </dataFormat>
+      </physical>
+      <attributeList>
+        <attribute>
+          <attributeName>DateTime</attributeName>
+          <attributeDefinition>Date of sampling. All data were collected in the eastern time zone of the U.S.A., with daylight savings time observed.</attributeDefinition>
+          <storageType>date</storageType>
+          <measurementScale>
+            <dateTime>
+              <formatString>MM/DD/YYYY</formatString>
+              <dateTimeDomain/>
+            </dateTime>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>Depth_m</attributeName>
+          <attributeDefinition>Depth of sample collection at deepest site (site 50). Additional samples include: 100 = primary inflow to FCR; 200 = wetlands adjacent to FCR; 300 = outflow below dam at BVR</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>meter</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">0.1</minimum>
+                  <maximum exclusive="false">300</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>Reservoir</attributeName>
+          <attributeDefinition>Three-letter code corresponding to sampled reservoir; FCR = Falling Creek Reservoir; BVR = Beaverdam Reservoir</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>BVR</code>
+                    <definition>Beaverdam Reservoir</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>FCR</code>
+                    <definition>Falling Creek Reservoir</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>Rep</attributeName>
+          <attributeDefinition>Replicate sample number. Samples are coded as either 1 or 2.</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>dimensionless</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>natural</numberType>
+                <bounds>
+                  <minimum exclusive="false">1</minimum>
+                  <maximum exclusive="false">4</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>ch4_umolL</attributeName>
+          <attributeDefinition>Dissolved methane concentration</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <customUnit>micromolePerLiter</customUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">5.67e-05</minimum>
+                  <maximum exclusive="false">694.4506436</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>co2_umolL</attributeName>
+          <attributeDefinition>Dissolved carbon dioxide concentration</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <customUnit>micromolePerLiter</customUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">0</minimum>
+                  <maximum exclusive="false">966.7144669</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>flag_ch4</attributeName>
+          <attributeDefinition>Flag value for methane concentration; 1 = the percent difference between replicates are &lt;30% and both replicates were retained (i.e., no problems with reps); 2 = The percent difference between replicates was &gt;30% and &lt; 50% (i.e., replicates retained, but were high). Both replicates were retained but flagged; 3 = The percent difference between replicates was &gt;50% (i.e., only one replicate retained). The replicate with the largest difference between replicates collected at depths above and below the sample was removed; 4 = Sample was either not collected or was not retained due to issues with the GC</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>dimensionless</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>natural</numberType>
+                <bounds>
+                  <minimum exclusive="false">1</minimum>
+                  <maximum exclusive="false">4</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>flag_co2</attributeName>
+          <attributeDefinition>Flag value for carbon dioxide concentration; 1 = the percent difference between replicates are &lt;30% and both replicates were retained (i.e., no problems with reps); 2 = The percent difference between replicates was &gt;30% and &lt; 50% (i.e., replicates retained, but were high). Both replicates were retained but flagged; 3 = The percent difference between replicates was &gt;50% (i.e., only one replicate retained). The replicate with the largest difference between replicates collected at depths above and below the sample was removed; 4 = Sample was either not collected or was not retained due to issues with the GC</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>dimensionless</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>natural</numberType>
+                <bounds>
+                  <minimum exclusive="false">1</minimum>
+                  <maximum exclusive="false">11</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+      </attributeList>
+      <numberOfRecords>3853</numberOfRecords>
+    </dataTable>
+  </dataset>
+  <additionalMetadata>
+    <metadata>
+      <unitList>
+        <unit id="micromolePerLiter" multiplierToSI="1.00E-06" name="micromolePerLiter" parentSI="molarity" unitType="amountOfSubstanceConcentration">
+          <description>micromole per liter</description>
+        </unit>
+      </unitList>
+    </metadata>
+  </additionalMetadata>
+</eml:eml>
