@@ -19,6 +19,11 @@ new <- new %>% select(-X)
 chem <- rbind(old, new) 
 write.csv(chem, "./Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLChemistry/2019/chemistry.csv",row.names = FALSE)
 
+#Jacob read in (exact times df)
+chem <- read.csv("./Data/DataAlreadyUploadedToEDI/EDIProductionFiles/MakeEMLChemistry/2019/chemistry.csv")
+
+
+
 # (install and) Load EMLassemblyline #####
 # install.packages('devtools')
 
@@ -154,7 +159,7 @@ make_eml(
   data.table.description = "Reservoir water chemistry dataset",
   user.id = 'ccarey',
   user.domain = 'EDI',
-  package.id = 'edi.12.5')
+  package.id = 'edi.12.8')
 
 ## Step 8: Check your data product! ####
 # Return to the EDI staging environment (https://portal-s.edirepository.org/nis/home.jsp),
