@@ -1,5 +1,3 @@
-#Test
-
 trim_ctd <- function(SCAN_NUMBER, DATE_TEXT, AUTO_NAME, SITE, REP, NAME_OVERRIDE){
   ### Format date and names for the rest of the automated script
   DATE<- dmy(DATE_TEXT)
@@ -53,7 +51,7 @@ epic_ctd_function <- function(ctdTrimmed, DATE_TEXT, SITE, SAMPLER,
   
   ### Extract and order columns we want
   data <- data %>% 
-    select(Date,
+    dplyr::select(Date,
           depth, 
           temperature, 
           fluorescence, 
@@ -67,7 +65,7 @@ epic_ctd_function <- function(ctdTrimmed, DATE_TEXT, SITE, SAMPLER,
           par.sat.log,
           salinity, 
           descentRate,
-          density,
+          #density,
           #pressurePSI,
           flag)
   
@@ -87,7 +85,7 @@ epic_ctd_function <- function(ctdTrimmed, DATE_TEXT, SITE, SAMPLER,
                    "Salinity",
                    "Descent Rate (m/s)",
                    #"Pressure (PSI)",
-                   "Density_mg_m3",
+                   #"Density_mg_m3",
                    "Flag")
   
   ### REMOVE THE BOTTOM NA values ###
@@ -144,7 +142,7 @@ epic_ctd_function <- function(ctdTrimmed, DATE_TEXT, SITE, SAMPLER,
   
   ### Pull the PAR for MEL from the original cleaned data that but includes the few depths above the surface ###
   
-  par <- data %>% select(Date,Depth_m,PAR,Chla_ugL)
+  par <- data %>% dplyr::select(Date,Depth_m,PAR,Chla_ugL)
   
   ### plot and save PAR/CHLA for clarity and QCQA ###
   name_par_pdf <- paste("../PAR_files/",NAME,"_PAR.pdf", sep = "")

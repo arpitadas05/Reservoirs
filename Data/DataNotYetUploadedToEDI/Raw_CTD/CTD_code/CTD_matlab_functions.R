@@ -109,7 +109,7 @@ ctd_vs_catwalk <- function(on,off,startDate = "2020-06-01 12:00:00"){
   #Substantial edits by ASL 23 Jun 20. Selecting the depths closest to the actual catwalk depth
   
   pacman::p_load(tidyverse, rLakeAnalyzer)
-  cat <- read_csv(file = getURL("https://raw.githubusercontent.com/CareyLabVT/SCCData/mia-data/Catwalk.csv"),skip = 1)
+  cat <- read_csv(file = getURL("https://raw.githubusercontent.com/FLARE-forecast/FCRE-data/fcre-catwalk-data/Catwalk.csv"),skip = 1)
   ctd_new = read_csv("../CTD_season_csvs/CTD_notmatlab_ready_2019_fcr50.csv")
   
   cat_sum_19 <- cat %>% filter(TIMESTAMP >= startDate) %>%
@@ -182,6 +182,8 @@ ctd_vs_catwalk <- function(on,off,startDate = "2020-06-01 12:00:00"){
   jpeg("../CTD_catwalk_figures/SEASONAL_CATWALK_CTD_COMPARE_CHLA_2019.jpg", width=14, height=8, units = "in",res = 300)
   plot(as.POSIXct(cat_sum_19_chla$TIMESTAMP), cat_sum_19_chla$Chla_1, type = "l", ylim = c(0,50), xlab = "", ylab = "chla (ug/L)")
   points(ctd_1.0$Date, ctd_1.0$Chla_ugL, type = "p", pch = 21, col = "black", bg = "green", cex = 2, lwd = 2)
+  abline(v=on, lwd = 1.5)
+  abline(v=off,lty=2, lwd = 1.5)
   dev.off()
   
   print("Success! Catwalk comparison figures have been created. Double check they look ok!")
