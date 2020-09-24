@@ -180,7 +180,7 @@ epic_ctd_function <- function(ctdTrimmed, DATE_TEXT, SITE, SAMPLER,
                     par.sat.log,
                     salinity, 
                     descentRate,
-                    #density,
+                    density,
                     #pressurePSI,
                     flag)
     
@@ -200,7 +200,6 @@ epic_ctd_function <- function(ctdTrimmed, DATE_TEXT, SITE, SAMPLER,
                      "Salinity",
                      "Descent Rate (m/s)",
                      #"Pressure (PSI)",
-                     #"Density_mg_m3",
                      "Flag")
     
     ### REMOVE THE BOTTOM NA values ###
@@ -227,9 +226,9 @@ epic_ctd_function <- function(ctdTrimmed, DATE_TEXT, SITE, SAMPLER,
   #name_csv <- paste(NAME,".csv", sep = "")
   #write_csv(data_wtr, name_csv)
   
-  ### Pull the PAR for MEL from the original cleaned data that but includes the few depths above the surface ###
+  ### Plot clarity for QAQC
   
-  par <- data %>% dplyr::select(Date,Depth_m,PAR,Chla_ugL)
+  par <- data_wtr %>% dplyr::select(Date,Depth_m,PAR,Chla_ugL)
   
   ### plot and save PAR/CHLA for clarity and QCQA ###
   name_par_pdf <- paste("../PAR_files/",NAME,"_PAR.pdf", sep = "")
@@ -245,9 +244,9 @@ epic_ctd_function <- function(ctdTrimmed, DATE_TEXT, SITE, SAMPLER,
   dev.off()
   
   
-  ### Write it as a csv to send to MEL and save in the DROPBOX ###
-  name_par_csv <- paste("../PAR_files/",NAME,"_PAR.csv", sep = "")
-  write_csv(par, name_par_csv)
+  ### Write it as a csv to send to MEL and save in the DROPBOX ### Stopped doing this 23 Sep 20 because MEL uses file from EDI
+  #name_par_csv <- paste("../PAR_files/",NAME,"_PAR.csv", sep = "")
+  #write_csv(par, name_par_csv)
   
   ### New feature, This saves the Metadata text from the .cnv as a raw .txt file 
   ### so we can refer to prior dates to see if there are any discrepancies or to use for EDI
