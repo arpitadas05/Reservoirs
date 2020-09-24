@@ -3,18 +3,10 @@ fcr_data_wrangling <- function(){
   ### Reason I am plotting in R and Not matlab is because MATLAB
   ### makes for better Heatmap plots
   
-  ### Primary Author: Ryan McClure
-  ### Date Developed: 09June2019
-  ### Date updated: 09June19
-  
   # This reads all the files into the R environment
   files = list.files(path = "../csv_outputs/")
   #files <- files[files != "090419_fcr50.csv"]
   files = files[grepl("fcr50",files)]
-  #files = list.files(path = "C:/Users/Owner/Dropbox/2019/CTD_2019/MSN_CTD_DATA")
-  
-  # run this to make sure you have all the files
-  #files
   
   #This reads the first file in
   ctd = read.csv(paste0("../csv_outputs/",files[1])) 
